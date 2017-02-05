@@ -41,4 +41,12 @@ final class Product
     {
         return $this->price;
     }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }
