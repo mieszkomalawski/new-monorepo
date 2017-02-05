@@ -52,4 +52,21 @@ class CartTest extends TestCase
 
         static::assertEquals(21.48, $price);
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnProductsInCart()
+    {
+        $product = new Product('DDD in practice', 8.49);
+        $product1 = new Product('Clean code', 12.99);
+
+        $cart = new Cart();
+        $cart->addProduct($product);
+        $cart->addProduct($product1);
+
+        $products = $cart->getProducts();
+
+        static::assertEquals([$product, $product1], $products);
+    }
 }

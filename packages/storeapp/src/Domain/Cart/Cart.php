@@ -41,4 +41,12 @@ class Cart
             )
         );
     }
+
+    /**
+     * @return array
+     */
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
 }
