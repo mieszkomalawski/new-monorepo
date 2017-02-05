@@ -28,4 +28,12 @@ final class Product
         $this->name = $name;
         $this->price = $price;
     }
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
 }
