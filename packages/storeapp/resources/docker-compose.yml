@@ -1,9 +1,31 @@
-db:
-  image: mysql
-  ports:
-    - "3306:3306"
-  environment:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_USER: dev
-    MYSQL_PASSWORD: dev
-    MYSQL_DATABASE: local
+#wersja docker-compose, wersja 1 działa inaczej i nie jest kompatibylna np: build musi być stringiem a nie obiektem
+version: '2'
+
+services:
+    #baza dostępna pod localhost:3306
+    #!WAZNE tej nazwy "db" trzeba używać jako host. Np; kontener dla kontenera php hostem mysql będzie "db" a nie localhost
+    db:
+      image: mysql
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: dev
+        MYSQL_PASSWORD: dev
+        MYSQL_DATABASE: local
+      networks:
+        - code-network
+
+    php:
+        #korzystamy z pliku z konfiguracją obrazu
+        build:
+          context: .
+          dockerfile: php-fpm/Dockerfile
+        volumes:
+            - ../:/opt/project
+        networks:
+            - code-network
+
+networks:
+    code-network:
+        driver: bridge

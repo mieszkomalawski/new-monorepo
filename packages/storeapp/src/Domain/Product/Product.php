@@ -8,6 +8,11 @@ namespace StoreApp\Domain\Product;
 final class Product
 {
 
+    /**
+     * @var int
+     */
+    private $id;
+
     /*
      * @var string
      */
