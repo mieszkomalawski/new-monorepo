@@ -33,6 +33,9 @@ class CartTest extends TestCase
 
         $price = $cart->getTotalPrice();
 
+        $a = 1;;
+        $a = $a;
+
         static::assertEquals(0, $price);
     }
 
