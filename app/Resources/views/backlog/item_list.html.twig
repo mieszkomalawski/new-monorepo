@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{%  block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <span>This is Your backlog</span>
+                <div class="btn pull-right">
+                    <a href="{{ path('add_backlog_item') }}">Add Item</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name:</th>
+                        <th>{{ knp_pagination_sortable(items, 'Created at', 'Items.createdAt') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>
+                                {{ item.name }}
+                            </td>
+                            <td>
+                                {{ item.createdAt|date('Y-m-d h:i:s') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-12">
+                {{   knp_pagination_render(items) }}
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

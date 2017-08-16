@@ -9,13 +9,16 @@ use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\Paginator;
 
-class BacklogItemRepository extends EntityRepository implements PaginatorAwareInterface
+class ItemRepository extends EntityRepository implements PaginatorAwareInterface
 {
     /**
      * @var Paginator
      */
     private $paginator;
 
+    /**
+     * @param Paginator $paginator
+     */
     public function setPaginator(Paginator $paginator)
     {
         $this->paginator = $paginator;
@@ -26,12 +29,17 @@ class BacklogItemRepository extends EntityRepository implements PaginatorAwareIn
      * @param int $perPage
      * @return PaginationInterface
      */
-    public function findByPage(int $page, int $perPage) : PaginationInterface
+    public function getByPage(int $page, int $perPage): PaginationInterface
     {
         $queryBuilder = $this->createQueryBuilder('Items');
-        $query = $queryBuilder->select('Item')->getQuery();
+        $query = $queryBuilder->select()->getQuery();
 
-        return $this->paginator->paginate($query, $page, $perPage);
+        return $this->paginator->paginate(
+            $query,
+            $page,
+            $perPage,
+            ['defaultSortFieldName' => 'Items.createdAt', 'defaultSortDirection' => 'desc']
+        );
     }
 
 }

@@ -1,0 +1,14 @@
+PHPRum\DomainModel\Backlog\Item:
+    type: entity
+    table: backlog_items
+    repositoryClass: AppBundle\Repository\ItemRepository
+    id:
+        id:
+            type: integer
+            generator: {strategy: AUTO}
+    fields:
+        name:
+            type: string
+            length: 255
+        createdAt:
+            type: datetime
