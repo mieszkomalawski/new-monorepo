@@ -4,6 +4,7 @@
 namespace PHPRum\Commands\Backlog;
 
 
+use AppBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use PHPRum\DomainModel\Backlog\Item;
@@ -14,6 +15,12 @@ class CreateItem
      * @var string
      */
     protected $name = '';
+
+
+    /**
+     * @var User
+     */
+    protected $user;
 
     /**
      * @var ObjectManager
@@ -27,6 +34,14 @@ class CreateItem
     public function __construct(ObjectManager $entityNanager)
     {
         $this->entityNanager = $entityNanager;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
     }
 
     /**
@@ -50,7 +65,7 @@ class CreateItem
      */
     public function execute() : void
     {
-        $item = new Item($this->name);
+        $item = new Item($this->name, $this->user);
         $this->entityNanager->persist($item);
         $this->entityNanager->flush();
     }

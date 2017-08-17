@@ -1,0 +1,26 @@
+PHPRum\DomainModel\Backlog\Sprint:
+    type: entity
+    table: sprints
+    id:
+            id:
+                type: integer
+                generator: {strategy: AUTO}
+    fields:
+        duration:
+           type: string
+           length: 30
+        startDate:
+            type: datetime
+            nullable: TRUE
+        isStarted:
+            type: boolean
+    oneToMany:
+        items:
+            targetEntity: PHPRum\DomainModel\Backlog\Item
+            mappedBy: sprint
+    manyToOne:
+            creator:
+                targetEntity: AppBundle\Entity\User
+                joinColumn:
+                    name: creator_id
+                    referencedColumnName: id

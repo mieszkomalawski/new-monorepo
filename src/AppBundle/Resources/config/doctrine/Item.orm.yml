@@ -12,3 +12,26 @@ PHPRum\DomainModel\Backlog\Item:
             length: 255
         createdAt:
             type: datetime
+        estimate:
+            type: smallint
+            nullable: TRUE
+        priority:
+            type: smallint
+            nullable: TRUE
+        status:
+            type: string
+            length: 20
+            nullable: TRUE
+
+    manyToOne:
+        creator:
+            targetEntity: AppBundle\Entity\User
+            joinColumn:
+                name: creator_id
+                referencedColumnName: id
+        sprint:
+            targetEntity: PHPRum\DomainModel\Backlog\Sprint
+            inversedBy: items
+            joinColumn:
+                name: sprint_id
+                referencedColumnName: id

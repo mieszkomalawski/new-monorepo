@@ -8,7 +8,15 @@
         <link rel="stylesheet" href="{{ asset('build/global.css') }}">
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-12">
+                    <span><a href="{{ path('fos_user_security_logout') }}" >logout</a></span>
+                    <span><a href="{{ path('fos_user_security_login') }}" >login</a></span>
+                </div>
+            </div>
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
         <script src="{{ asset('build/app.js') }}"></script>
     </body>

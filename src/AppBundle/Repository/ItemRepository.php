@@ -29,16 +29,17 @@ class ItemRepository extends EntityRepository implements PaginatorAwareInterface
      * @param int $perPage
      * @return PaginationInterface
      */
-    public function getByPage(int $page, int $perPage): PaginationInterface
+    public function getByPage(int $userId, int $page, int $perPage): PaginationInterface
     {
         $queryBuilder = $this->createQueryBuilder('Items');
-        $query = $queryBuilder->select()->getQuery();
+        $query = $queryBuilder->select()->where('Items.creator = ?1')->getQuery();
+        $query->setParameter(1, $userId);
 
         return $this->paginator->paginate(
             $query,
             $page,
             $perPage,
-            ['defaultSortFieldName' => 'Items.createdAt', 'defaultSortDirection' => 'desc']
+            ['defaultSortFieldName' => 'Items.priority', 'defaultSortDirection' => 'desc']
         );
     }
 
