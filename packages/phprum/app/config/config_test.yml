@@ -11,7 +11,7 @@ framework:
 doctrine:
     dbal:
         driver: pdo_sqlite
-        path: '/data/www/private/phprum/var/sqlite'
+        path: '%kernel.root_dir%/../var/sqlite'
         charset: UTF8
 
 web_profiler:
