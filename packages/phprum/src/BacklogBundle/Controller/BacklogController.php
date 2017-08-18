@@ -4,11 +4,11 @@
 namespace BacklogBundle\Controller;
 
 use BacklogBundle\Commands\CreateItem;
+use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\Sprint;
 use BacklogBundle\Repository\ItemRepository;
 use BacklogBundle\SprintPropertyAccessor;
 use Doctrine\ORM\EntityRepository;
-use PHPRum\DomainModel\Backlog\Item;
-use PHPRum\DomainModel\Backlog\Sprint;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

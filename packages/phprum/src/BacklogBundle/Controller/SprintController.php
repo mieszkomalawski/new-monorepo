@@ -4,8 +4,8 @@
 namespace BacklogBundle\Controller;
 
 
+use BacklogBundle\Entity\Sprint;
 use PHPRum\Commands\Backlog\CreateSrpint;
-use PHPRum\DomainModel\Backlog\Sprint;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

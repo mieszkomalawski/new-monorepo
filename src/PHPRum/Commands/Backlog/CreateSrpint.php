@@ -39,19 +39,10 @@ class CreateSrpint
     {
         $sprint = new Sprint(
             $this->duration,
-            $this->user,
-            $this->getItemCollection()
+            $this->user
         );
         $this->entityNanager->persist($sprint);
         $this->entityNanager->flush();
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    protected function getItemCollection(): ArrayCollection
-    {
-        return new ArrayCollection();
     }
 
     /**

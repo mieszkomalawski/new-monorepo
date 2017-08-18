@@ -65,11 +65,18 @@ class CreateItem
      */
     public function execute() : void
     {
-        $item = new Item($this->name, $this->user);
+        $item = $this->createItem();
         $this->entityNanager->persist($item);
         $this->entityNanager->flush();
     }
 
+    /**
+     * @return Item
+     */
+    protected function createItem(): Item
+    {
+        return new Item($this->name, $this->user);
+    }
 
 
 }

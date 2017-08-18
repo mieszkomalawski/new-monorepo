@@ -17,42 +17,42 @@ class Item
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var int
      */
-    private $estimate = null;
+    protected $estimate = null;
 
     /**
      * @var int
      */
-    private $priority = null;
+    protected $priority = null;
 
     /**
      * @var User
      */
-    private $creator;
+    protected $creator;
 
     /**
      * @var string
      */
-    private $status = self::STATUS_NEW;
+    protected $status = self::STATUS_NEW;
 
     /**
      * @var Sprint
      */
-    private $sprint;
+    protected $sprint;
 
     /**
      * Item constructor.

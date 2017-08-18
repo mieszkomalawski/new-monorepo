@@ -58,16 +58,7 @@ doctrine:
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: false
-        mappings:
-            backlog_mapping:
-                type: yml
-                dir: "%kernel.root_dir%/../src/BacklogBundle/Resources/config/doctrine"
-                prefix: PHPRum\DomainModel\Backlog
-                is_bundle: false
-                alias: Backlog
-            BacklogBundle:
-                type: annotation
+        auto_mapping: true
 
 
 

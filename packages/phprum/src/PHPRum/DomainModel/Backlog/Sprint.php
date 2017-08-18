@@ -3,52 +3,49 @@
 
 namespace PHPRum\DomainModel\Backlog;
 
-
 use BacklogBundle\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class Sprint
 {
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $duration;
+    protected $duration;
 
     /**
      * @var /DateTime
      */
-    private $startDate;
+    protected $startDate;
 
     /**
      * @var User
      */
-    private $creator;
+    protected $creator;
 
     /**
      * @var bool
      */
-    private $isStarted = false;
+    protected $isStarted = false;
 
     /**
-     * @var ArrayCollection
+     * @var array
      */
-    private $items;
+    protected $items;
 
     /**
      * Sprint constructor.
      * @param string $duration
      * @param User $creator
      */
-    public function __construct($duration, User $creator, ArrayCollection $items)
+    public function __construct($duration, User $creator)
     {
         $this->duration = $duration;
         $this->creator = $creator;
-        $this->items = $items;
     }
 
     public function start()
@@ -58,9 +55,9 @@ class Sprint
         // todo how to save this new sprint ? oneTonOne ?
         $nextSprint = new Sprint(
             $this->duration,
-            $this->creator,
-            new ArrayCollection()
+            $this->creator
         );
+        $this->store($nextSprint);
     }
 
     /**
@@ -68,7 +65,7 @@ class Sprint
      */
     public function addItem(Item $item)
     {
-        $this->items->add($item);
+        $this->doAddToItems($item);
         $item->addToSprint($this);
     }
 
@@ -90,7 +87,7 @@ class Sprint
      */
     public function getTotalPoints() : int
     {
-        return array_reduce($this->items->getIterator()->getArrayCopy(), function(int $carry, Item $item){
+        return array_reduce($this->items, function(int $carry, Item $item){
             $carry += $item->getEstimate();
             return $carry;
         }, 0);
@@ -102,6 +99,16 @@ class Sprint
     public function getId(): int
     {
         return $this->id;
+    }
+
+    protected function store(Sprint $sprint){}
+
+    /**
+     * @param Item $item
+     */
+    protected function doAddToItems(Item $item): void
+    {
+        $this->items[] = $item;
     }
 
 }

@@ -1,4 +1,4 @@
-PHPRum\DomainModel\Backlog\Item:
+BacklogBundle\Entity\Item:
     type: entity
     table: backlog_items
     repositoryClass: BacklogBundle\Repository\ItemRepository
@@ -30,7 +30,7 @@ PHPRum\DomainModel\Backlog\Item:
                 name: creator_id
                 referencedColumnName: id
         sprint:
-            targetEntity: PHPRum\DomainModel\Backlog\Sprint
+            targetEntity: BacklogBundle\Entity\Sprint
             inversedBy: items
             joinColumn:
                 name: sprint_id

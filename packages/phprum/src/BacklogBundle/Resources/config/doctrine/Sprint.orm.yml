@@ -1,4 +1,4 @@
-PHPRum\DomainModel\Backlog\Sprint:
+BacklogBundle\Entity\Sprint:
     type: entity
     table: sprints
     id:
@@ -16,7 +16,7 @@ PHPRum\DomainModel\Backlog\Sprint:
             type: boolean
     oneToMany:
         items:
-            targetEntity: PHPRum\DomainModel\Backlog\Item
+            targetEntity: BacklogBundle\Entity\Item
             mappedBy: sprint
     manyToOne:
             creator:

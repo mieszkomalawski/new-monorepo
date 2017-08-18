@@ -4,12 +4,11 @@
 namespace BacklogBundle\DataFixtures\ORM;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
+use BacklogBundle\Entity\Sprint;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserManager;
-use PHPRum\DomainModel\Backlog\Sprint;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -36,8 +35,7 @@ class FirstSprintData implements FixtureInterface, ContainerAwareInterface, Orde
         foreach($allUsers as $user){
             $sprint = new Sprint(
                 '1_week',
-                $user,
-                new ArrayCollection()
+                $user
             );
             $manager->persist($sprint);
         }
