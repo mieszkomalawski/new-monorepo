@@ -40,6 +40,7 @@ install:
 
 before_script:
   - php bin/console server:start
+  - phantomjs --webdriver=4444 >/dev/null 2>&1 &
 # Run script
 script:
   - phpunit
