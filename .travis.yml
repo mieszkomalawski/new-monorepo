@@ -37,6 +37,9 @@ install:
   - php bin/console doctrine:schema:create --env=test
   - php bin/console doctrine:fixtures:load -n --env=test
 
+
+before_script:
+  - php bin/console server:start
 # Run script
 script:
   - phpunit
