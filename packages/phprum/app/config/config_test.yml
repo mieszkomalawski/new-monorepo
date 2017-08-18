@@ -8,6 +8,12 @@ framework:
     profiler:
         collect: false
 
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: '/data/www/private/phprum/var/sqlite'
+        charset: UTF8
+
 web_profiler:
     toolbar: false
     intercept_redirects: false
