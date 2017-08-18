@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Entity;
+namespace BacklogBundle\Entity;
 
 
 use FOS\UserBundle\Model\User as BaseUser;

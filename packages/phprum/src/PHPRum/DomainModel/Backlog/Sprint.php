@@ -4,7 +4,7 @@
 namespace PHPRum\DomainModel\Backlog;
 
 
-use AppBundle\Entity\User;
+use BacklogBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Sprint
@@ -35,7 +35,7 @@ class Sprint
     private $isStarted = false;
 
     /**
-     * @var Item[]
+     * @var ArrayCollection
      */
     private $items;
 
@@ -55,6 +55,12 @@ class Sprint
     {
         $this->isStarted = true;
         $this->startDate = new \DateTime();
+        // todo how to save this new sprint ? oneTonOne ?
+        $nextSprint = new Sprint(
+            $this->duration,
+            $this->creator,
+            new ArrayCollection()
+        );
     }
 
     /**
@@ -64,6 +70,38 @@ class Sprint
     {
         $this->items->add($item);
         $item->addToSprint($this);
+    }
+
+    public function getName() : string
+    {
+        return 'Sprint ' . $this->id;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getItems(): iterable
+    {
+        return $this->items;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalPoints() : int
+    {
+        return array_reduce($this->items->getIterator()->getArrayCopy(), function(int $carry, Item $item){
+            $carry += $item->getEstimate();
+            return $carry;
+        }, 0);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace AppBundle;
+namespace BacklogBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
+class BacklogBundle extends Bundle
 {
 
 }

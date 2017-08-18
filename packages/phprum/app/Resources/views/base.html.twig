@@ -15,6 +15,13 @@
                     <span><a href="{{ path('fos_user_security_login') }}" >login</a></span>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {% for message in app.flashes('notice') %}
+                        <span>{{ message }}</span>
+                    {% endfor %}
+                </div>
+            </div>
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}{% endblock %}

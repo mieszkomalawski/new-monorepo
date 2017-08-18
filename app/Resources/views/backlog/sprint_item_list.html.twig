@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{%  block body %}
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <span>Items on sprint</span>
+                <span>Total points: {{ points_sum }}</span>
+                <div class="btn pull-right">
+                    <a href="{{ path('add_backlog_item') }}">Add Item</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name:</th>
+                        <th>Created at</th>
+                        <th>Estimate</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>
+                                {{ item.name }}
+                            </td>
+                            <td>
+                                {{ item.createdAt|date('Y-m-d h:i:s') }}
+                            </td>
+                            <td>
+                                {{ item.estimate }}
+                            </td>
+                            <td>
+                                {{ item.priority }}
+                            </td>
+                            <td>
+                                {{ item.status }}
+                            </td>
+                            <td>
+                                <a href="{{ path('edit_item', {'id': item.id}) }}" >Edit</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('delete_item', {'id': item.id}) }}" >Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+{% endblock %}

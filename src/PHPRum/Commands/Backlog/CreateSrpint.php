@@ -4,7 +4,7 @@
 namespace PHPRum\Commands\Backlog;
 
 
-use AppBundle\Entity\User;
+use BacklogBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use PHPRum\DomainModel\Backlog\Sprint;
@@ -14,7 +14,7 @@ class CreateSrpint
     /**
      * @var string
      */
-    private $duration;
+    private $duration = '';
 
     /**
      * @var User
@@ -53,4 +53,30 @@ class CreateSrpint
     {
         return new ArrayCollection();
     }
+
+    /**
+     * @return string
+     */
+    public function getDuration(): string
+    {
+        return $this->duration;
+    }
+
+    /**
+     * @param string $duration
+     */
+    public function setDuration(string $duration)
+    {
+        $this->duration = $duration;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Repository;
+namespace BacklogBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;

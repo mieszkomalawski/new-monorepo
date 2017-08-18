@@ -20,7 +20,7 @@ PHPRum\DomainModel\Backlog\Sprint:
             mappedBy: sprint
     manyToOne:
             creator:
-                targetEntity: AppBundle\Entity\User
+                targetEntity: BacklogBundle\Entity\User
                 joinColumn:
                     name: creator_id
                     referencedColumnName: id

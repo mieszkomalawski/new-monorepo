@@ -4,7 +4,7 @@
 namespace PHPRum\Commands\Backlog;
 
 
-use AppBundle\Entity\User;
+use BacklogBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use PHPRum\DomainModel\Backlog\Item;
@@ -69,5 +69,7 @@ class CreateItem
         $this->entityNanager->persist($item);
         $this->entityNanager->flush();
     }
+
+
 
 }

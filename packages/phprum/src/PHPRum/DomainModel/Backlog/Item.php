@@ -1,9 +1,9 @@
 <?php
-
+declare(strict_types=1);
 
 namespace PHPRum\DomainModel\Backlog;
 
-use AppBundle\Entity\User;
+use BacklogBundle\Entity\User;
 
 class Item
 {
@@ -96,7 +96,7 @@ class Item
     /**
      * @param int $estimate
      */
-    public function setEstimate(int $estimate)
+    public function setEstimate(int $estimate) : void
     {
         if (!$estimate) {
             $this->estimate = null;
@@ -120,17 +120,17 @@ class Item
     /**
      * @return int
      */
-    public function getEstimate(): int
+    public function getEstimate(): ?int
     {
-        return $this->estimate == null ? 0 : $this->estimate;
+        return $this->estimate;
     }
 
     /**
      * @return int
      */
-    public function getPriority(): int
+    public function getPriority(): ?int
     {
-        return $this->priority == null ? 0 : $this->priority;
+        return $this->priority;
     }
 
     /**
@@ -170,4 +170,11 @@ class Item
         $this->sprint = $sprint;
     }
 
+    /**
+     * @return Sprint
+     */
+    public function getSprint(): ?Sprint
+    {
+        return $this->sprint;
+    }
 }

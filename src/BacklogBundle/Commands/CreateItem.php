@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Commands;
+namespace BacklogBundle\Commands;
 
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Mapping\ClassMetadata;

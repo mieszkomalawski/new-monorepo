@@ -62,11 +62,11 @@ doctrine:
         mappings:
             backlog_mapping:
                 type: yml
-                dir: "%kernel.root_dir%/../src/AppBundle/Resources/config/doctrine"
+                dir: "%kernel.root_dir%/../src/BacklogBundle/Resources/config/doctrine"
                 prefix: PHPRum\DomainModel\Backlog
                 is_bundle: false
                 alias: Backlog
-            AppBundle:
+            BacklogBundle:
                 type: annotation
 
 
@@ -83,7 +83,7 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: BacklogBundle\Entity\User
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"

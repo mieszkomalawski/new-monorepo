@@ -1,7 +1,7 @@
 PHPRum\DomainModel\Backlog\Item:
     type: entity
     table: backlog_items
-    repositoryClass: AppBundle\Repository\ItemRepository
+    repositoryClass: BacklogBundle\Repository\ItemRepository
     id:
         id:
             type: integer
@@ -25,7 +25,7 @@ PHPRum\DomainModel\Backlog\Item:
 
     manyToOne:
         creator:
-            targetEntity: AppBundle\Entity\User
+            targetEntity: BacklogBundle\Entity\User
             joinColumn:
                 name: creator_id
                 referencedColumnName: id

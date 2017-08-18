@@ -1,17 +1,20 @@
 <?php
 
 
-namespace AppBundle\Controller;
+namespace BacklogBundle\Controller;
 
-use AppBundle\Commands\CreateItem;
-use AppBundle\Repository\ItemRepository;
+use BacklogBundle\Commands\CreateItem;
+use BacklogBundle\Repository\ItemRepository;
+use BacklogBundle\SprintPropertyAccessor;
+use Doctrine\ORM\EntityRepository;
 use PHPRum\DomainModel\Backlog\Item;
+use PHPRum\DomainModel\Backlog\Sprint;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
+use Symfony\Component\Form\Extension\Core\Type\{ChoiceType, SubmitType, TextType};
 use Symfony\Component\HttpFoundation\Request;
 
 class BacklogController extends Controller
@@ -67,6 +70,15 @@ class BacklogController extends Controller
 
         $item = $repository->findOneById($id);
 
+        $sprintQuery = function (EntityRepository $er) {
+            $queryBuilder = $er->createQueryBuilder('Sprints');
+            return $queryBuilder
+                ->select()
+                ->where($queryBuilder->expr()->eq('Sprints.creator', '?1'))
+                ->setParameter(1, $this->getUser()->getId());
+        };
+        \Closure::bind($sprintQuery, $this);
+
         $form = $this->createFormBuilder($item)
             ->add('name', TextType::class)
             ->add('estimate', TextType::class)
@@ -78,6 +90,16 @@ class BacklogController extends Controller
                     'Done' => Item::STATUS_DONE
                 ]
             ])
+            ->add('Sprint', EntityType::class, [
+                'class' => Sprint::class,
+                'choice_label' => 'getName',
+                'query_builder' => $sprintQuery,
+                'placeholder' => 'none',
+                'required' => false
+            ])
+            ->setDataMapper(new PropertyPathMapper(
+                new SprintPropertyAccessor(['Sprint' => 'addToSprint'])
+            ))
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
 
