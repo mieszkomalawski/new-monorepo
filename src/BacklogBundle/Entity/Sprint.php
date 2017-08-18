@@ -29,4 +29,11 @@ class Sprint extends \PHPRum\DomainModel\Backlog\Sprint
             return $carry;
         }, 0);
     }
+
+    protected function createNexSprint(): \PHPRum\DomainModel\Backlog\Sprint
+    {
+        return new Sprint($this->duration, $this->creator);
+    }
+
+
 }

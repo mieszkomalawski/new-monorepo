@@ -23,6 +23,11 @@ class Sprint
     protected $startDate;
 
     /**
+     * @var /DateTime
+     */
+    protected $closedOn;
+
+    /**
      * @var User
      */
     protected $creator;
@@ -48,16 +53,15 @@ class Sprint
         $this->creator = $creator;
     }
 
-    public function start()
+    /**
+     * Starts this sprint and returns next one
+     * @return Sprint
+     */
+    public function start(): Sprint
     {
         $this->isStarted = true;
         $this->startDate = new \DateTime();
-        // todo how to save this new sprint ? oneTonOne ?
-        $nextSprint = new Sprint(
-            $this->duration,
-            $this->creator
-        );
-        $this->store($nextSprint);
+        return $this->createNexSprint();
     }
 
     /**
@@ -69,7 +73,7 @@ class Sprint
         $item->addToSprint($this);
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return 'Sprint ' . $this->id;
     }
@@ -85,9 +89,9 @@ class Sprint
     /**
      * @return int
      */
-    public function getTotalPoints() : int
+    public function getTotalPoints(): int
     {
-        return array_reduce($this->items, function(int $carry, Item $item){
+        return array_reduce($this->items, function (int $carry, Item $item) {
             $carry += $item->getEstimate();
             return $carry;
         }, 0);
@@ -101,14 +105,78 @@ class Sprint
         return $this->id;
     }
 
-    protected function store(Sprint $sprint){}
-
     /**
      * @param Item $item
      */
     protected function doAddToItems(Item $item): void
     {
         $this->items[] = $item;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndDate() : \DateTime
+    {
+        $interval = new \DateInterval('P1W');
+        if ($this->duration == '1_weel') {
+            $interval = new \DateInterval('P1W');
+        }
+        if ($this->duration == '2_weel') {
+            $interval = new \DateInterval('P2W');
+        }
+        if ($this->duration == '3_weel') {
+            $interval = new \DateInterval('P3W');
+        }
+        if ($this->duration == '4_weel') {
+            $interval = new \DateInterval('P4W');
+        }
+
+        /** @var \DateTime $startDate */
+        $startDate = $this->startDate;
+
+        return $startDate->add($interval);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStarted(): bool
+    {
+        return $this->isStarted;
+    }
+
+    /**
+     * @return Sprint
+     */
+    protected function createNexSprint(): Sprint
+    {
+        return new Sprint(
+            $this->duration,
+            $this->creator
+        );
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getClosedOn() : ?\DateTime
+    {
+        return $this->closedOn;
+    }
+
+    /**
+     *
+     */
+    public function end() : void
+    {
+        $this->closedOn = new \DateTime();
+        $this->isStarted = false;
+    }
+
+    public function isFinished() : bool
+    {
+        return $this->closedOn !== null ? true : false;
     }
 
 }

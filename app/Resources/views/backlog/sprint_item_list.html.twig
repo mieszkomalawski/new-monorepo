@@ -7,6 +7,14 @@
 
                 <span>Items on sprint</span>
                 <span>Total points: {{ points_sum }}</span>
+                {% if sprint.isFinished == true %}
+                    <span>Sprint finished on {{ sprint.closedOn|date('Y-m-d h:i:s') }}</span>
+                {% elseif sprint.isStarted == true %}
+                    <span>Current Sprint, end on: {{ sprint.getEndDate|date('Y-m-d h:i:s') }}</span>
+                    <a href="{{ path('end_sprint', {'id': sprint.id}) }}">End sprint</a>
+                {% else %}
+                    <a href="{{ path('start_sprint', {'id': sprint.id}) }}">Start sprint</a>
+                {% endif %}
                 <div class="btn pull-right">
                     <a href="{{ path('add_backlog_item') }}">Add Item</a>
                 </div>

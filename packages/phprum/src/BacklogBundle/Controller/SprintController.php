@@ -6,6 +6,7 @@ namespace BacklogBundle\Controller;
 
 use BacklogBundle\Entity\Sprint;
 use PHPRum\Commands\Backlog\CreateSrpint;
+use PHPRum\Commands\Backlog\StartSprint;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,7 +46,8 @@ class SprintController extends Controller
             'backlog/sprint_item_list.html.twig',
             [
                 'items' => $sprint->getItems(),
-                'points_sum' => $sprint->getTotalPoints()
+                'points_sum' => $sprint->getTotalPoints(),
+                'sprint' => $sprint
             ]
         );
     }
@@ -85,5 +87,40 @@ class SprintController extends Controller
         return $this->render('backlog/add_sprint.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/sprint/start/{id}", name="start_sprint")
+     * @Method({"GET"})
+     */
+    public function startSprintAction($id)
+    {
+        $repository = $this->getDoctrine()->getManager()->getRepository(Sprint::class);
+        /** @var Sprint $sprint */
+        $sprint = $repository->find($id);
+
+        $command = new StartSprint($this->getDoctrine()->getManager(), $sprint);
+
+        $command->execute();
+
+        return $this->redirectToRoute('show_sprint', ['id' => $id]);
+    }
+
+    /**
+     * @Route("/sprint/end/{id}", name="end_sprint")
+     * @Method({"GET"})
+     */
+    public function endSprintAction($id)
+    {
+        $repository = $this->getDoctrine()->getManager()->getRepository(Sprint::class);
+        /** @var Sprint $sprint */
+        $sprint = $repository->find($id);
+
+        $sprint->end();
+        $objectManager = $this->getDoctrine()->getManager();
+        $objectManager->persist($sprint);
+        $objectManager->flush();
+
+        return $this->redirectToRoute('show_sprint', ['id' => $id]);
     }
 }
