@@ -3,5 +3,17 @@ modules:
     enabled:
         - WebDriver:
             url: 'http://127.0.0.1:8000'
-            browser: phantomjs
+            browser: 'phantomjs'
         - \Helper\Acceptance
+
+env:
+    phantom:
+        modules:
+            config:
+                WebDriver:
+                    browser: 'phantomjs'
+    chrome:
+       modules:
+           config:
+               WebDriver:
+                   browser: 'chrome'
