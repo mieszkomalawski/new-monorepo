@@ -43,6 +43,7 @@ before_script:
   - phantomjs --webdriver=4444 >/dev/null 2>&1 &
 # Run script
 script:
+  - vendor/bin/codecept run unit
   - vendor/bin/codecept run acceptance --env phantom
 
 # After a build, send email notification with the build results
