@@ -89,3 +89,12 @@ knp_paginator:
     template:
         pagination: 'KnpPaginatorBundle:Pagination:sliding.html.twig'
         sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig'
+
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        item_image:
+            uri_prefix: /images/items
+            upload_destination: '%kernel.root_dir%/../web/images/items'

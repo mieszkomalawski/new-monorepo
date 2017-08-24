@@ -68,7 +68,7 @@ class BacklogController extends Controller
             return $this->redirectToRoute('list_backlog_items');
         }
 
-        return $this->render('backlog/item_add.html.twig', ['form' => $form->createView()]);
+        return $this->render('backlog/item_add.html.twig', ['form' => $form->createView(), 'path' => null]);
     }
 
     /**
@@ -95,6 +95,9 @@ class BacklogController extends Controller
 
         $form->handleRequest($request);
 
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $path = $helper->asset($item, 'imageFile');
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $item = $form->getData();
@@ -104,7 +107,7 @@ class BacklogController extends Controller
             return $this->redirectToRoute('list_backlog_items');
         }
 
-        return $this->render('backlog/item_add.html.twig', ['form' => $form->createView()]);
+        return $this->render('backlog/item_add.html.twig', ['form' => $form->createView(), 'path' => $path]);
     }
 
     /**

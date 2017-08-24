@@ -22,6 +22,9 @@ BacklogBundle\Entity\Item:
             type: string
             length: 20
             nullable: TRUE
+        imageName:
+            type: string
+            nullable: TRUE
 
     manyToOne:
         creator:
