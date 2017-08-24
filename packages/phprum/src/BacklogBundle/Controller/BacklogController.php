@@ -6,6 +6,7 @@ namespace BacklogBundle\Controller;
 use BacklogBundle\Commands\CreateItem;
 use BacklogBundle\Entity\Item;
 use BacklogBundle\Entity\Sprint;
+use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
 use BacklogBundle\SprintPropertyAccessor;
 use Doctrine\ORM\EntityRepository;
@@ -79,29 +80,7 @@ class BacklogController extends Controller
         };
         \Closure::bind($sprintQuery, $this);
 
-        $form = $this->createFormBuilder($item)
-            ->add('name', TextType::class)
-            ->add('estimate', TextType::class)
-            ->add('priority', TextType::class)
-            ->add('status', ChoiceType::class, [
-                'choices' => [
-                    'New' => Item::STATUS_NEW,
-                    'In progress' => Item::STAUS_IN_PROGRESS,
-                    'Done' => Item::STATUS_DONE
-                ]
-            ])
-            ->add('Sprint', EntityType::class, [
-                'class' => Sprint::class,
-                'choice_label' => 'getName',
-                'query_builder' => $sprintQuery,
-                'placeholder' => 'none',
-                'required' => false
-            ])
-            ->setDataMapper(new PropertyPathMapper(
-                new SprintPropertyAccessor(['Sprint' => 'addToSprint'])
-            ))
-            ->add('save', SubmitType::class, ['label' => 'Save'])
-            ->getForm();
+        $form = $this->createForm(UpdateItemType::class, $item, ['sprint_query' => $sprintQuery]);
 
         $form->handleRequest($request);
 

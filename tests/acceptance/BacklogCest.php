@@ -61,7 +61,7 @@ class BacklogCest
 
         $I->waitForElement('form', 5);
 
-        $I->fillField('form[estimate]', 3);
+        $I->fillField('update_item[estimate]', 3);
         $I->click('Save');
 
         $I->see(3, '//table/tbody/tr[1]/td[3]');
@@ -86,7 +86,7 @@ class BacklogCest
          * Use timestamp as it is guarenteed to be always higher than before
          */
         $value = time();
-        $I->fillField('form[priority]', $value);
+        $I->fillField('update_item[priority]', $value);
         $I->click('Save');
 
         $I->see($itemName, '//table/tbody/tr[1]/td[1]');
@@ -105,7 +105,7 @@ class BacklogCest
 
         $I->waitForElement('form', 5);
 
-        $I->selectOption('form[status]', 'In progress');
+        $I->selectOption('update_item[status]', 'In progress');
         $I->click('Save');
 
         $I->see('in_progress', '//table/tbody/tr[1]/td[5]');
