@@ -15,7 +15,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
-use Symfony\Component\Form\Extension\Core\Type\{ChoiceType, SubmitType, TextType};
+use Symfony\Component\Form\Extension\Core\Type\{
+    ChoiceType, SubmitType, TextType
+};
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class BacklogController extends Controller
@@ -38,7 +41,15 @@ class BacklogController extends Controller
      */
     public function addItemaAction(Request $request)
     {
-        $form = $this->createFormBuilder(new CreateItem($this->getDoctrine()->getManager()))
+        $user = $this->getUser();
+        $form = $this->createFormBuilder(
+            null,
+            [
+            'data_class' => Item::class,
+            'empty_data' => function (FormInterface $form) use ($user) {
+                return new Item($form->get('name')->getData(), $user);
+            }
+        ])
             ->add('name', TextType::class)
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
@@ -49,10 +60,10 @@ class BacklogController extends Controller
             /**
              * add item to backlog and save it
              */
-            /** @var CreateItem $command */
-            $command = $form->getData();
-            $command->setUser($this->getUser());
-            $command->execute();
+            /** @var Item $item */
+            $item = $form->getData();
+            $this->getDoctrine()->getManager()->persist($item);
+            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('list_backlog_items');
         }
