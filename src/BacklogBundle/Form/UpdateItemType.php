@@ -30,12 +30,8 @@ class UpdateItemType extends AbstractType
             ->add('estimate', TextType::class, ['required' => false])
             ->add('priority', TextType::class, ['required' => false])
             ->add('status', TaskStatusType::class )
-            ->add('Sprint', EntityType::class, [
-                'class' => Sprint::class,
-                'choice_label' => 'getName',
-                'query_builder' => $options['sprint_query'],
-                'placeholder' => 'none',
-                'required' => false
+            ->add('Sprint', SelectSprintType::class, [
+                'query_builder' => $options['sprint_query']
             ])
             ->setDataMapper(new PropertyPathMapper(
                 new SprintPropertyAccessor(['Sprint' => 'addToSprint'])
