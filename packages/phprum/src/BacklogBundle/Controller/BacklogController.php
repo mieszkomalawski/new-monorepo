@@ -3,36 +3,37 @@
 
 namespace BacklogBundle\Controller;
 
-use BacklogBundle\Commands\CreateItem;
 use BacklogBundle\Entity\Item;
-use BacklogBundle\Entity\Sprint;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
-use BacklogBundle\SprintPropertyAccessor;
 use Doctrine\ORM\EntityRepository;
+use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\{
-    ChoiceType, SubmitType, TextType
+    SubmitType, TextType
 };
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class BacklogController extends Controller
+class BacklogController extends FOSRestController
 {
     /**
      * @Route("/backlog/", name="list_backlog_items")
+     * @Route("/api/backlog/", name="api_list_backlog_items", defaults={"_format"="json"})
      * @Method("GET")
      */
     public function listItemsAction(Request $request)
     {
         /** @var ItemRepository $repository */
         $repository = $this->get('item_repository');
-        return $this->render('backlog/item_list.html.twig',
-            ['items' => $repository->getByPage($this->getUser()->getId(), $request->get('page', 1), 10)]);
+
+        $items = $repository->getByPage($this->getUser()->getId(), $request->get('page', 1), 10);
+        $view = $this->view($items, 200)
+            ->setTemplate('backlog/item_list.html.twig')
+            ->setTemplateVar('items');
+
+        return $this->handleView($view);
     }
 
     /**
