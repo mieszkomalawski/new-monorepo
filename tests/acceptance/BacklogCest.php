@@ -3,18 +3,13 @@
 
 class BacklogCest
 {
-    public function _before(AcceptanceTester $I)
-    {
-    }
-
-    public function _after(AcceptanceTester $I)
-    {
-        $I->amOnPage('/logout');
-    }
 
     public function requiresLogin(AcceptanceTester $I)
     {
+
         $I->wantTo('Access backlog without logging in');
+
+        $I->amOnPage('/logout');
 
         $I->amOnPage('/backlog');
 
