@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                {% if path %}
+                {% if path is defined %}
                     <img src="{{ path }}" />
                 {% endif %}
                 {{ form_end(form) }}

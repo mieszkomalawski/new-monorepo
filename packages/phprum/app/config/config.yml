@@ -101,7 +101,11 @@ vich_uploader:
 
 fos_rest:
     param_fetcher_listener: true
-    body_listener: true
+    body_listener:
+        enabled: true
+        decoders:
+            json: fos_rest.decoder.json
+    disable_csrf_role: ROLE_USER
     format_listener:
         enabled: true
 
@@ -109,8 +113,13 @@ fos_rest:
        view_response_listener: 'force'
        formats:
            json: true
+           xml: true
+           yml: true
        templating_formats:
            html: true
+       failed_validation: HTTP_BAD_REQUEST
+    routing_loader:
+       default_format: json
 
 lexik_jwt_authentication:
     private_key_path: '%jwt_private_key_path%'

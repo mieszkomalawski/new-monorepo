@@ -7,20 +7,19 @@ use BacklogBundle\Entity\Item;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
 use Doctrine\ORM\EntityRepository;
-use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\{
     SubmitType, TextType
 };
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class BacklogController extends FOSRestController
+class BacklogController extends Controller
 {
     /**
      * @Route("/backlog/", name="list_backlog_items")
-     * @Route("/api/backlog/", name="api_list_backlog_items", defaults={"_format"="json"})
      * @Method("GET")
      */
     public function listItemsAction(Request $request)
@@ -29,28 +28,25 @@ class BacklogController extends FOSRestController
         $repository = $this->get('item_repository');
 
         $items = $repository->getByPage($this->getUser()->getId(), $request->get('page', 1), 10);
-        $view = $this->view($items, 200)
-            ->setTemplate('backlog/item_list.html.twig')
-            ->setTemplateVar('items');
 
-        return $this->handleView($view);
+        return $this->render('backlog/item_list.html.twig', ['items' => $items]);
     }
 
     /**
      * @Route("/backlog/new", name="add_backlog_item")
      * @Method({"POST", "GET"})
      */
-    public function addItemaAction(Request $request)
+    public function addItemAction(Request $request)
     {
         $user = $this->getUser();
         $form = $this->createFormBuilder(
             null,
             [
-            'data_class' => Item::class,
-            'empty_data' => function (FormInterface $form) use ($user) {
-                return new Item($form->get('name')->getData(), $user);
-            }
-        ])
+                'data_class' => Item::class,
+                'empty_data' => function (FormInterface $form) use ($user) {
+                    return new Item($form->get('name')->getData(), $user);
+                }
+            ])
             ->add('name', TextType::class)
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
@@ -71,6 +67,8 @@ class BacklogController extends FOSRestController
 
         return $this->render('backlog/item_add.html.twig', ['form' => $form->createView(), 'path' => null]);
     }
+
+
 
     /**
      * @Route("/backlog/{id}/edit", name="edit_item")

@@ -2,6 +2,11 @@ app:
     resource: '@BacklogBundle/Controller/'
     type: annotation
 
+backlog:
+    type: rest
+    prefix: /api
+    resource: \BacklogBundle\Controller\BacklogRestController
+
 api_login_check:
     path: /api/login_check
 
