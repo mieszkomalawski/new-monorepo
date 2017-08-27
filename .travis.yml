@@ -40,8 +40,8 @@ install:
 
 before_script:
   - mkdir -p var/jwt
-  - cp tests/api/keys/private.pem var/jwt/private.pem
-  - cp tests/api/keys/private.pem var/jwt/public.pem
+  - openssl genrsa  -passout pass:testpass -out var/jwt/private.pem -aes256 4096
+  - openssl rsa -passin pass:testpass -pubout -in var/jwt/private.pem -out var/jwt/public.pem
   - php bin/console server:start
   - phantomjs --webdriver=4444 >/dev/null 2>&1 &
 # Run script
