@@ -40,8 +40,8 @@ install:
 
 before_script:
   - mkdir -p var/jwt
-  - somepass | openssl genrsa -out var/jwt/private.pem -aes256 4096
-  - openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+  - printf 'testpass\ntestpass\n' | openssl genrsa -out var/jwt/private.pem -aes256 4096
+  - printf 'testpass\n' | openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
   - php bin/console server:start
   - phantomjs --webdriver=4444 >/dev/null 2>&1 &
 # Run script
