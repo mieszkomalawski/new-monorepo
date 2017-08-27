@@ -40,15 +40,15 @@ install:
 
 before_script:
   - mkdir -p var/jwt
-  - openssl genrsa  -passout pass:testpass -out var/jwt/private.pem -aes256 4096
-  - openssl rsa -passin pass:testpass -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+  #- openssl genrsa  -passout pass:testpass -out var/jwt/private.pem -aes256 4096
+  #- openssl rsa -passin pass:testpass -pubout -in var/jwt/private.pem -out var/jwt/public.pem
   - php bin/console server:start
   - phantomjs --webdriver=4444 >/dev/null 2>&1 &
 # Run script
 script:
   - vendor/bin/codecept run unit
   - vendor/bin/codecept run acceptance --env phantom
-  - vendor/bin/codecept run api
+  #- vendor/bin/codecept run api
 
 # After a build, send email notification with the build results
 notifications:
