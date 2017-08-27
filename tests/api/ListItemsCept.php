@@ -4,7 +4,7 @@ $I->wantTo('list backlog items');
 
 $I->authenticate();
 
-$I->sendGET('/items/list.json');
+$I->sendGET('/items.json');
 
 $I->seeResponseMatchesJsonType([
     'id' => 'integer',

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class BacklogRestController extends FOSRestController
 {
 
-    public function listItemsAction(Request $request)
+    public function getItemsAction(Request $request)
     {
         /** @var ItemRepository $repository */
         $repository = $this->get('item_repository');
@@ -43,7 +43,7 @@ class BacklogRestController extends FOSRestController
             $this->getDoctrine()->getManager()->persist($item);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->routeRedirectView('list_items');
+            return $this->routeRedirectView('get_items');
         }
 
         $view = $this->view($form);
