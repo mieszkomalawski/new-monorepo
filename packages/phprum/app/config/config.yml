@@ -108,6 +108,8 @@ fos_rest:
     disable_csrf_role: ROLE_USER
     format_listener:
         enabled: true
+    serializer:
+      serialize_null: true
 
     view:
        view_response_listener: 'force'
