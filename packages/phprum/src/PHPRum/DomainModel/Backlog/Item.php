@@ -72,11 +72,11 @@ class Item
      */
     public function createSubItem($name)
     {
-        if($this->status === self::STATUS_DONE){
+        if ($this->status === self::STATUS_DONE) {
             throw new \Exception('Cannot add subtask to item that is already done');
         }
         $subItem = new SubItem($name, $this->creator, $this);
-        if($this->isInSprint()){
+        if ($this->isInSprint()) {
             $subItem->addToSprint($this->sprint);
         }
         return $subItem;
@@ -113,7 +113,7 @@ class Item
     /**
      * @param int $estimate
      */
-    public function setEstimate(int $estimate) : void
+    public function setEstimate(int $estimate): void
     {
         if (!$estimate) {
             $this->estimate = null;
