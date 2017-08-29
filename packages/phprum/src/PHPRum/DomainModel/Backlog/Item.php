@@ -66,6 +66,23 @@ class Item
     }
 
     /**
+     * @param string $name
+     * @return SubItem
+     * @throws \Exception
+     */
+    public function createSubItem($name)
+    {
+        if($this->status === self::STATUS_DONE){
+            throw new \Exception('Cannot add subtask to item that is already done');
+        }
+        $subItem = new SubItem($name, $this->creator, $this);
+        if($this->isInSprint()){
+            $subItem->addToSprint($this->sprint);
+        }
+        return $subItem;
+    }
+
+    /**
      * @param int $userId
      * @return bool
      */
@@ -184,6 +201,14 @@ class Item
     public function setName(string $name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isInSprint(): bool
+    {
+        return $this->sprint instanceof Sprint;
     }
 
 }

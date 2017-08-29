@@ -110,6 +110,15 @@ class BacklogController extends Controller
     }
 
     /**
+     * @Route("/backlog/{id}/add-sub-task", name="add_sub_task")
+     * @Method({"POST", "GET"})
+     */
+    public function addSubTask($id, Request $request)
+    {
+
+    }
+
+    /**
      * @Route("/backlog/{id}/delete", name="delete_item")
      * @Method({"GET"})
      */

@@ -106,4 +106,27 @@ class BacklogCest
         $I->see('in_progress', '//table/tbody/tr[1]/td[5]');
 
     }
+
+    public function canAddSubTask(AcceptanceTester $I)
+    {
+        $I->wantTo('Add sub task to task');
+        $I->login($I);
+
+        $I->amOnPage('/backlog');
+
+        // first item edit
+        $I->click('//table/tbody/tr[1]/td[6]/a');
+
+        $I->waitForElement('form', 5);
+
+        $I->click('Add sub task');
+
+        $I->waitForElement('subtask_form', 5);
+
+        $I->fillField('subtask_form[name]', 'New sub task');
+        $I->click('Save');
+
+        // see that sub task is added to main task
+
+    }
 }
