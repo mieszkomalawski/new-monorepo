@@ -55,6 +55,11 @@ class Item
     protected $sprint;
 
     /**
+     * @var SubItem[]
+     */
+    protected $subItems = [];
+
+    /**
      * Item constructor.
      * @param string $name
      */
@@ -75,10 +80,11 @@ class Item
         if ($this->status === self::STATUS_DONE) {
             throw new \Exception('Cannot add subtask to item that is already done');
         }
-        $subItem = new SubItem($name, $this->creator, $this);
+        $subItem = $this->doCreateSubItem($name);
         if ($this->isInSprint()) {
             $subItem->addToSprint($this->sprint);
         }
+        $this->subItems[] = $subItem;
         return $subItem;
     }
 
@@ -179,13 +185,28 @@ class Item
             throw new \InvalidArgumentException('Status ' . $status . ' not allowed, must be one of: ' . implode(',',
                     self::ALLOWED_STATUSES));
         }
+        if (self::STATUS_DONE === $status) {
+            if (!empty($this->subItems)) {
+                foreach ($this->subItems as $subItem) {
+                    if(self::STATUS_DONE !== $subItem->getStatus()){
+                        throw new \Exception('Cannot finish task when subtask are not finished');
+                    }
+                }
+            }
+        }
         $this->status = $status;
     }
 
     public function addToSprint(Sprint $sprint)
     {
         $this->sprint = $sprint;
+        if (!empty($this->subItems)) {
+            foreach ($this->subItems as $subItem) {
+                $subItem->addToSprint($sprint);
+            }
+        }
     }
+
 
     /**
      * @return Sprint
@@ -209,6 +230,33 @@ class Item
     protected function isInSprint(): bool
     {
         return $this->sprint instanceof Sprint;
+    }
+
+    /**
+     * @return SubItem[]
+     */
+    public function getSubItems(): iterable
+    {
+        return $this->subItems;
+    }
+
+    /**
+     * @param $name
+     * @return SubItem
+     */
+    protected function doCreateSubItem($name): SubItem
+    {
+        return new SubItem($name, $this->creator, $this);
+    }
+
+    public function removeFromSprint()
+    {
+        $this->sprint = null;
+        if(!empty($this->subItems)){
+            foreach ($this->subItems as $subItem){
+                $subItem->removeFromSprint();
+            }
+        }
     }
 
 }

@@ -4,6 +4,7 @@ namespace spec\PHPRum\DomainModel\Backlog;
 
 use BacklogBundle\Entity\User;
 use PHPRum\DomainModel\Backlog\Item;
+use PHPRum\DomainModel\Backlog\Sprint;
 use PHPRum\DomainModel\Backlog\SubItem;
 use PhpSpec\ObjectBehavior;
 
@@ -66,5 +67,39 @@ class ItemSpec extends ObjectBehavior
         $subItem = $this
             ->createSubItem('new-sub-item')
             ->shouldBeAnInstanceOf(SubItem::class);
+
+        $this->getSubItems()->shouldBe([$subItem]);
+    }
+
+    function it_cant_finish_item_that_has_unfinished_sub_item()
+    {
+        $this->createSubItem('sub1')->setStatus(Item::STATUS_DONE);
+        $this->createSubItem('sub2')->setStatus(Item::STAUS_IN_PROGRESS);
+
+        $this->shouldThrow(\Exception::class)->duringSetStatus(Item::STATUS_DONE);
+    }
+
+    function it_can_be_added_to_sprint(Sprint $sprint)
+    {
+        $sub1 = $this->createSubItem('sub1');
+        $sub2 = $this->createSubItem('sub2');
+
+        $this->addToSprint($sprint);
+
+        $sub1->getSprint()->shouldBe($sprint);
+        $sub2->getSprint()->shouldBe($sprint);
+    }
+
+    function it_can_be_removed_from_sprint(Sprint $sprint)
+    {
+        $sub1 = $this->createSubItem('sub1');
+        $sub2 = $this->createSubItem('sub2');
+
+        $this->addToSprint($sprint);
+
+        $this->removeFromSprint();
+
+        $sub1->getSprint()->shouldBe(null);
+        $sub2->getSprint()->shouldBe(null);
     }
 }

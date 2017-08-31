@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,7 +31,7 @@ class UpdateItemType extends AbstractType
             ->add('name', TextType::class)
             ->add('estimate', TextType::class, ['required' => false])
             ->add('priority', TextType::class, ['required' => false])
-            ->add('status', TaskStatusType::class )
+            ->add('status', TaskStatusType::class)
             ->add('Sprint', SelectSprintType::class, [
                 'query_builder' => $options['sprint_query']
             ])
@@ -39,6 +40,10 @@ class UpdateItemType extends AbstractType
             ))
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->add('imageFile', FileType::class, ['required' => false])
+            ->add('subItems', CollectionType::class, [
+                'entry_type' => UpdateSubItemType::class,
+                'entry_options' => ['label' => false]
+            ])
             ->getForm();
     }
 }

@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new \Vich\UploaderBundle\VichUploaderBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
-            new \Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle()
+            new \Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

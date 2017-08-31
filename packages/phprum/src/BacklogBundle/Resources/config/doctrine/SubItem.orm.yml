@@ -1,7 +1,6 @@
-BacklogBundle\Entity\Item:
+BacklogBundle\Entity\SubItem:
     type: entity
-    table: backlog_items
-    repositoryClass: BacklogBundle\Repository\ItemRepository
+    table: backlog_sub_items
     id:
         id:
             type: integer
@@ -12,24 +11,11 @@ BacklogBundle\Entity\Item:
             length: 255
         createdAt:
             type: datetime
-        estimate:
-            type: smallint
-            nullable: TRUE
-        priority:
-            type: smallint
-            nullable: TRUE
         status:
             type: string
             length: 20
             nullable: TRUE
-        imageName:
-            type: string
-            nullable: TRUE
 
-    oneToMany:
-        subItems:
-            targetEntity: BacklogBundle\Entity\SubItem
-            mappedBy: parentItem
     manyToOne:
         creator:
             targetEntity: BacklogBundle\Entity\User
@@ -41,4 +27,10 @@ BacklogBundle\Entity\Item:
             inversedBy: items
             joinColumn:
                 name: sprint_id
+                referencedColumnName: id
+        parentItem:
+            targetEntity: BacklogBundle\Entity\Item
+            inversedBy: subItems
+            joinColumn:
+                name: parent_item_id
                 referencedColumnName: id

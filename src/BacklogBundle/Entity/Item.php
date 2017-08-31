@@ -4,6 +4,7 @@
 namespace BacklogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use PHPRum\DomainModel\Backlog\SubItem;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints\Length;
@@ -73,6 +74,11 @@ class Item extends \PHPRum\DomainModel\Backlog\Item
     public function setImageFile(File $imageFile)
     {
         $this->imageFile = $imageFile;
+    }
+
+    protected function doCreateSubItem($name): SubItem
+    {
+        return new \BacklogBundle\Entity\SubItem($name, $this->creator, $this);
     }
 
 

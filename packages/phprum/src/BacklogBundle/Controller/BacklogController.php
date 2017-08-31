@@ -4,6 +4,7 @@
 namespace BacklogBundle\Controller;
 
 use BacklogBundle\Entity\Item;
+use BacklogBundle\Form\CreateSubItemType;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
 use Doctrine\ORM\EntityRepository;
@@ -69,7 +70,6 @@ class BacklogController extends Controller
     }
 
 
-
     /**
      * @Route("/backlog/{id}/edit", name="edit_item")
      * @Method({"POST", "GET"})
@@ -106,7 +106,7 @@ class BacklogController extends Controller
             return $this->redirectToRoute('list_backlog_items');
         }
 
-        return $this->render('backlog/item_add.html.twig', ['form' => $form->createView(), 'path' => $path]);
+        return $this->render('backlog/item_edit.html.twig', ['form' => $form->createView(), 'path' => $path, 'item' => $item]);
     }
 
     /**
@@ -115,7 +115,25 @@ class BacklogController extends Controller
      */
     public function addSubTask($id, Request $request)
     {
+        /** @var ItemRepository $repository */
+        $repository = $this->get('item_repository');
 
+        $parentItem = $repository->findOneById($id);
+
+        $form = $this->createForm(CreateSubItemType::class, null, ['parent_item' => $parentItem]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $subItem = $form->getData();
+            $objectManager = $this->getDoctrine()->getManager();
+            $objectManager->persist($subItem);
+            $objectManager->flush();
+
+            return $this->redirectToRoute('edit_item', ['id' => $id]);
+        }
+
+        return $this->render('backlog/sub_item_add.html.twig', ['form' => $form->createView()]);
     }
 
     /**

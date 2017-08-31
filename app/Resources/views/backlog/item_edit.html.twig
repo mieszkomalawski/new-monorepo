@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path('add_sub_task', {'id': item.id }) }}">Add sub task</a>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(form.name) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form.estimate) }}
+            {{ form_errors(form.estimate) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(form.estimate) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form.priority) }}
+            {{ form_errors(form.priority) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(form.priority) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form.status) }}
+            {{ form_errors(form.status) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(form.status) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form.Sprint) }}
+            {{ form_errors(form.Sprint) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(form.Sprint) }}
+        </div>
+    </div>
+
+    <div class="row">
+
+            <div class="col-md-6">
+
+                        {% if path is defined %}
+                            <img src="{{ path }}"/>
+                        {% endif %}
+
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(form.imageFile) }}
+                {{ form_errors(form.imageFile) }}
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(form.save) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <td>Name</td>
+                    <td>Status</td>
+                </tr>
+                {% for subItem in form.subItems %}
+                    <tr>
+
+                        <td>{{ form_widget(subItem.name) }}</td>
+                        <td>{{ form_widget(subItem.status) }} {{ form_errors(subItem.status) }}</td>
+
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
