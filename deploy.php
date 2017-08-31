@@ -16,7 +16,7 @@ set('writable_mode', 'chmod');
 set('git_tty', true);
 
 // Shared files/dirs between deploys 
-add('shared_files', ['app/config/parameters.yml']);
+add('shared_files', ['app/config/parameters.yml', 'var/sqlite']);
 add('shared_dirs', []);
 
 // Writable dirs by web server 
