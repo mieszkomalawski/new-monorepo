@@ -5,7 +5,10 @@ namespace BacklogBundle\Form;
 
 
 use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\User;
+use PHPRum\DomainModel\Backlog\Backlog;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -17,21 +20,25 @@ class CreateItemType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Item::class
-        ])->setRequired(['user']);
+        ])->setRequired(['user', 'backlog']);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var User $user */
         $user = $options['user'];
-        $emptyData = function (FormInterface $form) use ($user) {
+        /** @var Backlog $backlog */
+        $backlog = $options['backlog'];
+        $emptyData = function (FormInterface $form) use ($user, $backlog) {
             if ($form->has('name') && is_string($form->get('name')->getData())) {
-                return new Item($form->get('name')->getData(), $user);
+                return $backlog->createItem($form->get('name')->getData(), $user);
             }
         };
         $builder->setEmptyData(
             $emptyData
         )
             ->add('name', TextType::class)
+            ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
     }
 

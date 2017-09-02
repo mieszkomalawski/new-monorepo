@@ -3,7 +3,10 @@
 
 namespace BacklogBundle\Controller;
 
+use BacklogBundle\BacklogBundle;
 use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\User;
+use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Form\CreateSubItemType;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
@@ -16,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\{
 };
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BacklogController extends Controller
 {
@@ -28,7 +32,8 @@ class BacklogController extends Controller
         /** @var ItemRepository $repository */
         $repository = $this->get('item_repository');
 
-        $items = $repository->getByPage($this->getUser()->getId(), $request->get('page', 1), 10);
+        $items = $repository->getByPage($this->getUser()->getId(), $request->get('page', 1),
+            BacklogBundle::MAX_ITEMS_PER_PAGE);
 
         return $this->render('backlog/item_list.html.twig', ['items' => $items]);
     }
@@ -39,18 +44,15 @@ class BacklogController extends Controller
      */
     public function addItemAction(Request $request)
     {
+        /** @var ItemRepository $repository */
+        $repository = $this->get('item_repository');
+
+        /** @var User $user */
         $user = $this->getUser();
-        $form = $this->createFormBuilder(
-            null,
-            [
-                'data_class' => Item::class,
-                'empty_data' => function (FormInterface $form) use ($user) {
-                    return new Item($form->get('name')->getData(), $user);
-                }
-            ])
-            ->add('name', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Save'])
-            ->getForm();
+        $form = $this->createForm(CreateItemType::class, null, [
+            'user' => $user,
+            'backlog' => $repository->getFullBacklog($user->getId())
+        ]);
 
         $form->handleRequest($request);
 
@@ -106,7 +108,8 @@ class BacklogController extends Controller
             return $this->redirectToRoute('list_backlog_items');
         }
 
-        return $this->render('backlog/item_edit.html.twig', ['form' => $form->createView(), 'path' => $path, 'item' => $item]);
+        return $this->render('backlog/item_edit.html.twig',
+            ['form' => $form->createView(), 'path' => $path, 'item' => $item]);
     }
 
     /**
@@ -151,5 +154,30 @@ class BacklogController extends Controller
         $this->getDoctrine()->getManager()->flush();
 
         return $this->redirectToRoute('list_backlog_items');
+    }
+
+    /**
+     * @Route("/backlog/{id}/priority", name="change_priority")
+     * @Method({"POST"})
+     */
+    public function changeItemPriority($id, Request $request)
+    {
+        /** @var ItemRepository $repository */
+        $repository = $this->get('item_repository');
+
+        $user = $this->getUser();
+        $backlog = $repository->getFullBacklog($user->getId());
+
+        $priority = (int)$request->request->get('priority');
+
+        $backlog->changeItemPriority($id, $priority);
+
+        $objectManager = $this->getDoctrine()->getManager();
+        foreach ($backlog->getItems() as $item) {
+            $objectManager->persist($item);
+        }
+        $objectManager->flush();
+
+        return new Response('', 200);
     }
 }

@@ -24,7 +24,7 @@ class BacklogCest
 
         $I->amOnPage('/backlog');
         $I->click('Add Item');
-        $I->fillField('form[name]', 'Add backlog feature');
+        $I->fillField('create_item[name]', 'Add backlog feature');
         $I->click('Save');
 
         $I->seeInCurrentUrl('/backlog');
@@ -39,7 +39,7 @@ class BacklogCest
 
         $I->amOnPage('/backlog');
         $I->click('Add Item');
-        $I->fillField('form[name]', 'a');
+        $I->fillField('create_item[name]', 'a');
         $I->click('Save');
 
         $I->seeInCurrentUrl('/backlog/new');
@@ -60,32 +60,6 @@ class BacklogCest
         $I->click('Save');
 
         $I->see(3, '//table/tbody/tr[1]/td[3]');
-    }
-
-    public function canChangeItemPriority(AcceptanceTester $I)
-    {
-        $I->wantTo('Change item priority');
-        $I->login($I);
-
-        $I->amOnPage('/backlog');
-        $I->click('Add Item');
-        $I->fillField('form[name]', 'low priority item');
-        $I->click('Save');
-
-        $itemName = $I->grabTextFrom('//table/tbody/tr[2]/td[1]');
-        $I->click('//table/tbody/tr[2]/td[6]/a');
-
-        $I->waitForElement('form', 5);
-
-        /**
-         * Use timestamp as it is guarenteed to be always higher than before
-         */
-        $value = time();
-        $I->fillField('update_item[priority]', $value);
-        $I->click('Save');
-
-        $I->see($itemName, '//table/tbody/tr[1]/td[1]');
-        $I->see($value, '//table/tbody/tr[1]/td[4]');
     }
 
     public function canSetItemStatus(AcceptanceTester $I)
@@ -121,9 +95,9 @@ class BacklogCest
 
         $I->click('Add sub task');
 
-        $I->waitForElement('subtask_form', 5);
+        $I->waitForElement('form', 5);
 
-        $I->fillField('subtask_form[name]', 'New sub task');
+        $I->fillField('create_sub_item[name]', 'New sub task');
         $I->click('Save');
 
         // see that sub task is added to main task

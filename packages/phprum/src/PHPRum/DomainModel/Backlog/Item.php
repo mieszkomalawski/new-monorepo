@@ -168,6 +168,11 @@ class Item
         $this->priority = $priority;
     }
 
+    public function lowerPriority()
+    {
+        $this->priority++;
+    }
+
     /**
      * @return string
      */
@@ -188,7 +193,7 @@ class Item
         if (self::STATUS_DONE === $status) {
             if (!empty($this->subItems)) {
                 foreach ($this->subItems as $subItem) {
-                    if(self::STATUS_DONE !== $subItem->getStatus()){
+                    if (self::STATUS_DONE !== $subItem->getStatus()) {
                         throw new \Exception('Cannot finish task when subtask are not finished');
                     }
                 }
@@ -252,11 +257,21 @@ class Item
     public function removeFromSprint()
     {
         $this->sprint = null;
-        if(!empty($this->subItems)){
-            foreach ($this->subItems as $subItem){
+        if (!empty($this->subItems)) {
+            foreach ($this->subItems as $subItem) {
                 $subItem->removeFromSprint();
             }
         }
     }
+
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
 
 }

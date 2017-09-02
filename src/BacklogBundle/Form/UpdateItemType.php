@@ -30,7 +30,8 @@ class UpdateItemType extends AbstractType
         $formBuilder
             ->add('name', TextType::class)
             ->add('estimate', TextType::class, ['required' => false])
-            ->add('priority', TextType::class, ['required' => false])
+            // priority is updated by draggings items on list
+            //->add('priority', TextType::class, ['required' => false])
             ->add('status', TaskStatusType::class)
             ->add('Sprint', SelectSprintType::class, [
                 'query_builder' => $options['sprint_query']
