@@ -21,81 +21,34 @@ use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-class UpdateItemTypeTest extends TypeTestCase
+class UpdateItemTypeTest extends EntityAwareTypeTest
 {
 
-    protected function getExtensions()
+    /**
+     * @param string $class
+     * @return callable
+     */
+    protected function getFakeEntities()
     {
-        $mockEntityManager = $this->createMock(EntityManager::class);
-        $mockEntityManager->method('getClassMetadata')
-            ->willReturn(new ClassMetadata(Sprint::class));
-        $entityRepository = $this->createMock(EntityRepository::class);
-        $entityRepository->method('createQueryBuilder')
-            ->willReturn(new QueryBuilder($mockEntityManager));
-        $mockEntityManager->method('getRepository')->willReturn($entityRepository);
-        $mockRegistry = $this->getMockBuilder(Registry::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['getManagerForClass'])
-            ->getMock();
-        $mockRegistry->method('getManagerForClass')
-            ->willReturn($mockEntityManager);
-        /** @var EntityType|\PHPUnit_Framework_MockObject_MockObject $mockEntityType */
-        $mockEntityType = $this->getMockBuilder(EntityType::class)
-            ->setConstructorArgs([$mockRegistry])
-            ->setMethodsExcept(['configureOptions', 'getParent'])
-            ->getMock();
-        $mockEntityType->method('getLoader')->willReturnCallback(function ($a, $b, $class) {
-            return new class($class) implements EntityLoaderInterface
-            {
-                /**
-                 * @var
-                 */
-                private $class;
+        return function ($class) {
+            switch ($class) {
+                case Sprint::class:
+                    return [new Sprint('1_week', new User())];
+                    break;
+                case Epic::class:
+                    return [new Epic('epic1', new User())];
+                    break;
 
-                /**
-                 *  constructor.
-                 *
-                 * @param $class
-                 */
-                public function __construct($class)
-                {
-                    $this->class = $class;
-                }
+            }
+        };
 
-                /**
-                 * Returns an array of entities that are valid choices in the corresponding choice list.
-                 *
-                 * @return array The entities
-                 */
-                public function getEntities()
-                {
-                    switch ($this->class) {
-                        case Sprint::class:
-                            return [new Sprint('1_week', new User())];
-                            break;
-                        case Epic::class:
-                            return [new Epic('epic1' , new User())];
-                            break;
+    }
 
-                    }
-                }
-
-                /**
-                 * Returns an array of entities matching the given identifiers.
-                 *
-                 * @param string $identifier The identifier field of the object. This method
-                 *                           is not applicable for fields with multiple
-                 *                           identifiers.
-                 * @param array $values The values of the identifiers
-                 *
-                 * @return array The entities
-                 */
-                public function getEntitiesByIds($identifier, array $values)
-                {
-                    // TODO: Implement getEntitiesByIds() method.
-                }
-            };
-        });
+    /**
+     * @return PreloadedExtension
+     */
+    protected function getPreloadedExtensions()
+    {
         $creatorJailer = $this->prophesize(CreatorJailer::class);
         $queryBuilder = $this->prophesize(QueryBuilder::class);
         $creatorJailer->getJailingQuery(1)->willReturn(function () use ($queryBuilder) {
@@ -104,43 +57,8 @@ class UpdateItemTypeTest extends TypeTestCase
         $updateItemType = new UpdateItemType(
             $creatorJailer->reveal()
         );
-        return [
-            new PreloadedExtension([$updateItemType], []),
-            new class($mockEntityType) implements FormExtensionInterface
-            {
-                private $type;
-
-                public function __construct($type)
-                {
-                    $this->type = $type;
-                }
-
-                public function getType($name)
-                {
-                    return $this->type;
-                }
-
-                public function hasType($name)
-                {
-                    return $name === EntityType::class;
-                }
-
-                public function getTypeExtensions($name)
-                {
-                    return [];
-                }
-
-                public function hasTypeExtensions($name)
-                {
-                }
-
-                public function getTypeGuesser()
-                {
-                }
-            },
-        ];
+        return new PreloadedExtension([$updateItemType], []);
     }
-
 
     /**
      * @test
