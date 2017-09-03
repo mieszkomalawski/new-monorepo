@@ -10,6 +10,8 @@ use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Form\CreateSubItemType;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
+use BacklogBundle\Service\CreatorJailer;
+use BacklogBundle\Service\ItemPriority;
 use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,6 +26,20 @@ use Symfony\Component\HttpFoundation\Response;
 class BacklogController extends Controller
 {
     /**
+     * @var ItemPriority
+     */
+    private $itemPriorityService;
+
+    /**
+     * BacklogController constructor.
+     * @param ItemPriority $itemPriorityService
+     */
+    public function __construct(ItemPriority $itemPriorityService)
+    {
+        $this->itemPriorityService = $itemPriorityService;
+    }
+
+    /**
      * @Route("/backlog/", name="list_backlog_items")
      * @Method("GET")
      */
@@ -32,8 +48,7 @@ class BacklogController extends Controller
         /** @var ItemRepository $repository */
         $repository = $this->get('item_repository');
 
-        $items = $repository->getByPage($this->getUser()->getId(), $request->get('page', 1),
-            BacklogBundle::MAX_ITEMS_PER_PAGE);
+        $items = $repository->getByPage($this->getUser()->getId(), $request->get('page', 1));
 
         return $this->render('backlog/item_list.html.twig', ['items' => $items]);
     }
@@ -76,23 +91,10 @@ class BacklogController extends Controller
      * @Route("/backlog/{id}/edit", name="edit_item")
      * @Method({"POST", "GET"})
      */
-    public function editItemAction($id, Request $request)
+    public function editItemAction(Item $item, Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
 
-        $item = $repository->findOneById($id);
-
-        $sprintQuery = function (EntityRepository $er) {
-            $queryBuilder = $er->createQueryBuilder('Sprints');
-            return $queryBuilder
-                ->select()
-                ->where($queryBuilder->expr()->eq('Sprints.creator', '?1'))
-                ->setParameter(1, $this->getUser()->getId());
-        };
-        \Closure::bind($sprintQuery, $this);
-
-        $form = $this->createForm(UpdateItemType::class, $item, ['sprint_query' => $sprintQuery]);
+        $form = $this->createForm(UpdateItemType::class, $item, ['userId' => $this->getUser()->getId()]);
 
         $form->handleRequest($request);
 
@@ -116,13 +118,8 @@ class BacklogController extends Controller
      * @Route("/backlog/{id}/add-sub-task", name="add_sub_task")
      * @Method({"POST", "GET"})
      */
-    public function addSubTask($id, Request $request)
+    public function addSubTask(Item $parentItem, Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
-
-        $parentItem = $repository->findOneById($id);
-
         $form = $this->createForm(CreateSubItemType::class, null, ['parent_item' => $parentItem]);
 
         $form->handleRequest($request);
@@ -133,7 +130,7 @@ class BacklogController extends Controller
             $objectManager->persist($subItem);
             $objectManager->flush();
 
-            return $this->redirectToRoute('edit_item', ['id' => $id]);
+            return $this->redirectToRoute('edit_item', ['id' => $parentItem->getId()]);
         }
 
         return $this->render('backlog/sub_item_add.html.twig', ['form' => $form->createView()]);
@@ -143,13 +140,8 @@ class BacklogController extends Controller
      * @Route("/backlog/{id}/delete", name="delete_item")
      * @Method({"GET"})
      */
-    public function deleteItemAction($id)
+    public function deleteItemAction(Item $item)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
-
-        $item = $repository->findOneById($id);
-
         $this->getDoctrine()->getManager()->remove($item);
         $this->getDoctrine()->getManager()->flush();
 
@@ -162,21 +154,9 @@ class BacklogController extends Controller
      */
     public function changeItemPriority($id, Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
-
-        $user = $this->getUser();
-        $backlog = $repository->getFullBacklog($user->getId());
-
         $priority = (int)$request->request->get('priority');
 
-        $backlog->changeItemPriority($id, $priority);
-
-        $objectManager = $this->getDoctrine()->getManager();
-        foreach ($backlog->getItems() as $item) {
-            $objectManager->persist($item);
-        }
-        $objectManager->flush();
+        $this->itemPriorityService->changeItemPriority($this->getUser()->getId(), $id, $priority);
 
         return new Response('', 200);
     }

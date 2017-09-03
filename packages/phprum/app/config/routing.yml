@@ -5,7 +5,9 @@ app:
 backlog:
     type: rest
     prefix: /api
-    resource: \BacklogBundle\Controller\BacklogRestController
+    # zeby działal jako service to tu musi być taka nazwa jak w services.yml
+    # tak naprawde to nie jest nazwa klasy tylko serwisu z services.yml
+    resource: BacklogBundle\Controller\BacklogRestController
 
 api_login_check:
     path: /api/login_check

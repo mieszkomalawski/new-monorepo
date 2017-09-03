@@ -42,3 +42,8 @@ BacklogBundle\Entity\Item:
             joinColumn:
                 name: sprint_id
                 referencedColumnName: id
+        epic:
+            targetEntity: BacklogBundle\Entity\Epic
+            joinColumn:
+                name: epic_id
+                referencedColumnName: id

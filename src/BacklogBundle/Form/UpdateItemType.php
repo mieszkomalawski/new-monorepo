@@ -6,6 +6,7 @@ namespace BacklogBundle\Form;
 
 use BacklogBundle\Entity\Item;
 use BacklogBundle\Entity\Sprint;
+use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\SprintPropertyAccessor;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -20,9 +21,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UpdateItemType extends AbstractType
 {
+    /**
+     * @var CreatorJailer
+     */
+    private $creatorJailer;
+
+    /**
+     * CreateItemType constructor.
+     * @param CreatorJailer $creatorJailer
+     */
+    public function __construct(CreatorJailer $creatorJailer)
+    {
+        $this->creatorJailer = $creatorJailer;
+    }
+
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired('sprint_query');
+        $optionsResolver->setRequired('userId');
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
@@ -34,11 +49,14 @@ class UpdateItemType extends AbstractType
             //->add('priority', TextType::class, ['required' => false])
             ->add('status', TaskStatusType::class)
             ->add('Sprint', SelectSprintType::class, [
-                'query_builder' => $options['sprint_query']
+                'query_builder' => $this->creatorJailer->getJailingQuery($options['userId'])
             ])
             ->setDataMapper(new PropertyPathMapper(
                 new SprintPropertyAccessor(['Sprint' => 'addToSprint'])
             ))
+            ->add('epic', SelectEpicType::class, [
+                'query_builder' => $this->creatorJailer->getJailingQuery($options['userId']),
+            ])
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->add('imageFile', FileType::class, ['required' => false])
             ->add('subItems', CollectionType::class, [

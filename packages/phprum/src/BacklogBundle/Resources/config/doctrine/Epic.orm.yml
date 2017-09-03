@@ -1,0 +1,20 @@
+BacklogBundle\Entity\Epic:
+    type: entity
+    table: epics
+    id:
+            id:
+                type: integer
+                generator: {strategy: AUTO}
+    fields:
+        name:
+           type: string
+           length: 255
+        color:
+            type: string
+            nullable: 255
+    manyToOne:
+        creator:
+            targetEntity: BacklogBundle\Entity\User
+            joinColumn:
+                name: creator_id
+                referencedColumnName: id

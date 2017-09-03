@@ -4,9 +4,12 @@
 namespace BacklogBundle\Form;
 
 
+use BacklogBundle\Entity\Epic;
 use BacklogBundle\Entity\Item;
 use BacklogBundle\Entity\User;
+use BacklogBundle\Service\CreatorJailer;
 use PHPRum\DomainModel\Backlog\Backlog;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,6 +19,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreateItemType extends AbstractType
 {
+    /**
+     * @var CreatorJailer
+     */
+    private $creatorJailer;
+
+    /**
+     * CreateItemType constructor.
+     * @param CreatorJailer $creatorJailer
+     */
+    public function __construct(CreatorJailer $creatorJailer)
+    {
+        $this->creatorJailer = $creatorJailer;
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -38,6 +55,9 @@ class CreateItemType extends AbstractType
             $emptyData
         )
             ->add('name', TextType::class)
+            ->add('epic', SelectEpicType::class, [
+                'query_builder' => $this->creatorJailer->getJailingQuery($user->getId()),
+            ])
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
     }

@@ -23,7 +23,7 @@ class SprintController extends Controller
      */
     public function listSprintsAction()
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository(Sprint::class);
+        $repository = $this->getRepository();
         return $this->render(
             'backlog/sprint_list.html.twig',
             [
@@ -38,7 +38,7 @@ class SprintController extends Controller
      */
     public function showSprintAction($id)
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository(Sprint::class);
+        $repository = $this->getRepository();
         /** @var Sprint $sprint */
         $sprint = $repository->find($id);
 
@@ -95,7 +95,7 @@ class SprintController extends Controller
      */
     public function startSprintAction($id)
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository(Sprint::class);
+        $repository = $this->getRepository();
         /** @var Sprint $sprint */
         $sprint = $repository->find($id);
 
@@ -112,7 +112,7 @@ class SprintController extends Controller
      */
     public function endSprintAction($id)
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository(Sprint::class);
+        $repository = $this->getRepository();
         /** @var Sprint $sprint */
         $sprint = $repository->find($id);
 
@@ -122,5 +122,13 @@ class SprintController extends Controller
         $objectManager->flush();
 
         return $this->redirectToRoute('show_sprint', ['id' => $id]);
+    }
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
+    protected function getRepository(): \Doctrine\Common\Persistence\ObjectRepository
+    {
+        return $this->getDoctrine()->getManager()->getRepository(Sprint::class);
     }
 }

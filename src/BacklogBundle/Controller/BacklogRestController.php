@@ -14,14 +14,25 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BacklogRestController extends FOSRestController
 {
+    /**
+     * @var ItemRepository
+     */
+    private $itemRepository;
+
+    /**
+     * BacklogRestController constructor.
+     * @param ItemRepository $itemRepository
+     */
+    public function __construct(ItemRepository $itemRepository)
+    {
+        $this->itemRepository = $itemRepository;
+    }
+
 
     public function getItemsAction(Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
-
         // we dont need pagination wrapper in rest api
-        $items = $repository->findAll();
+        $items = $this->itemRepository->findAll();
 
         $view = $this->view($items, 200);
 
@@ -30,10 +41,7 @@ class BacklogRestController extends FOSRestController
 
     public function getItemAction($id, Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
-
-        $item = $repository->findOneById($id);
+        $item = $this->itemRepository->findOneById($id);
 
         $view = $this->view($item, 200);
 
@@ -42,7 +50,12 @@ class BacklogRestController extends FOSRestController
 
     public function postItemAction(Request $request)
     {
-        $form = $this->createForm(CreateItemType::class, null, ['user' => $this->getUser()]);
+        $form = $this->createForm(
+            CreateItemType::class,
+            null, [
+            'user' => $this->getUser(),
+            'backlog' => $this->itemRepository->getFullBacklog($this->getUser()->getId())
+        ]);
         /**
          * Cos nie chce ladowac bezposrednio z requestu
          */
@@ -66,21 +79,17 @@ class BacklogRestController extends FOSRestController
 
     public function putItemAction($id, Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
+        $item = $this->itemRepository->findOneById($id);
 
-        $item = $repository->findOneById($id);
 
-        $sprintQuery = function (EntityRepository $er) {
-            $queryBuilder = $er->createQueryBuilder('Sprints');
-            return $queryBuilder
-                ->select()
-                ->where($queryBuilder->expr()->eq('Sprints.creator', '?1'))
-                ->setParameter(1, $this->getUser()->getId());
-        };
-        \Closure::bind($sprintQuery, $this);
-
-        $form = $this->createForm(UpdateItemType::class, $item, ['sprint_query' => $sprintQuery, 'allow_extra_fields' => true]);
+        $form = $this->createForm(
+            UpdateItemType::class,
+            $item,
+            [
+                'userId' => $this->getUser()->getId(),
+                'allow_extra_fields' => true
+            ]
+        );
 
         $form->submit($request->request->all());
 

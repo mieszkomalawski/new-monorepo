@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Epics list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for epic in epics %}
+            <tr>
+                <td><a href="{{ path('epic_show', { 'id': epic.id }) }}">{{ epic.id }}</a></td>
+                <td>{{ epic.name }}</td>
+                <td>{{ epic.color }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('epic_show', { 'id': epic.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('epic_edit', { 'id': epic.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('epic_new') }}">Create a new epic</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -34,6 +34,7 @@
                         <th>Name:</th>
                         <th>{{ knp_pagination_sortable(items, 'Created at', 'Items.createdAt') }}</th>
                         <th>Estimate</th>
+                        <th>Epic</th>
                         <th>Status</th>
                         <th></th>
                         <th></th>
@@ -53,6 +54,11 @@
                             </td>
                             <td>
                                 {{ item.estimate }}
+                            </td>
+                            <td>
+                                {% if item.epic %}
+                                <span style="color: {{ item.epic.color }}">{{ item.epic.name }}</span>
+                                {% endif %}
                             </td>
                             <td>
                                 {{ item.status }}

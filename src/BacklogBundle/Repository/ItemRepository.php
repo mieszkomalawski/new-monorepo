@@ -4,6 +4,7 @@
 namespace BacklogBundle\Repository;
 
 
+use BacklogBundle\BacklogBundle;
 use BacklogBundle\Entity\Backlog;
 use Doctrine\ORM\EntityRepository;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
@@ -31,7 +32,7 @@ class ItemRepository extends EntityRepository implements PaginatorAwareInterface
      * @param int $perPage
      * @return PaginationInterface
      */
-    public function getByPage(int $userId, int $page, int $perPage): PaginationInterface
+    public function getByPage(int $userId, int $page, int $perPage = BacklogBundle::MAX_ITEMS_PER_PAGE): PaginationInterface
     {
         $queryBuilder = $this->createQueryBuilder('Items');
         $query = $queryBuilder

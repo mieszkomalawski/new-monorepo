@@ -60,6 +60,11 @@ class Item
     protected $subItems = [];
 
     /**
+     * @var Epic
+     */
+    protected $epic;
+
+    /**
      * Item constructor.
      * @param string $name
      */
@@ -273,5 +278,19 @@ class Item
         $this->id = $id;
     }
 
+    /**
+     * @return Epic
+     */
+    public function getEpic(): ?Epic
+    {
+        return $this->epic;
+    }
 
+    /**
+     * @param Epic $epic
+     */
+    public function setEpic(?Epic $epic)
+    {
+        $this->epic = $epic;
+    }
 }
