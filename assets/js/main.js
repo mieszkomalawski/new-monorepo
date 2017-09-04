@@ -25,7 +25,7 @@ $(document).ready(function() {
                 method: 'POST',
                 data: {'priority': newPriority},
                 complete: function(response, status){
-                    console.log(response);
+                    //console.log(response);
                 }
             })
         }

@@ -6,7 +6,7 @@
         {% for item in items %}
             items.push({
                 id: {{ item.id }},
-                priority: {{ item.priority }}
+                priority: {{ item.priority|default(0) }}
             });
         {% endfor %}
     </script>

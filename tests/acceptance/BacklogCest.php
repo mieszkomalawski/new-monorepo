@@ -59,7 +59,7 @@ class BacklogCest
         $I->fillField('update_item[estimate]', 3);
         $I->click('Save');
 
-        $I->see(3, '//table/tbody/tr[1]/td[3]');
+        $I->see(3, '//table/tbody/tr[1]/td[4]');
     }
 
     public function canSetItemStatus(AcceptanceTester $I)

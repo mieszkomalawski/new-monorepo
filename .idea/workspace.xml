@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0bf64403-69c2-4682-850f-cf216a546b53" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php" afterPath="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/main.js" afterPath="$PROJECT_DIR$/assets/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/acceptance/BacklogCest.php" afterPath="$PROJECT_DIR$/tests/acceptance/BacklogCest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/build/app.js" afterPath="$PROJECT_DIR$/web/build/app.js" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,11 +22,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BacklogRestController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Controller/BacklogRestController.php">
+      <file leaf-file-name="item_list.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-439">
-              <caret line="14" column="27" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="27" />
+            <state relative-caret-position="-602">
+              <caret line="16" column="25" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="27" column="22" lean-forward="false" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BacklogCest.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/acceptance/BacklogCest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="61" column="48" lean-forward="true" selection-start-line="61" selection-start-column="48" selection-end-line="61" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -32,8 +55,8 @@
       <file leaf-file-name="UpdateItemTypeTest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="103" column="47" lean-forward="true" selection-start-line="103" selection-start-column="47" selection-end-line="103" selection-end-column="47" />
+            <state relative-caret-position="-372">
+              <caret line="46" column="7" lean-forward="false" selection-start-line="46" selection-start-column="7" selection-end-line="46" selection-end-column="7" />
               <folding>
                 <element signature="e#51#81#0#PHP" expanded="true" />
               </folding>
@@ -41,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EntityAwareTypeTest.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EntityAwareTypeTest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/unit/BacklogBundle/Form/EntityAwareTypeTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="161" column="47" lean-forward="true" selection-start-line="161" selection-start-column="47" selection-end-line="161" selection-end-column="47" />
+            <state relative-caret-position="373">
+              <caret line="154" column="5" lean-forward="false" selection-start-line="154" selection-start-column="5" selection-end-line="154" selection-end-column="5" />
               <folding>
                 <element signature="e#50#80#0#PHP" expanded="true" />
               </folding>
@@ -67,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/tests/unit/BacklogBundle/Form/CreateItemTypeTest.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+              <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -97,27 +120,7 @@
         <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="56" column="11" lean-forward="true" selection-start-line="56" selection-start-column="11" selection-end-line="58" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CreatorJailer.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Service/CreatorJailer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FormFactory.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Form/FormFactory.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="29" column="33" lean-forward="false" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+              <caret line="56" column="11" lean-forward="false" selection-start-line="56" selection-start-column="11" selection-end-line="58" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -192,7 +195,6 @@
         <option value="$PROJECT_DIR$/src/BacklogBundle/Entity/Backlog.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Entity/Item.php" />
         <option value="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php" />
-        <option value="$PROJECT_DIR$/assets/js/main.js" />
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Backlog.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/backlog/sprint_item_list.html.twig" />
@@ -204,7 +206,6 @@
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/EpicType.php" />
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Epic.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Controller/EpicController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Service/CreatorJailer.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/EpicChoiceType.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/CreateItemType.php" />
@@ -215,14 +216,16 @@
         <option value="$PROJECT_DIR$/src/BacklogBundle/Controller/BacklogController.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Controller/BacklogRestController.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Controller/SprintController.php" />
-        <option value="$PROJECT_DIR$/tests/acceptance/BacklogCest.php" />
         <option value="$PROJECT_DIR$/app/config/services.yml" />
         <option value="$PROJECT_DIR$/app/config/routing.yml" />
         <option value="$PROJECT_DIR$/tests/api/ListItemsCept.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php" />
         <option value="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/CreateItemTypeTest.php" />
-        <option value="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php" />
         <option value="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/EntityAwareTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php" />
+        <option value="$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig" />
+        <option value="$PROJECT_DIR$/assets/js/main.js" />
+        <option value="$PROJECT_DIR$/tests/acceptance/BacklogCest.php" />
       </list>
     </option>
   </component>
@@ -932,29 +935,11 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Entity/Sprint.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="56" column="28" lean-forward="false" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="61" column="33" lean-forward="false" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1143,14 +1128,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/acceptance/BacklogCest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/api/EditItemCept.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1292,7 +1269,7 @@
     <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="56" column="11" lean-forward="true" selection-start-line="56" selection-start-column="11" selection-end-line="58" selection-end-column="14" />
+          <caret line="56" column="11" lean-forward="false" selection-start-line="56" selection-start-column="11" selection-end-line="58" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1324,7 +1301,7 @@
     <entry file="file://$PROJECT_DIR$/tests/unit/BacklogBundle/Form/CreateItemTypeTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1337,23 +1314,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/BacklogBundle/Form/EntityAwareTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="154" column="5" lean-forward="false" selection-start-line="154" selection-start-column="5" selection-end-line="154" selection-end-column="5" />
+          <folding>
+            <element signature="e#50#80#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="103" column="47" lean-forward="true" selection-start-line="103" selection-start-column="47" selection-end-line="103" selection-end-column="47" />
+        <state relative-caret-position="-372">
+          <caret line="46" column="7" lean-forward="false" selection-start-line="46" selection-start-column="7" selection-end-line="46" selection-end-column="7" />
           <folding>
             <element signature="e#51#81#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/BacklogBundle/Form/EntityAwareTypeTest.php">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="161" column="47" lean-forward="true" selection-start-line="161" selection-start-column="47" selection-end-line="161" selection-end-column="47" />
-          <folding>
-            <element signature="e#50#80#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="-602">
+          <caret line="16" column="25" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="22" lean-forward="false" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/acceptance/BacklogCest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="61" column="48" lean-forward="true" selection-start-line="61" selection-start-column="48" selection-end-line="61" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
