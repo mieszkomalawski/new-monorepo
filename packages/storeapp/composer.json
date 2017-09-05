@@ -41,13 +41,13 @@
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
-        "vich/uploader-bundle": "^1.6"
+        "vich/uploader-bundle": "^1.6",
+        "sensio/generator-bundle": "^3.0"
     },
     "require-dev": {
         "codeception/codeception": "^2.3",
         "flow/jsonpath": "^0.3.4",
         "phpspec/phpspec": "^4.0",
-        "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },
     "scripts": {
