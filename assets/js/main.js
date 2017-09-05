@@ -3,7 +3,7 @@
 // loads the jquery package from node_modules
 var $ = require('jquery');
 
-
+var baseUrl = '';
 
 $(document).ready(function() {
     var Sortable = require('sortablejs');
@@ -19,7 +19,7 @@ $(document).ready(function() {
             id = item.id;
 
             // todo url z configa
-            $.ajax(baseUrl + id + '/priority', {
+            $.ajax(baseUrl + '/backlog/' + id + '/priority', {
                 method: 'POST',
                 data: {'priority': newPriority},
                 complete: function(response, status){
