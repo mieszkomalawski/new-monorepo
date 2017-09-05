@@ -9,6 +9,7 @@
                 priority: {{ item.priority|default(0) }}
             });
         {% endfor %}
+        var baseUrl = '{{ app.request.getSchemeAndHttpHost() }}';
     </script>
 {% endblock %}
 

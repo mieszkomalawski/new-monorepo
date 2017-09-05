@@ -3,11 +3,7 @@
 
 namespace Tests\Unit\BacklogBundle\Form;
 
-use BacklogBundle\Entity\Epic;
 use BacklogBundle\Entity\Sprint;
-use BacklogBundle\Entity\User;
-use BacklogBundle\Form\UpdateItemType;
-use BacklogBundle\Service\CreatorJailer;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -20,7 +16,7 @@ use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-class EntityAwareTypeTest extends TypeTestCase
+class EntityAwareTypeCase extends TypeTestCase
 {
     protected function getExtensions()
     {

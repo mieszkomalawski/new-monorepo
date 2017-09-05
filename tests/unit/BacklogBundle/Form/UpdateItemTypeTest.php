@@ -10,18 +10,10 @@ use BacklogBundle\Entity\Sprint;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Service\CreatorJailer;
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
 
-class UpdateItemTypeTest extends EntityAwareTypeTest
+class UpdateItemTypeTest extends EntityAwareTypeCase
 {
 
     /**

@@ -11,8 +11,6 @@ $(document).ready(function() {
 
     var sortable = Sortable.create(el, {
         onEnd: function(evt) {
-           // console.log(evt.oldIndex);
-           // console.log(evt.newIndex);
 
             item = items[evt.oldIndex];
             previousItem = items[evt.newIndex];
@@ -21,7 +19,7 @@ $(document).ready(function() {
             id = item.id;
 
             // todo url z configa
-            $.ajax('http://127.0.0.1:8000/backlog/' + id + '/priority', {
+            $.ajax(baseUrl + id + '/priority', {
                 method: 'POST',
                 data: {'priority': newPriority},
                 complete: function(response, status){
