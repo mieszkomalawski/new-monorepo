@@ -47,3 +47,15 @@ BacklogBundle\Entity\Item:
             joinColumn:
                 name: epic_id
                 referencedColumnName: id
+    manyToMany:
+        labels:
+            targetEntity: BacklogBundle\Entity\Label
+            cascade: [persist]
+            joinTable:
+                name: item_labels
+                joinColumns:
+                    item_id:
+                      referencedColumnName: id
+                inverseJoinColumns:
+                    label_id:
+                      referencedColumnName: id

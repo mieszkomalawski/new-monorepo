@@ -65,6 +65,11 @@ class Item
     protected $epic;
 
     /**
+     * @var Label[]
+     */
+    protected $labels = [];
+
+    /**
      * Item constructor.
      * @param string $name
      */
@@ -292,5 +297,38 @@ class Item
     public function setEpic(?Epic $epic)
     {
         $this->epic = $epic;
+    }
+
+    /**
+     * @return Label[]
+     */
+    public function getLabels(): iterable
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param Label[] $labels
+     */
+    public function setLabels(array $labels)
+    {
+        $this->labels = $labels;
+    }
+
+    public function addLabel(Label $label)
+    {
+        $this->labels[] = $label;
+    }
+
+    /**
+     * @param Label $labelToRemove
+     */
+    public function removeLabel(Label $labelToRemove)
+    {
+        foreach ($this->labels as $key => $label) {
+            if ($label->getId() == $labelToRemove->getId()) {
+                unset($this->labels[$key]);
+            }
+        }
     }
 }

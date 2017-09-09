@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block body %}
+{% form_theme form 'jquery.collection.html.twig' %}
+
     <div class="row">
         <div class="col-md-12">
             <a href="{{ path('add_sub_task', {'id': item.id }) }}">Add sub task</a>
@@ -70,6 +74,16 @@
         </div>
         <div class="col-md-6">
             {{ form_widget(form.save) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" >
+            {#<ul class="labels" data-prototype="{{ form_widget(form.labels.vars.prototype)|e('html_attr') }}">#}
+
+                    {{ form_row(form.labels) }}
+
+            {#</ul>#}
         </div>
     </div>
 

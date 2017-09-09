@@ -2,9 +2,9 @@ actor: ApiTester
 modules:
     enabled:
         - PhpBrowser:
-            url: http://localhost:8000/api
+            url: http://localhost:8001/api
         - REST:
-            url: http://localhost:8000/api
+            url: http://localhost:8001/api
             depends: PhpBrowser
             part: Json
 

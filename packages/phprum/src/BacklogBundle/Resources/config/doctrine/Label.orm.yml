@@ -1,0 +1,14 @@
+BacklogBundle\Entity\Label:
+  type: entity
+  table: labels
+  id:
+    id:
+      type: integer
+      generator: {strategy: AUTO}
+  fields:
+          name:
+             type: string
+             length: 255
+          color:
+              type: string
+              nullable: 255

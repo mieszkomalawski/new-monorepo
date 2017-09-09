@@ -37,6 +37,15 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'XmonColorPickerTypeBundle:Form:fields.html.twig'
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    bundles:        [ 'XmonColorPickerTypeBundle' ]
+    filters:
+        cssrewrite: ~
 
 # Doctrine Configuration
 doctrine:

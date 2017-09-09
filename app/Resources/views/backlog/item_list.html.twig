@@ -36,6 +36,7 @@
                         <th>{{ knp_pagination_sortable(items, 'Created at', 'Items.createdAt') }}</th>
                         <th>Estimate</th>
                         <th>Epic</th>
+                        <th>Labels</th>
                         <th>Status</th>
                         <th></th>
                         <th></th>
@@ -60,6 +61,11 @@
                                 {% if item.epic %}
                                 <span style="color: {{ item.epic.color }}">{{ item.epic.name }}</span>
                                 {% endif %}
+                            </td>
+                            <td>
+                                {% for label in item.labels %}
+                                    <span style="color: {{ label.color }}">{{ label.name }}</span>
+                                {% endfor %}
                             </td>
                             <td>
                                 {{ item.status }}

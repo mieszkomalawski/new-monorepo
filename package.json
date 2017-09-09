@@ -7,6 +7,8 @@
     "sass-loader": "^6.0.6"
   },
   "dependencies": {
-    "sortablejs": "^1.6.1"
+    "simple-color-picker": "^0.1.2",
+    "sortablejs": "^1.6.1",
+    "symfony-collection": "github:ninsuo/symfony-collection"
   }
 }

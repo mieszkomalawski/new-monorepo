@@ -2,7 +2,7 @@ actor: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: 'http://127.0.0.1:8000'
+            url: 'http://127.0.0.1:8001'
             browser: 'phantomjs'
         - \Helper\Acceptance
 
@@ -11,6 +11,7 @@ env:
         modules:
             config:
                 WebDriver:
+                    url: 'http://127.0.0.1:8000'
                     browser: 'phantomjs'
     chrome:
        modules:

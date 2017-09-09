@@ -52,7 +52,7 @@ class BacklogCest
         $I->login($I);
 
         $I->amOnPage('/backlog');
-        $I->click('//table/tbody/tr/td[7]/a');
+        $I->click('//table/tbody/tr/td[8]/a');
 
         $I->waitForElement('form', 5);
 
@@ -70,14 +70,14 @@ class BacklogCest
         $I->amOnPage('/backlog');
 
         // first item edit
-        $I->click('//table/tbody/tr[1]/td[7]/a');
+        $I->click('//table/tbody/tr[1]/td[8]/a');
 
         $I->waitForElement('form', 5);
 
         $I->selectOption('update_item[status]', 'In progress');
         $I->click('Save');
 
-        $I->see('in_progress', '//table/tbody/tr[1]/td[6]');
+        $I->see('in_progress', '//table/tbody/tr[1]/td[7]');
 
     }
 
@@ -89,7 +89,7 @@ class BacklogCest
         $I->amOnPage('/backlog');
 
         // first item edit
-        $I->click('//table/tbody/tr[1]/td[7]/a');
+        $I->click('//table/tbody/tr[1]/td[8]/a');
 
         $I->waitForElement('form', 5);
 
