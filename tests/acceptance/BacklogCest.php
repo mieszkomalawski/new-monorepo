@@ -1,6 +1,8 @@
 <?php
 
 
+use Page\Backlog;
+
 class BacklogCest
 {
 
@@ -11,85 +13,85 @@ class BacklogCest
 
         $I->amOnPage('/logout');
 
-        $I->amOnPage('/backlog');
+        $I->amOnPage(Backlog::$URL);
 
         $I->seeInCurrentUrl('/login');
     }
 
     // tests
-    public function canAddItemsToBacklog(AcceptanceTester $I)
+    public function canAddItemsToBacklog(AcceptanceTester $I, Backlog $backlog)
     {
         $I->wantTo('Add black item with name: Add backlog feature');
         $I->login($I);
 
-        $I->amOnPage('/backlog');
+        $I->amOnPage(Backlog::$URL);
         $I->click('Add Item');
-        $I->fillField('create_item[name]', 'Add backlog feature');
-        $I->click('Save');
+        $backlog->createFormFillName('Add backlog feature');
+        $backlog->createFormSave();
 
-        $I->seeInCurrentUrl('/backlog');
+        $I->seeInCurrentUrl(Backlog::$URL);
         $I->canSee('Add backlog feature');
     }
 
     // tests
-    public function cannotAddInvalidItem(AcceptanceTester $I)
+    public function cannotAddInvalidItem(AcceptanceTester $I, Backlog $backlog)
     {
         $I->wantTo('Try to add invalid item and get rejected');
         $I->login($I);
 
-        $I->amOnPage('/backlog');
+        $I->amOnPage(Backlog::$URL);
         $I->click('Add Item');
-        $I->fillField('create_item[name]', 'a');
-        $I->click('Save');
+        $backlog->createFormFillName('a');
+        $backlog->createFormSave();
 
-        $I->seeInCurrentUrl('/backlog/new');
+        $I->seeInCurrentUrl($backlog->getCreateItemUrl());
         $I->canSee('This value is too short');
     }
 
-    public function canEstimateItem(AcceptanceTester $I)
+    public function canEstimateItem(AcceptanceTester $I, Backlog $backlog)
     {
         $I->wantTo('Add item and then estimate it');
         $I->login($I);
 
-        $I->amOnPage('/backlog');
-        $I->click('//table/tbody/tr/td[8]/a');
+        $I->amOnPage(Backlog::$URL);
+        $backlog->editItemOnList();
 
         $I->waitForElement('form', 5);
 
-        $I->fillField('update_item[estimate]', 3);
-        $I->click('Save');
+        $backlog->updateFormFillEstimate(3);
+        $backlog->updateFormSave();
 
-        $I->see(3, '//table/tbody/tr[1]/td[4]');
+        $backlog->assertEstimateValue(3);
     }
 
-    public function canSetItemStatus(AcceptanceTester $I)
+    public function canSetItemStatus(AcceptanceTester $I, Backlog $backlog)
     {
         $I->wantTo('Change item status');
         $I->login($I);
 
-        $I->amOnPage('/backlog');
+        $I->amOnPage(Backlog::$URL);
 
         // first item edit
-        $I->click('//table/tbody/tr[1]/td[8]/a');
+        $backlog->editItemOnList();
 
         $I->waitForElement('form', 5);
 
-        $I->selectOption('update_item[status]', 'In progress');
-        $I->click('Save');
+        $backlog->updateFormFillStatus('In progress');
+        $backlog->updateFormSave();
 
-        $I->see('in_progress', '//table/tbody/tr[1]/td[7]');
+        $backlog->assertStatusValue('in_progress');
 
     }
 
-    public function canAddSubTask(AcceptanceTester $I)
+    public function canAddSubTask(AcceptanceTester $I, Backlog $backlog)
     {
         $I->wantTo('Add sub task to task');
         $I->login($I);
 
-        $I->amOnPage('/backlog');
+        $I->amOnPage(Backlog::$URL);
 
         // first item edit
-        $I->click('//table/tbody/tr[1]/td[8]/a');
+        $backlog->editItemOnList();
 
         $I->waitForElement('form', 5);
 
@@ -98,7 +100,7 @@ class BacklogCest
         $I->waitForElement('form', 5);
 
         $I->fillField('create_sub_item[name]', 'New sub task');
-        $I->click('Save');
+        $backlog->updateFormSave();
 
         // see that sub task is added to main task
 
