@@ -6,7 +6,6 @@ namespace Tests\Unit\BacklogBundle\Form;
 
 use BacklogBundle\Entity\Backlog;
 use BacklogBundle\Entity\Epic;
-use BacklogBundle\Entity\Item;
 use BacklogBundle\Entity\Sprint;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Form\CreateItemType;

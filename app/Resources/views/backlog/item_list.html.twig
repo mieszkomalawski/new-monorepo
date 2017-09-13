@@ -26,6 +26,12 @@
 
         </div>
 
+<div class="row">
+    <div class="col-md-12">
+        {{ form(searchForm) }}
+    </div>
+</div>d
+
         <div class="row">
             <div class="col-md-12">
                 <table class="table" >
@@ -37,7 +43,7 @@
                         <th>Estimate</th>
                         <th>Epic</th>
                         <th>Labels</th>
-                        <th>Status</th>
+                        <th>{{ knp_pagination_sortable(items, 'Status', 'Items.status') }}</th>
                         <th></th>
                         <th></th>
                     </tr>

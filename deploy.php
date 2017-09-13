@@ -37,6 +37,9 @@ task('build', function () {
 task('database:fixtures', function () {
     run('cd {{release_path}} && php bin/console doctrine:fixtures:load --env=prod');
 })->once();
+//task('jwt:env',function(){
+//    run('export JWT_PASS=testpass');
+//});
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
@@ -44,4 +47,5 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 before('deploy:symlink', 'database:migrate');
+//after('deploy:symlink', 'jwt:env');
 

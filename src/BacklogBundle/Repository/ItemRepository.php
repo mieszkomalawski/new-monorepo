@@ -29,17 +29,31 @@ class ItemRepository extends EntityRepository implements PaginatorAwareInterface
     /**
      * @param int $userId
      * @param int $page
+     * @param ItemSearchQuery $itemSearchQuery
      * @param int $perPage
      * @return PaginationInterface
      */
-    public function getByPage(int $userId, int $page, int $perPage = BacklogBundle::MAX_ITEMS_PER_PAGE): PaginationInterface
-    {
+    public function getByPage(
+        int $userId,
+        int $page,
+        ItemSearchQuery $itemSearchQuery,
+        int $perPage = BacklogBundle::MAX_ITEMS_PER_PAGE
+    ): PaginationInterface {
+
+
         $queryBuilder = $this->createQueryBuilder('Items');
-        $query = $queryBuilder
+        $queryBuilder = $queryBuilder
             ->select()
-            ->where('Items.creator = ?1')
+            ->where('Items.creator = ?1');
+
+        $itemSearchQuery->addConditions($queryBuilder);
+
+        $query = $queryBuilder
             ->getQuery();
+
         $query->setParameter(1, $userId);
+
+        $itemSearchQuery->bindParams($query);
 
         return $this->paginator->paginate(
             $query,

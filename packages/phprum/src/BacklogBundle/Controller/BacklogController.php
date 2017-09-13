@@ -8,13 +8,11 @@ use BacklogBundle\Entity\Item;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Form\CreateSubItemType;
+use BacklogBundle\Form\TaskStatusType;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
-use BacklogBundle\Service\CreatorJailer;
+use BacklogBundle\Repository\ItemSearchQuery;
 use BacklogBundle\Service\ItemPriority;
-use Doctrine\ORM\EntityRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\{
     SubmitType, TextType
@@ -22,6 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\{
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class BacklogController extends Controller
 {
@@ -41,16 +41,28 @@ class BacklogController extends Controller
 
     /**
      * @Route("/backlog/", name="list_backlog_items")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
     public function listItemsAction(Request $request)
     {
         /** @var ItemRepository $repository */
         $repository = $this->get('item_repository');
 
-        $items = $repository->getByPage($this->getUser()->getId(), $request->get('page', 1));
+        $searchForm = $this->createFormBuilder(new ItemSearchQuery())
+            ->add('Status', TaskStatusType::class)
+            ->add('Search', SubmitType::class)
+            ->getForm();
 
-        return $this->render('backlog/item_list.html.twig', ['items' => $items]);
+        $searchForm->handleRequest($request);
+
+        $items = $repository->getByPage(
+            $this->getUser()->getId(),
+            $request->get('page', 1),
+            $searchForm->getData()
+        );
+
+        return $this->render('backlog/item_list.html.twig',
+            ['items' => $items, 'searchForm' => $searchForm->createView()]);
     }
 
     /**
