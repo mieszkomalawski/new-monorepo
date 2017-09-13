@@ -3,7 +3,6 @@
 
 namespace PHPRum\DomainModel\Backlog;
 
-use BacklogBundle\Entity\User;
 
 class Sprint
 {
@@ -28,7 +27,7 @@ class Sprint
     protected $closedOn;
 
     /**
-     * @var User
+     * @var BacklogOwner
      */
     protected $creator;
 
@@ -45,9 +44,9 @@ class Sprint
     /**
      * Sprint constructor.
      * @param string $duration
-     * @param User $creator
+     * @param BacklogOwner $creator
      */
-    public function __construct($duration, User $creator)
+    public function __construct($duration, BacklogOwner $creator)
     {
         $this->duration = $duration;
         $this->creator = $creator;

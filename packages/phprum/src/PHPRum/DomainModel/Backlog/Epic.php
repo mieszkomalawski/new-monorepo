@@ -4,8 +4,6 @@
 namespace PHPRum\DomainModel\Backlog;
 
 
-use BacklogBundle\Entity\User;
-
 class Epic
 {
     /**
@@ -24,7 +22,7 @@ class Epic
     protected $color;
 
     /**
-     * @var User
+     * @var BacklogOwner
      */
     protected $creator;
 
@@ -32,9 +30,9 @@ class Epic
      * Epic constructor.
      * @param $name
      * @param $color
-     * @param User $creator
+     * @param BacklogOwner $creator
      */
-    public function __construct(string $name, User $creator)
+    public function __construct(string $name, BacklogOwner $creator)
     {
         $this->name = $name;
         $this->creator = $creator;
