@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace PHPRum\DomainModel\Backlog;
 
-use BacklogBundle\Entity\User;
-
 class Item
 {
     const ALLOWED_ESTIMATES = [1, 2, 3, 5, 8, 13, 21];
@@ -40,7 +38,7 @@ class Item
     protected $priority = null;
 
     /**
-     * @var User
+     * @var BacklogOwner
      */
     protected $creator;
 
@@ -73,7 +71,7 @@ class Item
      * Item constructor.
      * @param string $name
      */
-    public function __construct(string $name, User $creator)
+    public function __construct(string $name, BacklogOwner $creator)
     {
         $this->name = $name;
         $this->createdAt = new \DateTime();

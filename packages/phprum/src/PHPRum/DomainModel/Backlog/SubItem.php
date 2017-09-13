@@ -3,9 +3,6 @@
 
 namespace PHPRum\DomainModel\Backlog;
 
-
-use BacklogBundle\Entity\User;
-
 class SubItem
 {
 
@@ -20,7 +17,7 @@ class SubItem
     protected $parentItem;
 
     /**
-     * @var User
+     * @var BacklogOwner
      */
     protected $creator;
 
@@ -48,7 +45,7 @@ class SubItem
      * Item constructor.
      * @param string $name
      */
-    public function __construct(string $name, User $creator, Item $parentItem)
+    public function __construct(string $name, BacklogOwner $creator, Item $parentItem)
     {
         $this->name = $name;
         $this->creator = $creator;
