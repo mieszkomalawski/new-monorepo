@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace PHPRum\DomainModel\Backlog;
 
+use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
+use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
+use PHPRum\DomainModel\Backlog\Exception\StatusNotAllowed;
+
 class Item
 {
     const ALLOWED_ESTIMATES = [1, 2, 3, 5, 8, 13, 21];
@@ -70,6 +74,7 @@ class Item
     /**
      * Item constructor.
      * @param string $name
+     * @param BacklogOwner $creator
      */
     public function __construct(string $name, BacklogOwner $creator)
     {
@@ -81,18 +86,18 @@ class Item
     /**
      * @param string $name
      * @return SubItem
-     * @throws \Exception
+     * @throws InvalidActionException
      */
     public function createSubItem($name)
     {
-        if ($this->status === self::STATUS_DONE) {
-            throw new \Exception('Cannot add subtask to item that is already done');
+        if ($this->isDone()) {
+            throw InvalidActionException::createCannotAddSubTask();
         }
         $subItem = $this->doCreateSubItem($name);
         if ($this->isInSprint()) {
             $subItem->addToSprint($this->sprint);
         }
-        $this->subItems[] = $subItem;
+        $this->addToSubItems($subItem);
         return $subItem;
     }
 
@@ -126,6 +131,7 @@ class Item
 
     /**
      * @param int $estimate
+     * @throws InvalidEstimate
      */
     public function setEstimate(int $estimate): void
     {
@@ -133,9 +139,8 @@ class Item
             $this->estimate = null;
             return;
         }
-        if (!in_array($estimate, self::ALLOWED_ESTIMATES)) {
-            throw new \InvalidArgumentException('Estimate ' . $estimate . ' not allowed, must be one of: ' . implode(',',
-                    self::ALLOWED_ESTIMATES));
+        if (!$this->isValidEstimate($estimate)) {
+            throw InvalidEstimate::create($estimate, static::ALLOWED_ESTIMATES);
         }
         $this->estimate = $estimate;
     }
@@ -194,18 +199,17 @@ class Item
      */
     public function setStatus(string $status)
     {
-        if (!in_array($status, self::ALLOWED_STATUSES)) {
-            throw new \InvalidArgumentException('Status ' . $status . ' not allowed, must be one of: ' . implode(',',
-                    self::ALLOWED_STATUSES));
+        if (!$this->isStatusAllowed($status)) {
+            throw StatusNotAllowed::create($status, self::ALLOWED_STATUSES);
         }
-        if (self::STATUS_DONE === $status) {
-            if (!empty($this->subItems)) {
-                foreach ($this->subItems as $subItem) {
-                    if (self::STATUS_DONE !== $subItem->getStatus()) {
-                        throw new \Exception('Cannot finish task when subtask are not finished');
-                    }
+        if (self::STATUS_DONE === $status && $this->hasSubItems()) {
+
+            foreach ($this->subItems as $subItem) {
+                if (self::STATUS_DONE !== $subItem->getStatus()) {
+                    throw InvalidActionException::createCannotFinishTask();
                 }
             }
+
         }
         $this->status = $status;
     }
@@ -213,7 +217,7 @@ class Item
     public function addToSprint(Sprint $sprint)
     {
         $this->sprint = $sprint;
-        if (!empty($this->subItems)) {
+        if (!$this->hasSubItems()) {
             foreach ($this->subItems as $subItem) {
                 $subItem->addToSprint($sprint);
             }
@@ -257,7 +261,7 @@ class Item
      * @param $name
      * @return SubItem
      */
-    protected function doCreateSubItem($name): SubItem
+    protected function doCreateSubItem(string $name): SubItem
     {
         return new SubItem($name, $this->creator, $this);
     }
@@ -265,7 +269,7 @@ class Item
     public function removeFromSprint()
     {
         $this->sprint = null;
-        if (!empty($this->subItems)) {
+        if (!$this->hasSubItems()) {
             foreach ($this->subItems as $subItem) {
                 $subItem->removeFromSprint();
             }
@@ -328,5 +332,52 @@ class Item
                 unset($this->labels[$key]);
             }
         }
+    }
+
+    public function done()
+    {
+        $this->setStatus(self::STATUS_DONE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDone(): bool
+    {
+        return $this->status === self::STATUS_DONE;
+    }
+
+    /**
+     * @param SubItem $subItem
+     */
+    protected function addToSubItems(SubItem $subItem): void
+    {
+        $this->subItems[] = $subItem;
+    }
+
+    /**
+     * @param int $estimate
+     * @return bool
+     */
+    protected function isValidEstimate(int $estimate): bool
+    {
+        return in_array($estimate, static::ALLOWED_ESTIMATES);
+    }
+
+    /**
+     * @param string $status
+     * @return bool
+     */
+    protected function isStatusAllowed(string $status): bool
+    {
+        return in_array($status, self::ALLOWED_STATUSES);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function hasSubItems(): bool
+    {
+        return empty($this->subItems);
     }
 }

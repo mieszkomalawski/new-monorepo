@@ -28,8 +28,7 @@ class Epic
 
     /**
      * Epic constructor.
-     * @param $name
-     * @param $color
+     * @param string $name
      * @param BacklogOwner $creator
      */
     public function __construct(string $name, BacklogOwner $creator)

@@ -3,6 +3,7 @@
 namespace spec\PHPRum\DomainModel\Backlog;
 
 use BacklogBundle\Entity\User;
+use PHPRum\DomainModel\Backlog\Exception\ItemNotFoundException;
 use PhpSpec\ObjectBehavior;
 
 class BacklogSpec extends ObjectBehavior
@@ -27,6 +28,13 @@ class BacklogSpec extends ObjectBehavior
         $item1->getPriority()->shouldBe(1);
         $item2->getPriority()->shouldBe(2);
         $item3->getPriority()->shouldBe(3);
+    }
+
+    public function it_should_throw_exception_when_trying_to_reorder_unexisting_item(User $user)
+    {
+        $this->beConstructedWith([]);
+
+        $this->shouldThrow(ItemNotFoundException::class)->duringChangeItemPriority(3, 2);
     }
 
     public function it_should_reorder_item_priorities(User $user)

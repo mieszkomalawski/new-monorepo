@@ -3,6 +3,7 @@
 namespace PHPRum\DomainModel\Backlog;
 
 use BacklogBundle\Entity\User;
+use PHPRum\DomainModel\Backlog\Exception\ItemNotFoundException;
 
 class Backlog
 {
@@ -43,13 +44,15 @@ class Backlog
                 return $item->getPriority();
             }
             return $highestPriority;
-        }, 0);
+        },
+            0
+        );
         $item->setPriority($highestPriority + 1);
         return $item;
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @param User $user
      * @return Item
      */
@@ -58,7 +61,11 @@ class Backlog
         return new Item($name, $user);
     }
 
-    public function changeItemPriority(int $itemId, int $priority)
+    /**
+     * @param int $itemId
+     * @param int $priority
+     */
+    public function changeItemPriority(int $itemId, int $priority): void
     {
         $itemUpdated = $this->getItemById($itemId);
 
@@ -66,28 +73,37 @@ class Backlog
         $itemUpdated->setPriority($priority);
 
         // get all items with same or lower priority
-        $itemsAffected = array_filter($this->items, function (Item $item) use ($itemUpdated, $originalPriority) {
-            $priority = $item->getPriority();
-            return (
-                $itemUpdated->getId() !== $item->getId() &&
-                $priority >= $itemUpdated->getPriority() &&
-                $priority <= $originalPriority
-            );
-        });
+        $itemsAffected = array_filter(
+            $this->items,
+            function (Item $item) use ($itemUpdated, $originalPriority) {
+                $priority = $item->getPriority();
+                return (
+                    $itemUpdated->getId() !== $item->getId() &&
+                    $priority >= $itemUpdated->getPriority() &&
+                    $priority <= $originalPriority
+                );
+            });
 
-        array_walk($itemsAffected, function (Item $item) {
-            $item->lowerPriority();
-        });
+        if (!empty($itemsAffected)) {
+            array_walk($itemsAffected, function (Item $item) {
+                $item->lowerPriority();
+            });
+        }
     }
 
     /**
      * @param int $itemId
+     * @return Item
+     * @throws ItemNotFoundException
      */
     protected function getItemById(int $itemId): Item
     {
         $items = array_filter($this->items, function (Item $item) use ($itemId) {
             return $item->getId() === $itemId;
         });
+        if (empty($items)) {
+            throw new ItemNotFoundException($itemId);
+        }
         return array_shift($items);
     }
 

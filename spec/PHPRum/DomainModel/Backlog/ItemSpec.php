@@ -3,6 +3,8 @@
 namespace spec\PHPRum\DomainModel\Backlog;
 
 use BacklogBundle\Entity\User;
+use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
+use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
 use PHPRum\DomainModel\Backlog\Item;
 use PHPRum\DomainModel\Backlog\Sprint;
 use PHPRum\DomainModel\Backlog\SubItem;
@@ -28,7 +30,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_cant_be_estimated()
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->duringSetEstimate(4);
+        $this->shouldThrow(InvalidEstimate::class)->duringSetEstimate(4);
     }
 
     function it_can_remove_estimate()
@@ -101,5 +103,11 @@ class ItemSpec extends ObjectBehavior
 
         $sub1->getSprint()->shouldBe(null);
         $sub2->getSprint()->shouldBe(null);
+    }
+
+    public function it_cannot_add_sub_item_to_done_item()
+    {
+        $this->done();
+        $this->shouldThrow(InvalidActionException::class)->duringCreateSubItem('sub1');
     }
 }
