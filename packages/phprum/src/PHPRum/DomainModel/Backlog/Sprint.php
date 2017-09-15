@@ -118,16 +118,16 @@ class Sprint
     public function getEndDate() : \DateTime
     {
         $interval = new \DateInterval('P1W');
-        if ($this->duration == '1_weel') {
+        if ($this->duration === '1_weel') {
             $interval = new \DateInterval('P1W');
         }
-        if ($this->duration == '2_weel') {
+        if ($this->duration === '2_weel') {
             $interval = new \DateInterval('P2W');
         }
-        if ($this->duration == '3_weel') {
+        if ($this->duration === '3_weel') {
             $interval = new \DateInterval('P3W');
         }
-        if ($this->duration == '4_weel') {
+        if ($this->duration === '4_weel') {
             $interval = new \DateInterval('P4W');
         }
 

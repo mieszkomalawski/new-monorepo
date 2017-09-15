@@ -76,7 +76,7 @@ class Item extends \PHPRum\DomainModel\Backlog\Item
         $this->imageFile = $imageFile;
     }
 
-    protected function doCreateSubItem($name): SubItem
+    protected function doCreateSubItem(string $name): SubItem
     {
         return new \BacklogBundle\Entity\SubItem($name, $this->creator, $this);
     }
