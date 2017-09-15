@@ -5,7 +5,7 @@ namespace Tests\Unit\BacklogBundle\Form;
 
 
 use BacklogBundle\Entity\Epic;
-use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Entity\Sprint;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Form\UpdateItemType;
@@ -62,11 +62,11 @@ class UpdateItemTypeTest extends EntityAwareTypeCase
         $formData = [
             'name' => 'new_name',
             'estimate' => 5,
-            'status' => Item::STAUS_IN_PROGRESS,
+            'status' => CompoundItem::STAUS_IN_PROGRESS,
             'Sprint' => $sprint
         ];
 
-        $object = new Item('old_name', $user);
+        $object = new CompoundItem('old_name', $user);
 
 
         $form = $this->factory->create(UpdateItemType::class, $object, [
@@ -74,7 +74,7 @@ class UpdateItemTypeTest extends EntityAwareTypeCase
         ]);
 
         $object->setEstimate(5);
-        $object->setStatus(Item::STAUS_IN_PROGRESS);
+        $object->setStatus(CompoundItem::STAUS_IN_PROGRESS);
         $object->addToSprint($sprint);
 
         $form->submit($formData);

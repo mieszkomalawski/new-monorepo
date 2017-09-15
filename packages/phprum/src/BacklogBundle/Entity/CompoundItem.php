@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @ORM\Entity
  * @Vich\Uploadable
  */
-class Item extends \PHPRum\DomainModel\Backlog\Item
+class CompoundItem extends \PHPRum\DomainModel\Backlog\CompoundItem
 {
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.

@@ -1,4 +1,4 @@
-BacklogBundle\Entity\Item:
+BacklogBundle\Entity\CompoundItem:
     type: entity
     table: backlog_items
     repositoryClass: BacklogBundle\Repository\ItemRepository

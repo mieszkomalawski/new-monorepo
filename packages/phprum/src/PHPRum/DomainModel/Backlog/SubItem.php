@@ -12,7 +12,7 @@ class SubItem
     protected $id;
 
     /**
-     * @var Item
+     * @var CompoundItem
      */
     protected $parentItem;
 
@@ -45,7 +45,7 @@ class SubItem
      * Item constructor.
      * @param string $name
      */
-    public function __construct(string $name, BacklogOwner $creator, Item $parentItem)
+    public function __construct(string $name, BacklogOwner $creator, CompoundItem $parentItem)
     {
         $this->name = $name;
         $this->creator = $creator;

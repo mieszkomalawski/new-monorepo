@@ -19,7 +19,7 @@ BacklogBundle\Entity\Sprint:
             nullable: TRUE
     oneToMany:
         items:
-            targetEntity: BacklogBundle\Entity\Item
+            targetEntity: BacklogBundle\Entity\CompoundItem
             mappedBy: sprint
     manyToOne:
             creator:

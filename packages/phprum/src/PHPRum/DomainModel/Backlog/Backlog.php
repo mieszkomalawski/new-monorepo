@@ -8,13 +8,13 @@ use PHPRum\DomainModel\Backlog\Exception\ItemNotFoundException;
 class Backlog
 {
     /**
-     * @var Item[]
+     * @var CompoundItem[]
      */
     private $items;
 
     /**
      * Backlog constructor.
-     * @param Item[] $items
+     * @param CompoundItem[] $items
      */
     public function __construct(array $items)
     {
@@ -22,9 +22,9 @@ class Backlog
     }
 
     /**
-     * @param Item $item
+     * @param CompoundItem $item
      */
-    public function addItem(Item $item): void
+    public function addItem(CompoundItem $item): void
     {
         $this->items[] = $item;
     }
@@ -32,14 +32,14 @@ class Backlog
     /**
      * @param $name
      * @param User $user
-     * @return Item
+     * @return CompoundItem
      */
-    public function createItem(string $name, User $user): Item
+    public function createItem(string $name, User $user): CompoundItem
     {
         $item = $this->doGetItem($name, $user);
         $this->items[] = $item;
         // get item of lowest priority ( higher int == lower prio ) and set new item with +1
-        $highestPriority = array_reduce($this->items, function ($highestPriority, Item $item) {
+        $highestPriority = array_reduce($this->items, function ($highestPriority, CompoundItem $item) {
             if ($item->getPriority() > $highestPriority) {
                 return $item->getPriority();
             }
@@ -54,11 +54,11 @@ class Backlog
     /**
      * @param string $name
      * @param User $user
-     * @return Item
+     * @return CompoundItem
      */
-    protected function doGetItem(string $name, User $user): Item
+    protected function doGetItem(string $name, User $user): CompoundItem
     {
-        return new Item($name, $user);
+        return new CompoundItem($name, $user);
     }
 
     /**
@@ -75,7 +75,7 @@ class Backlog
         // get all items with same or lower priority
         $itemsAffected = array_filter(
             $this->items,
-            function (Item $item) use ($itemUpdated, $originalPriority) {
+            function (CompoundItem $item) use ($itemUpdated, $originalPriority) {
                 $priority = $item->getPriority();
                 return (
                     $itemUpdated->getId() !== $item->getId() &&
@@ -85,7 +85,7 @@ class Backlog
             });
 
         if (!empty($itemsAffected)) {
-            array_walk($itemsAffected, function (Item $item) {
+            array_walk($itemsAffected, function (CompoundItem $item) {
                 $item->lowerPriority();
             });
         }
@@ -93,12 +93,12 @@ class Backlog
 
     /**
      * @param int $itemId
-     * @return Item
+     * @return CompoundItem
      * @throws ItemNotFoundException
      */
-    protected function getItemById(int $itemId): Item
+    protected function getItemById(int $itemId): CompoundItem
     {
-        $items = array_filter($this->items, function (Item $item) use ($itemId) {
+        $items = array_filter($this->items, function (CompoundItem $item) use ($itemId) {
             return $item->getId() === $itemId;
         });
         if (empty($items)) {
@@ -108,7 +108,7 @@ class Backlog
     }
 
     /**
-     * @return Item[]
+     * @return CompoundItem[]
      */
     public function getItems(): array
     {

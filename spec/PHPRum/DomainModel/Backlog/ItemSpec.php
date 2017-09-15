@@ -5,7 +5,7 @@ namespace spec\PHPRum\DomainModel\Backlog;
 use BacklogBundle\Entity\User;
 use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
 use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
-use PHPRum\DomainModel\Backlog\Item;
+use PHPRum\DomainModel\Backlog\CompoundItem;
 use PHPRum\DomainModel\Backlog\Sprint;
 use PHPRum\DomainModel\Backlog\SubItem;
 use PhpSpec\ObjectBehavior;
@@ -19,7 +19,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(Item::class);
+        $this->shouldHaveType(CompoundItem::class);
     }
 
     function it_can_be_estimated()
@@ -51,20 +51,20 @@ class ItemSpec extends ObjectBehavior
 
     function it_can_change_status()
     {
-        $this->setStatus(Item::STATUS_NEW);
-        $this->setStatus(Item::STAUS_IN_PROGRESS);
-        $this->setStatus(Item::STATUS_DONE);
+        $this->setStatus(CompoundItem::STATUS_NEW);
+        $this->setStatus(CompoundItem::STAUS_IN_PROGRESS);
+        $this->setStatus(CompoundItem::STATUS_DONE);
     }
 
     function it_cant_create_sub_item_if_done()
     {
-        $this->setStatus(Item::STATUS_DONE);
+        $this->setStatus(CompoundItem::STATUS_DONE);
         $this->shouldThrow(\Exception::class)->duringCreateSubItem('sub-item-name');
     }
 
     function it_can_create_sub_item()
     {
-        $this->setStatus(Item::STATUS_NEW);
+        $this->setStatus(CompoundItem::STATUS_NEW);
         /** @var SubItem $subItem */
         $subItem = $this
             ->createSubItem('new-sub-item')
@@ -75,10 +75,10 @@ class ItemSpec extends ObjectBehavior
 
     function it_cant_finish_item_that_has_unfinished_sub_item()
     {
-        $this->createSubItem('sub1')->setStatus(Item::STATUS_DONE);
-        $this->createSubItem('sub2')->setStatus(Item::STAUS_IN_PROGRESS);
+        $this->createSubItem('sub1')->setStatus(CompoundItem::STATUS_DONE);
+        $this->createSubItem('sub2')->setStatus(CompoundItem::STAUS_IN_PROGRESS);
 
-        $this->shouldThrow(InvalidActionException::class)->duringSetStatus(Item::STATUS_DONE);
+        $this->shouldThrow(InvalidActionException::class)->duringSetStatus(CompoundItem::STATUS_DONE);
     }
 
     function it_can_be_added_to_sprint(Sprint $sprint)

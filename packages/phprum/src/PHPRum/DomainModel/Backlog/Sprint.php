@@ -64,9 +64,9 @@ class Sprint
     }
 
     /**
-     * @param Item $item
+     * @param CompoundItem $item
      */
-    public function addItem(Item $item)
+    public function addItem(CompoundItem $item)
     {
         $this->doAddToItems($item);
         $item->addToSprint($this);
@@ -90,7 +90,7 @@ class Sprint
      */
     public function getTotalPoints(): int
     {
-        return array_reduce($this->items, function (int $carry, Item $item) {
+        return array_reduce($this->items, function (int $carry, CompoundItem $item) {
             $carry += $item->getEstimate();
             return $carry;
         }, 0);
@@ -105,9 +105,9 @@ class Sprint
     }
 
     /**
-     * @param Item $item
+     * @param CompoundItem $item
      */
-    protected function doAddToItems(Item $item): void
+    protected function doAddToItems(CompoundItem $item): void
     {
         $this->items[] = $item;
     }

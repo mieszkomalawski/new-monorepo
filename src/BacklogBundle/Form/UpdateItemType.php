@@ -4,14 +4,10 @@
 namespace BacklogBundle\Form;
 
 
-use BacklogBundle\Entity\Item;
-use BacklogBundle\Entity\Sprint;
 use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\SprintPropertyAccessor;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

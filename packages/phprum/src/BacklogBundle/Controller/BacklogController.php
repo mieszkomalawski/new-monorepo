@@ -4,7 +4,7 @@
 namespace BacklogBundle\Controller;
 
 use BacklogBundle\BacklogBundle;
-use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Form\CreateSubItemType;
@@ -25,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class BacklogController extends Controller
 {
+    const LIST_BACKLOG_ITEMS = 'list_backlog_items';
     /**
      * @var ItemPriority
      */
@@ -37,6 +38,15 @@ class BacklogController extends Controller
     public function __construct(ItemPriority $itemPriorityService)
     {
         $this->itemPriorityService = $itemPriorityService;
+    }
+
+    /**
+     * @Route("/", name="main")
+     * @Method({"GET"})
+     */
+    public function mainAction(Request $request)
+    {
+        return $this->redirectToRoute(self::LIST_BACKLOG_ITEMS);
     }
 
     /**
@@ -87,12 +97,12 @@ class BacklogController extends Controller
             /**
              * add item to backlog and save it
              */
-            /** @var Item $item */
+            /** @var CompoundItem $item */
             $item = $form->getData();
             $this->getDoctrine()->getManager()->persist($item);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('list_backlog_items');
+            return $this->redirectToRoute(self::LIST_BACKLOG_ITEMS);
         }
 
         return $this->render('backlog/item_add.html.twig', ['form' => $form->createView(), 'path' => null]);
@@ -103,7 +113,7 @@ class BacklogController extends Controller
      * @Route("/backlog/{id}/edit", name="edit_item")
      * @Method({"POST", "GET"})
      */
-    public function editItemAction(Item $item, Request $request)
+    public function editItemAction(CompoundItem $item, Request $request)
     {
 
         $form = $this->createForm(UpdateItemType::class, $item, ['userId' => $this->getUser()->getId()]);
@@ -119,7 +129,7 @@ class BacklogController extends Controller
             $this->getDoctrine()->getManager()->persist($item);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('list_backlog_items');
+            return $this->redirectToRoute(self::LIST_BACKLOG_ITEMS);
         }
 
         return $this->render('backlog/item_edit.html.twig',
@@ -130,7 +140,7 @@ class BacklogController extends Controller
      * @Route("/backlog/{id}/add-sub-task", name="add_sub_task")
      * @Method({"POST", "GET"})
      */
-    public function addSubTask(Item $parentItem, Request $request)
+    public function addSubTask(CompoundItem $parentItem, Request $request)
     {
         $form = $this->createForm(CreateSubItemType::class, null, ['parent_item' => $parentItem]);
 
@@ -152,12 +162,12 @@ class BacklogController extends Controller
      * @Route("/backlog/{id}/delete", name="delete_item")
      * @Method({"GET"})
      */
-    public function deleteItemAction(Item $item)
+    public function deleteItemAction(CompoundItem $item)
     {
         $this->getDoctrine()->getManager()->remove($item);
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->redirectToRoute('list_backlog_items');
+        return $this->redirectToRoute(self::LIST_BACKLOG_ITEMS);
     }
 
     /**

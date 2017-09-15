@@ -4,7 +4,7 @@
 namespace BacklogBundle\Form;
 
 
-use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\CompoundItem;
 use PHPRum\DomainModel\Backlog\SubItem;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,7 +24,7 @@ class CreateSubItemType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var Item $parentItem */
+        /** @var CompoundItem $parentItem */
         $parentItem = $options['parent_item'];
         $emptyData = function (FormInterface $form) use ($parentItem) {
             if ($form->has('name') && is_string($form->get('name')->getData())) {

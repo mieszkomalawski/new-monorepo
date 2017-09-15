@@ -29,7 +29,7 @@ BacklogBundle\Entity\SubItem:
                 name: sprint_id
                 referencedColumnName: id
         parentItem:
-            targetEntity: BacklogBundle\Entity\Item
+            targetEntity: BacklogBundle\Entity\CompoundItem
             inversedBy: subItems
             joinColumn:
                 name: parent_item_id

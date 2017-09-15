@@ -4,7 +4,7 @@
 namespace BacklogBundle\Form;
 
 
-use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\CompoundItem;
 use PHPRum\DomainModel\Backlog\SubItem;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

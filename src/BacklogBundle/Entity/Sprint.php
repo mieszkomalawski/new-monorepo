@@ -5,7 +5,7 @@ namespace BacklogBundle\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use PHPRum\DomainModel\Backlog\Item;
+use PHPRum\DomainModel\Backlog\CompoundItem;
 
 class Sprint extends \PHPRum\DomainModel\Backlog\Sprint
 {
@@ -14,7 +14,7 @@ class Sprint extends \PHPRum\DomainModel\Backlog\Sprint
      */
     protected $items;
 
-    protected function doAddToItems(Item $item): void
+    protected function doAddToItems(CompoundItem $item): void
     {
         $this->items->add($item);
     }
@@ -24,7 +24,7 @@ class Sprint extends \PHPRum\DomainModel\Backlog\Sprint
      */
     public function getTotalPoints() : int
     {
-        return array_reduce($this->items->getIterator()->getArrayCopy(), function(int $carry, Item $item){
+        return array_reduce($this->items->getIterator()->getArrayCopy(), function(int $carry, CompoundItem $item){
             $carry += $item->getEstimate();
             return $carry;
         }, 0);

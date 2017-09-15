@@ -7,7 +7,7 @@ use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
 use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
 use PHPRum\DomainModel\Backlog\Exception\StatusNotAllowed;
 
-class Item
+class CompoundItem
 {
     const ALLOWED_ESTIMATES = [1, 2, 3, 5, 8, 13, 21];
 

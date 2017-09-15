@@ -41,7 +41,7 @@ services:
         class: BacklogBundle\Repository\ItemRepository
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
-            - BacklogBundle:Item
+            - BacklogBundle:CompoundItem
         class:
             - [setPaginator, ["@knp_paginator"]]
         tags: [knp_paginator.injectable]

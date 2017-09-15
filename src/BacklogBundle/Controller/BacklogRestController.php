@@ -4,11 +4,10 @@
 namespace BacklogBundle\Controller;
 
 
-use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
-use Doctrine\ORM\EntityRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -56,16 +55,14 @@ class BacklogRestController extends FOSRestController
             'user' => $this->getUser(),
             'backlog' => $this->itemRepository->getFullBacklog($this->getUser()->getId())
         ]);
-        /**
-         * Cos nie chce ladowac bezposrednio z requestu
-         */
+
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
             /**
              * add item to backlog and save it
              */
-            /** @var Item $item */
+            /** @var CompoundItem $item */
             $item = $form->getData();
             $this->getDoctrine()->getManager()->persist($item);
             $this->getDoctrine()->getManager()->flush();

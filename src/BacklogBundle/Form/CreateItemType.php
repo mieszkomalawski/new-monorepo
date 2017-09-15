@@ -5,7 +5,7 @@ namespace BacklogBundle\Form;
 
 
 use BacklogBundle\Entity\Epic;
-use BacklogBundle\Entity\Item;
+use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Service\CreatorJailer;
 use PHPRum\DomainModel\Backlog\Backlog;
@@ -36,7 +36,7 @@ class CreateItemType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Item::class
+            'data_class' => CompoundItem::class
         ])->setRequired(['user', 'backlog']);
     }
 
