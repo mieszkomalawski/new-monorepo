@@ -217,7 +217,7 @@ class Item
     public function addToSprint(Sprint $sprint)
     {
         $this->sprint = $sprint;
-        if (!$this->hasSubItems()) {
+        if ($this->hasSubItems()) {
             foreach ($this->subItems as $subItem) {
                 $subItem->addToSprint($sprint);
             }
@@ -269,7 +269,7 @@ class Item
     public function removeFromSprint()
     {
         $this->sprint = null;
-        if (!$this->hasSubItems()) {
+        if ($this->hasSubItems()) {
             foreach ($this->subItems as $subItem) {
                 $subItem->removeFromSprint();
             }
@@ -378,6 +378,6 @@ class Item
      */
     protected function hasSubItems(): bool
     {
-        return empty($this->subItems);
+        return !empty($this->subItems);
     }
 }

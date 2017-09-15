@@ -78,7 +78,7 @@ class ItemSpec extends ObjectBehavior
         $this->createSubItem('sub1')->setStatus(Item::STATUS_DONE);
         $this->createSubItem('sub2')->setStatus(Item::STAUS_IN_PROGRESS);
 
-        $this->shouldThrow(\Exception::class)->duringSetStatus(Item::STATUS_DONE);
+        $this->shouldThrow(InvalidActionException::class)->duringSetStatus(Item::STATUS_DONE);
     }
 
     function it_can_be_added_to_sprint(Sprint $sprint)
