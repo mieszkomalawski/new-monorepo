@@ -7,49 +7,14 @@ use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
 use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
 use PHPRum\DomainModel\Backlog\Exception\StatusNotAllowed;
 
-class CompoundItem
+class CompoundItem extends Item
 {
-    const ALLOWED_ESTIMATES = [1, 2, 3, 5, 8, 13, 21];
-
-    const ALLOWED_STATUSES = [self::STATUS_NEW, self::STAUS_IN_PROGRESS, self::STATUS_DONE];
-    const STATUS_NEW = 'new';
-    const STAUS_IN_PROGRESS = 'in_progress';
-    const STATUS_DONE = 'done';
-
-    /**
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @var int
-     */
-    protected $estimate = null;
-
-    /**
-     * @var int
-     */
-    protected $priority = null;
 
     /**
      * @var BacklogOwner
      */
     protected $creator;
 
-    /**
-     * @var string
-     */
-    protected $status = self::STATUS_NEW;
 
     /**
      * @var Sprint
@@ -65,11 +30,15 @@ class CompoundItem
      * @var Epic
      */
     protected $epic;
-
     /**
-     * @var Label[]
+     * @var int
      */
-    protected $labels = [];
+    protected $priority = null;
+    /**
+     * @var int
+     */
+    protected $estimate = null;
+
 
     /**
      * Item constructor.
@@ -113,21 +82,6 @@ class CompoundItem
         return $this->creator->getId() === $userId;
     }
 
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
 
     /**
      * @param int $estimate
@@ -145,21 +99,6 @@ class CompoundItem
         $this->estimate = $estimate;
     }
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getEstimate(): ?int
-    {
-        return $this->estimate;
-    }
 
     /**
      * @return int
@@ -186,13 +125,6 @@ class CompoundItem
         $this->priority++;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
 
     /**
      * @param string $status
@@ -224,7 +156,6 @@ class CompoundItem
         }
     }
 
-
     /**
      * @return Sprint
      */
@@ -233,13 +164,6 @@ class CompoundItem
         return $this->sprint;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
 
     /**
      * @return bool
@@ -278,14 +202,6 @@ class CompoundItem
 
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return Epic
      */
     public function getEpic(): ?Epic
@@ -301,50 +217,10 @@ class CompoundItem
         $this->epic = $epic;
     }
 
-    /**
-     * @return Label[]
-     */
-    public function getLabels(): iterable
-    {
-        return $this->labels;
-    }
-
-    /**
-     * @param Label[] $labels
-     */
-    public function setLabels(array $labels)
-    {
-        $this->labels = $labels;
-    }
-
-    public function addLabel(Label $label)
-    {
-        $this->labels[] = $label;
-    }
-
-    /**
-     * @param Label $labelToRemove
-     */
-    public function removeLabel(Label $labelToRemove)
-    {
-        foreach ($this->labels as $key => $label) {
-            if ($label->getId() == $labelToRemove->getId()) {
-                unset($this->labels[$key]);
-            }
-        }
-    }
 
     public function done()
     {
         $this->setStatus(self::STATUS_DONE);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDone(): bool
-    {
-        return $this->status === self::STATUS_DONE;
     }
 
     /**
@@ -379,5 +255,13 @@ class CompoundItem
     protected function hasSubItems(): bool
     {
         return !empty($this->subItems);
+    }
+
+    /**
+     * @return int
+     */
+    public function getEstimate(): ?int
+    {
+        return $this->estimate;
     }
 }

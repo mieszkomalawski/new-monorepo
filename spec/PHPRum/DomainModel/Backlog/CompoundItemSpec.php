@@ -10,7 +10,7 @@ use PHPRum\DomainModel\Backlog\Sprint;
 use PHPRum\DomainModel\Backlog\SubItem;
 use PhpSpec\ObjectBehavior;
 
-class ItemSpec extends ObjectBehavior
+class CompoundItemSpec extends ObjectBehavior
 {
     function let(User $user)
     {

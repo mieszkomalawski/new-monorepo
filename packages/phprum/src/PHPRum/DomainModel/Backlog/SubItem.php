@@ -3,14 +3,8 @@
 
 namespace PHPRum\DomainModel\Backlog;
 
-class SubItem
+class SubItem extends Item
 {
-
-    /**
-     * @var int
-     */
-    protected $id;
-
     /**
      * @var CompoundItem
      */
@@ -22,24 +16,17 @@ class SubItem
     protected $creator;
 
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @var string
-     */
-    protected $status;
-
-    /**
      * @var Sprint
      */
     protected $sprint;
+    /**
+     * @var int
+     */
+    protected $priority = null;
+    /**
+     * @var int
+     */
+    protected $estimate = null;
 
     /**
      * Item constructor.
@@ -121,4 +108,19 @@ class SubItem
     {
         $this->sprint = null;
     }
+
+    /**
+     * @return int
+     */
+    public function getEstimate(): ?int
+    {
+        return $this->estimate;
+    }
+
+    public function getEpic(): ?Epic
+    {
+        return $this->parentItem->getEpic();
+    }
+
+
 }
