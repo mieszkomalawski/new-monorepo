@@ -115,8 +115,19 @@ class BacklogController extends Controller
      */
     public function editItemAction(CompoundItem $item, Request $request)
     {
+        /** @var ItemRepository $repository */
+        $repository = $this->get('item_repository');
 
-        $form = $this->createForm(UpdateItemType::class, $item, ['userId' => $this->getUser()->getId()]);
+        $form = $this->createForm(UpdateItemType::class, $item,
+            [
+                'userId' => $this->getUser()->getId(),
+                'other_items' => array_filter(
+                    $repository->getFullBacklog($this->getUser()->getId())->getItems(),
+                    function (CompoundItem $currentItem) use ($item)  {
+                        return $currentItem->getId() !== $item->getId();
+                    }
+                )
+            ]);
 
         $form->handleRequest($request);
 

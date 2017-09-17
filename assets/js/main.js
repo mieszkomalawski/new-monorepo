@@ -43,6 +43,12 @@ $(document).ready(function() {
         add_at_the_end: true
      });
 
+//     $('#update_item_blockedBy').collection({
+//             allow_up: false,
+//             allow_down: false,
+//             add_at_the_end: true
+//          });
+
      var colorPicker = new ColorPicker();
 
 //    var $collectionHolder;

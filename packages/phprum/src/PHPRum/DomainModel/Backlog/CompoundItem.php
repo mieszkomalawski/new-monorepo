@@ -42,7 +42,12 @@ class CompoundItem extends Item
     /**
      * @var Item[]
      */
-    protected $blockedBy;
+    protected $blockedBy = [];
+
+    /**
+     * @var Item[]
+     */
+    protected $blocks = [];
 
     /**
      * Item constructor.
@@ -251,10 +256,35 @@ class CompoundItem extends Item
     }
 
     /**
-     * @param Item $item
+     * @param CompoundItem $item
      */
-    public function addBlockedBy(Item $item)
+    public function addBlockedBy(CompoundItem $item)
     {
         $this->blockedBy[] = $item;
+        $item->addBlockedBy($this);
+    }
+
+    /**
+     * @param CompoundItem $item
+     */
+    public function addBlocks(CompoundItem $item)
+    {
+        $this->blocks[] = $item;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getBlockedBy() : iterable
+    {
+        return $this->blockedBy;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getBlocks() : iterable
+    {
+       return $this->blocks;
     }
 }

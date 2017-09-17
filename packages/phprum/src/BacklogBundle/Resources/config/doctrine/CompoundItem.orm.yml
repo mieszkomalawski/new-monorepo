@@ -59,3 +59,17 @@ BacklogBundle\Entity\CompoundItem:
                 inverseJoinColumns:
                     label_id:
                       referencedColumnName: id
+        blockedBy:
+            targetEntity: BacklogBundle\Entity\CompoundItem
+            inversedBy: blocks
+            joinTable:
+                name: item_blocked_by
+                joinColumns:
+                    item_id:
+                      referencedColumnName: id
+                inverseJoinColumns:
+                    blocking_item_id:
+                      referencedColumnName: id
+        blocks:
+            targetEntity: BacklogBundle\Entity\CompoundItem
+            mappedBy: blockedBy

@@ -81,5 +81,17 @@ class CompoundItem extends \PHPRum\DomainModel\Backlog\CompoundItem
         return new \BacklogBundle\Entity\SubItem($name, $this->creator, $this);
     }
 
+    public function setBlocks(iterable $blocks)
+    {
+        $this->blocks = $blocks;
+    }
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 
 }

@@ -70,7 +70,8 @@ class UpdateItemTypeTest extends EntityAwareTypeCase
 
 
         $form = $this->factory->create(UpdateItemType::class, $object, [
-            'userId' => 1
+            'userId' => 1,
+            'other_items' => []
         ]);
 
         $object->setEstimate(5);

@@ -112,20 +112,23 @@ class CompoundItemSpec extends ObjectBehavior
         $this->shouldThrow(InvalidActionException::class)->duringCreateSubItem('sub1');
     }
 
-    public function it_can_be_blocked_by(Item $item)
+    public function it_can_be_blocked_by(CompoundItem $item)
     {
+        $item->addBlockedBy($this)->shouldBeCalled();
         $this->addBlockedBy($item);
     }
 
-    public function it_cannot_be_started_when_is_blocked_by(Item $item)
+    public function it_cannot_be_started_when_is_blocked_by(CompoundItem $item)
     {
+        $item->addBlockedBy($this)->shouldBeCalled();
         $item->isDone()->willReturn(false);
         $this->addBlockedBy($item);
         $this->shouldThrow(InvalidActionException::class)->duringSetStatus(Item::STAUS_IN_PROGRESS);
     }
 
-    public function it_can_be_started_when_is_blocked_by_done(Item $item)
+    public function it_can_be_started_when_is_blocked_by_done(CompoundItem $item)
     {
+        $item->addBlockedBy($this)->shouldBeCalled();
         $item->isDone()->willReturn(true);
         $this->addBlockedBy($item);
         $this->setStatus(Item::STAUS_IN_PROGRESS);

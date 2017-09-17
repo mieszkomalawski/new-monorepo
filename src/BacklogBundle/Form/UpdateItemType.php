@@ -4,8 +4,11 @@
 namespace BacklogBundle\Form;
 
 
+use BacklogBundle\Entity\Backlog;
+use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\SprintPropertyAccessor;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -33,7 +36,7 @@ class UpdateItemType extends AbstractType
 
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired('userId');
+        $optionsResolver->setRequired(['userId', 'other_items']);
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
@@ -41,8 +44,6 @@ class UpdateItemType extends AbstractType
         $formBuilder
             ->add('name', TextType::class)
             ->add('estimate', TextType::class, ['required' => false])
-            // priority is updated by draggings items on list
-            //->add('priority', TextType::class, ['required' => false])
             ->add('status', TaskStatusType::class)
             ->add('Sprint', SelectSprintType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($options['userId'])
@@ -58,6 +59,22 @@ class UpdateItemType extends AbstractType
             ->add('subItems', CollectionType::class, [
                 'entry_type' => UpdateSubItemType::class,
                 'entry_options' => ['label' => false]
+            ])
+            ->add('blockedBy', EntityType::class, [
+                'data_class' => null,
+                'choices' => $options['other_items'],
+                'class' => CompoundItem::class,
+                'multiple'     => true,
+                'choice_label' => 'getName',
+                'required' => false
+            ])
+            ->add('blocks', EntityType::class, [
+                'data_class' => null,
+                'choices' => $options['other_items'],
+                'class' => CompoundItem::class,
+                'multiple'     => true,
+                'choice_label' => 'getName',
+                'required' => false
             ])
             ->add('labels', CollectionType::class, [
                 'entry_type' => LabelType::class,
