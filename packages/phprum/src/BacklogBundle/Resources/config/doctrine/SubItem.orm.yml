@@ -22,12 +22,6 @@ BacklogBundle\Entity\SubItem:
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
-        sprint:
-            targetEntity: BacklogBundle\Entity\Sprint
-            inversedBy: items
-            joinColumn:
-                name: sprint_id
-                referencedColumnName: id
         parentItem:
             targetEntity: BacklogBundle\Entity\CompoundItem
             inversedBy: subItems

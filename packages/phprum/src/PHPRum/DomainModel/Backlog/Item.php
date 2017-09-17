@@ -4,6 +4,8 @@
 namespace PHPRum\DomainModel\Backlog;
 
 
+use PHPRum\DomainModel\Backlog\Exception\StatusNotAllowed;
+
 abstract class Item
 {
     const ALLOWED_ESTIMATES = [1, 2, 3, 5, 8, 13, 21];
@@ -84,7 +86,7 @@ abstract class Item
     }
 
     /**
-     * @return Label[]
+     * @return iterable
      */
     public function getLabels(): iterable
     {
@@ -104,12 +106,15 @@ abstract class Item
     /**
      * @param Label[] $labels
      */
-    public function setLabels(array $labels)
+    public function setLabels(array $labels) : void
     {
         $this->labels = $labels;
     }
 
-    public function addLabel(Label $label)
+    /**
+     * @param Label $label
+     */
+    public function addLabel(Label $label) : void
     {
         $this->labels[] = $label;
     }
@@ -117,10 +122,10 @@ abstract class Item
     /**
      * @param Label $labelToRemove
      */
-    public function removeLabel(Label $labelToRemove)
+    public function removeLabel(Label $labelToRemove) : void
     {
         foreach ($this->labels as $key => $label) {
-            if ($label->getId() == $labelToRemove->getId()) {
+            if ($label->getId() === $labelToRemove->getId()) {
                 unset($this->labels[$key]);
             }
         }
@@ -131,6 +136,42 @@ abstract class Item
      */
     public function isDone(): bool
     {
-        return $this->status === Item::STATUS_DONE;
+        return $this->status === self::STATUS_DONE;
     }
+
+    /**
+     * @param string $status
+     * @throws StatusNotAllowed
+     */
+    public function setStatus(string $status) : void
+    {
+        if (!$this->isStatusAllowed($status)) {
+            throw StatusNotAllowed::create($status, self::ALLOWED_STATUSES);
+        }
+        $this->status = $status;
+    }
+
+    /**
+     * @param string $status
+     * @return bool
+     */
+    protected function isStatusAllowed(string $status): bool
+    {
+        return in_array($status, self::ALLOWED_STATUSES, true);
+    }
+
+
+    /**
+     * @return bool
+     */
+    abstract public function isInSprint(): bool;
+
+    /**
+     *
+     */
+    public function done() : void
+    {
+        $this->setStatus(self::STATUS_DONE);
+    }
+
 }

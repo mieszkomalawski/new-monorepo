@@ -16,19 +16,6 @@ class SubItem extends Item
     protected $creator;
 
     /**
-     * @var Sprint
-     */
-    protected $sprint;
-    /**
-     * @var int
-     */
-    protected $priority = null;
-    /**
-     * @var int
-     */
-    protected $estimate = null;
-
-    /**
      * Item constructor.
      * @param string $name
      */
@@ -57,19 +44,11 @@ class SubItem extends Item
     }
 
     /**
-     * @param Sprint $sprint
-     */
-    public function addToSprint(Sprint $sprint)
-    {
-        $this->sprint = $sprint;
-    }
-
-    /**
      * @return Sprint
      */
     public function getSprint(): ?Sprint
     {
-        return $this->sprint;
+        return $this->parentItem->getSprint();
     }
 
     /**
@@ -88,38 +67,15 @@ class SubItem extends Item
         return $this->status;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @param string $status
-     */
-    public function setStatus(string $status)
-    {
-        $this->status = $status;
-    }
-
-    public function removeFromSprint()
-    {
-        $this->sprint = null;
-    }
-
-    /**
-     * @return int
-     */
-    public function getEstimate(): ?int
-    {
-        return $this->estimate;
-    }
 
     public function getEpic(): ?Epic
     {
         return $this->parentItem->getEpic();
+    }
+
+    public function isInSprint(): bool
+    {
+        return $this->parentItem->isInSprint();
     }
 
 

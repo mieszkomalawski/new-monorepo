@@ -128,12 +128,10 @@ class CompoundItem extends Item
 
     /**
      * @param string $status
+     * @throws InvalidActionException
      */
-    public function setStatus(string $status)
+    public function setStatus(string $status) : void
     {
-        if (!$this->isStatusAllowed($status)) {
-            throw StatusNotAllowed::create($status, self::ALLOWED_STATUSES);
-        }
         if (self::STATUS_DONE === $status && $this->hasSubItems()) {
 
             foreach ($this->subItems as $subItem) {
@@ -143,17 +141,12 @@ class CompoundItem extends Item
             }
 
         }
-        $this->status = $status;
+        parent::setStatus($status);
     }
 
     public function addToSprint(Sprint $sprint)
     {
         $this->sprint = $sprint;
-        if ($this->hasSubItems()) {
-            foreach ($this->subItems as $subItem) {
-                $subItem->addToSprint($sprint);
-            }
-        }
     }
 
     /**
@@ -168,7 +161,7 @@ class CompoundItem extends Item
     /**
      * @return bool
      */
-    protected function isInSprint(): bool
+    public function isInSprint(): bool
     {
         return $this->sprint instanceof Sprint;
     }
@@ -193,11 +186,6 @@ class CompoundItem extends Item
     public function removeFromSprint()
     {
         $this->sprint = null;
-        if ($this->hasSubItems()) {
-            foreach ($this->subItems as $subItem) {
-                $subItem->removeFromSprint();
-            }
-        }
     }
 
 
@@ -218,11 +206,6 @@ class CompoundItem extends Item
     }
 
 
-    public function done()
-    {
-        $this->setStatus(self::STATUS_DONE);
-    }
-
     /**
      * @param SubItem $subItem
      */
@@ -238,15 +221,6 @@ class CompoundItem extends Item
     protected function isValidEstimate(int $estimate): bool
     {
         return in_array($estimate, static::ALLOWED_ESTIMATES);
-    }
-
-    /**
-     * @param string $status
-     * @return bool
-     */
-    protected function isStatusAllowed(string $status): bool
-    {
-        return in_array($status, self::ALLOWED_STATUSES);
     }
 
     /**
