@@ -24,6 +24,16 @@
 
     <div class="row">
         <div class="col-md-6">
+            {{ form_label(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(form.description) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
             {{ form_label(form.estimate) }}
             {{ form_errors(form.estimate) }}
         </div>
@@ -104,12 +114,14 @@
             <table class="table">
                 <tr>
                     <td>Name</td>
+                    <td>Description</td>
                     <td>Status</td>
                 </tr>
                 {% for subItem in form.subItems %}
                     <tr>
 
                         <td>{{ form_widget(subItem.name) }}</td>
+                        <td>{{ form_widget(subItem.description) }}</td>
                         <td>{{ form_widget(subItem.status) }} {{ form_errors(subItem.status) }}</td>
 
                     </tr>

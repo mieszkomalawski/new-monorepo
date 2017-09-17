@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -43,6 +44,7 @@ class UpdateItemType extends AbstractType
     {
         $formBuilder
             ->add('name', TextType::class)
+            ->add('description', TextareaType::class, ['required' => false, 'empty_data' => ''])
             ->add('estimate', TextType::class, ['required' => false])
             ->add('status', TaskStatusType::class)
             ->add('Sprint', SelectSprintType::class, [

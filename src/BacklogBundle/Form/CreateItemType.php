@@ -12,6 +12,7 @@ use PHPRum\DomainModel\Backlog\Backlog;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -55,6 +56,7 @@ class CreateItemType extends AbstractType
             $emptyData
         )
             ->add('name', TextType::class)
+            ->add('description', TextareaType::class, ['required' => false, 'empty_data' => ''])
             ->add('epic', SelectEpicType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($user->getId()),
             ])

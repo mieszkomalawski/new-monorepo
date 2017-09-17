@@ -25,6 +25,10 @@ BacklogBundle\Entity\CompoundItem:
         imageName:
             type: string
             nullable: TRUE
+        description:
+            type: string
+            nullable: TRUE
+            length: 1000
 
     oneToMany:
         subItems:
