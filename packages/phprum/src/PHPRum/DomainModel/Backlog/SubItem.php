@@ -16,8 +16,10 @@ class SubItem extends Item
     protected $creator;
 
     /**
-     * Item constructor.
+     * SubItem constructor.
      * @param string $name
+     * @param BacklogOwner $creator
+     * @param CompoundItem $parentItem
      */
     public function __construct(string $name, BacklogOwner $creator, CompoundItem $parentItem)
     {
@@ -28,43 +30,11 @@ class SubItem extends Item
     }
 
     /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
      * @return Sprint
      */
     public function getSprint(): ?Sprint
     {
         return $this->parentItem->getSprint();
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): ?string
-    {
-        return $this->status;
     }
 
 
