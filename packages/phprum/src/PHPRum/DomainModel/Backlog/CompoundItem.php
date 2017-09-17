@@ -39,6 +39,10 @@ class CompoundItem extends Item
      */
     protected $estimate = null;
 
+    /**
+     * @var Item[]
+     */
+    protected $blockedBy;
 
     /**
      * Item constructor.
@@ -130,7 +134,7 @@ class CompoundItem extends Item
      * @param string $status
      * @throws InvalidActionException
      */
-    public function setStatus(string $status) : void
+    public function setStatus(string $status): void
     {
         if (self::STATUS_DONE === $status && $this->hasSubItems()) {
 
@@ -140,6 +144,13 @@ class CompoundItem extends Item
                 }
             }
 
+        }
+        if (in_array($status, [self::STATUS_DONE, self::STAUS_IN_PROGRESS], true) && !empty($this->blockedBy)) {
+            foreach ($this->blockedBy as $blockedBy) {
+                if (!$blockedBy->isDone()) {
+                    throw InvalidActionException::createCannotFinishTask();
+                }
+            }
         }
         parent::setStatus($status);
     }
@@ -237,5 +248,13 @@ class CompoundItem extends Item
     public function getEstimate(): ?int
     {
         return $this->estimate;
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function addBlockedBy(Item $item)
+    {
+        $this->blockedBy[] = $item;
     }
 }

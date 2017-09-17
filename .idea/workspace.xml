@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bf64403-69c2-4682-850f-cf216a546b53" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/SubItem.php" afterPath="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/SubItem.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/CompoundItemSpec.php" afterPath="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/CompoundItemSpec.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/CompoundItem.php" afterPath="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/CompoundItem.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/InvalidActionException.php" afterPath="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/InvalidActionException.php" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +23,8 @@
       <file leaf-file-name="CompoundItem.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/CompoundItem.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="148" column="32" lean-forward="false" selection-start-line="148" selection-start-column="32" selection-end-line="148" selection-end-column="32" />
+            <state relative-caret-position="225">
+              <caret line="153" column="9" lean-forward="true" selection-start-line="153" selection-start-column="9" selection-end-line="153" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -32,18 +33,28 @@
       <file leaf-file-name="Item.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Item.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1952">
-              <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+            <state relative-caret-position="174">
+              <caret line="136" column="20" lean-forward="false" selection-start-line="136" selection-start-column="20" selection-end-line="136" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SubItem.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InvalidActionException.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/InvalidActionException.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SubItem.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/SubItem.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+            <state relative-caret-position="611">
+              <caret line="48" column="5" lean-forward="false" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -59,12 +70,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpdateSubItemType.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/UpdateSubItemType.php">
+      <file leaf-file-name="CompoundItemSpec.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/CompoundItemSpec.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="478">
+              <caret line="130" column="16" lean-forward="false" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
+              <folding>
+                <element signature="e#51#81#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,21 +115,9 @@
       <file leaf-file-name="BacklogSpec.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
+            <state relative-caret-position="191">
               <caret line="43" column="31" lean-forward="false" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Backlog.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Backlog.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-              <folding>
-                <element signature="e#46#76#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -125,7 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Backl</find>
       <find>Backlo</find>
       <find>Backlog</find>
       <find>Dia</find>
@@ -155,6 +155,7 @@
       <find>web</find>
       <find>twig</find>
       <find>Item</find>
+      <find>isDone</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -208,7 +209,6 @@
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Epic.php" />
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/InvalidEstimate.php" />
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/StatusNotAllowed.php" />
-        <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/InvalidActionException.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig" />
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Sprint.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Entity/Item.php" />
@@ -220,11 +220,12 @@
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php" />
         <option value="$PROJECT_DIR$/app/config/services.yml" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Resources/config/doctrine/Sprint.orm.yml" />
-        <option value="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/CompoundItemSpec.php" />
-        <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/CompoundItem.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Resources/config/doctrine/SubItem.orm.yml" />
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Item.php" />
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/SubItem.php" />
+        <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/InvalidActionException.php" />
+        <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/CompoundItem.php" />
+        <option value="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/CompoundItemSpec.php" />
       </list>
     </option>
   </component>
@@ -1430,14 +1431,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/InvalidActionException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="517">
@@ -1709,47 +1702,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/CompoundItemSpec.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-          <folding>
-            <element signature="e#51#81#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="43" column="31" lean-forward="false" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Backlog.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
           <folding>
-            <element signature="e#46#76#0#PHP" expanded="true" />
+            <element signature="e#46#76#0#PHP" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Sprint.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="172" column="33" lean-forward="false" selection-start-line="172" selection-start-column="33" selection-end-line="172" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/CompoundItem.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="148" column="32" lean-forward="false" selection-start-line="148" selection-start-column="32" selection-end-line="148" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1785,19 +1744,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Item.php">
+    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/SubItem.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1952">
-          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+        <state relative-caret-position="611">
+          <caret line="48" column="5" lean-forward="false" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/SubItem.php">
+    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Sprint.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+        <state relative-caret-position="330">
+          <caret line="172" column="33" lean-forward="false" selection-start-line="172" selection-start-column="33" selection-end-line="172" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="43" column="31" lean-forward="false" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/InvalidActionException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Item.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="136" column="20" lean-forward="false" selection-start-line="136" selection-start-column="20" selection-end-line="136" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/CompoundItem.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="153" column="9" lean-forward="true" selection-start-line="153" selection-start-column="9" selection-end-line="153" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/CompoundItemSpec.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="130" column="16" lean-forward="false" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
+          <folding>
+            <element signature="e#51#81#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

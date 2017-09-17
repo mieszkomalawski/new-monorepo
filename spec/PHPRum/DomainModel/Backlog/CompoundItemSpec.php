@@ -6,6 +6,7 @@ use BacklogBundle\Entity\User;
 use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
 use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
 use PHPRum\DomainModel\Backlog\CompoundItem;
+use PHPRum\DomainModel\Backlog\Item;
 use PHPRum\DomainModel\Backlog\Sprint;
 use PHPRum\DomainModel\Backlog\SubItem;
 use PhpSpec\ObjectBehavior;
@@ -109,5 +110,24 @@ class CompoundItemSpec extends ObjectBehavior
     {
         $this->done();
         $this->shouldThrow(InvalidActionException::class)->duringCreateSubItem('sub1');
+    }
+
+    public function it_can_be_blocked_by(Item $item)
+    {
+        $this->addBlockedBy($item);
+    }
+
+    public function it_cannot_be_started_when_is_blocked_by(Item $item)
+    {
+        $item->isDone()->willReturn(false);
+        $this->addBlockedBy($item);
+        $this->shouldThrow(InvalidActionException::class)->duringSetStatus(Item::STAUS_IN_PROGRESS);
+    }
+
+    public function it_can_be_started_when_is_blocked_by_done(Item $item)
+    {
+        $item->isDone()->willReturn(true);
+        $this->addBlockedBy($item);
+        $this->setStatus(Item::STAUS_IN_PROGRESS);
     }
 }
