@@ -5,7 +5,6 @@ namespace PHPRum\DomainModel\Backlog;
 
 use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
 use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
-use PHPRum\DomainModel\Backlog\Exception\StatusNotAllowed;
 
 class CompoundItem extends Item
 {
@@ -62,19 +61,25 @@ class CompoundItem extends Item
     }
 
     /**
+     * @return bool
+     */
+    public function canCreateSubItem(): bool
+    {
+        return !$this->isDone();
+    }
+
+    /**
      * @param string $name
      * @return SubItem
      * @throws InvalidActionException
      */
-    public function createSubItem($name)
+    public function createSubItem($name): SubItem
     {
         if ($this->isDone()) {
             throw InvalidActionException::createCannotAddSubTask();
         }
         $subItem = $this->doCreateSubItem($name);
-        if ($this->isInSprint()) {
-            $subItem->addToSprint($this->sprint);
-        }
+
         $this->addToSubItems($subItem);
         return $subItem;
     }
@@ -91,6 +96,14 @@ class CompoundItem extends Item
         return $this->creator->getId() === $userId;
     }
 
+    /**
+     * @param int $estimate
+     * @return bool
+     */
+    public function canEstimate(int $estimate): bool
+    {
+        return $this->isValidEstimate($estimate);
+    }
 
     /**
      * @param int $estimate
@@ -134,6 +147,26 @@ class CompoundItem extends Item
         $this->priority++;
     }
 
+    public function canChangeStatus(string $status): bool
+    {
+        if (self::STATUS_DONE === $status && $this->hasSubItems()) {
+
+            foreach ($this->subItems as $subItem) {
+                if (self::STATUS_DONE !== $subItem->getStatus()) {
+                    return false;
+                }
+            }
+
+        }
+        if (!empty($this->blockedBy) && in_array($status, [self::STATUS_DONE, self::STAUS_IN_PROGRESS], true)) {
+            foreach ($this->blockedBy as $blockedBy) {
+                if (!$blockedBy->isDone()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     /**
      * @param string $status
@@ -141,21 +174,8 @@ class CompoundItem extends Item
      */
     public function setStatus(string $status): void
     {
-        if (self::STATUS_DONE === $status && $this->hasSubItems()) {
-
-            foreach ($this->subItems as $subItem) {
-                if (self::STATUS_DONE !== $subItem->getStatus()) {
-                    throw InvalidActionException::createCannotFinishTask();
-                }
-            }
-
-        }
-        if (in_array($status, [self::STATUS_DONE, self::STAUS_IN_PROGRESS], true) && !empty($this->blockedBy)) {
-            foreach ($this->blockedBy as $blockedBy) {
-                if (!$blockedBy->isDone()) {
-                    throw InvalidActionException::createCannotFinishTask();
-                }
-            }
+        if (!$this->canChangeStatus($status)) {
+            throw InvalidActionException::createCannotFinishTask();
         }
         parent::setStatus($status);
     }
@@ -275,7 +295,7 @@ class CompoundItem extends Item
     /**
      * @return iterable
      */
-    public function getBlockedBy() : iterable
+    public function getBlockedBy(): iterable
     {
         return $this->blockedBy;
     }
@@ -283,8 +303,8 @@ class CompoundItem extends Item
     /**
      * @return iterable
      */
-    public function getBlocks() : iterable
+    public function getBlocks(): iterable
     {
-       return $this->blocks;
+        return $this->blocks;
     }
 }
