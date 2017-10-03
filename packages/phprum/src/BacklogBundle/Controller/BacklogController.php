@@ -8,10 +8,13 @@ use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Form\CreateSubItemType;
+use BacklogBundle\Form\SearchItemType;
+use BacklogBundle\Form\SelectEpicType;
 use BacklogBundle\Form\TaskStatusType;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Repository\ItemRepository;
 use BacklogBundle\Repository\ItemSearchQuery;
+use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\Service\ItemPriority;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\{
@@ -30,6 +33,7 @@ class BacklogController extends Controller
      * @var ItemPriority
      */
     private $itemPriorityService;
+
 
     /**
      * BacklogController constructor.
@@ -58,10 +62,7 @@ class BacklogController extends Controller
         /** @var ItemRepository $repository */
         $repository = $this->get('item_repository');
 
-        $searchForm = $this->createFormBuilder(new ItemSearchQuery())
-            ->add('Status', TaskStatusType::class)
-            ->add('Search', SubmitType::class)
-            ->getForm();
+        $searchForm = $this->createForm(SearchItemType::class, new ItemSearchQuery(), ['user_id' => $this->getUser()->getId()]);
 
         $searchForm->handleRequest($request);
 
