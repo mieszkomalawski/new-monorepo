@@ -57,6 +57,7 @@ class BacklogCest
         $backlog->editItemOnList();
 
         $I->waitForElement('form', 5);
+        $I->scrollTo('#update_item_save');
 
         $backlog->updateFormFillEstimate(3);
         $backlog->updateFormSave();
@@ -75,6 +76,7 @@ class BacklogCest
         $backlog->editItemOnList();
 
         $I->waitForElement('form', 5);
+        $I->scrollTo('#update_item_save');
 
         $backlog->updateFormFillStatus('In progress');
         $backlog->updateFormSave();

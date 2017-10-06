@@ -8,6 +8,7 @@ use BacklogBundle\Entity\Epic;
 use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Service\CreatorJailer;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use PHPRum\DomainModel\Backlog\Backlog;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -56,7 +57,7 @@ class CreateItemType extends AbstractType
             $emptyData
         )
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class, ['required' => false, 'empty_data' => ''])
+            ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => ''])
             ->add('epic', SelectEpicType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($user->getId()),
             ])
