@@ -11,7 +11,7 @@ class BacklogCest
 
         $I->wantTo('Access backlog without logging in');
 
-        $I->amOnPage('/logout');
+        $I->amOnPage('/en/logout');
 
         $I->amOnPage(Backlog::$URL);
 

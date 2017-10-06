@@ -8,6 +8,7 @@ use BacklogBundle\Entity\Backlog;
 use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\SprintPropertyAccessor;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
@@ -44,7 +45,7 @@ class UpdateItemType extends AbstractType
     {
         $formBuilder
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class, ['required' => false, 'empty_data' => ''])
+            ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => ''])
             ->add('estimate', TextType::class, ['required' => false])
             ->add('status', TaskStatusType::class)
             ->add('Sprint', SelectSprintType::class, [

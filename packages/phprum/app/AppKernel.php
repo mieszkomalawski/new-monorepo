@@ -25,7 +25,8 @@ class AppKernel extends Kernel
             new \Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Xmon\ColorPickerTypeBundle\XmonColorPickerTypeBundle(),
-            new \Symfony\Bundle\AsseticBundle\AsseticBundle()
+            new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

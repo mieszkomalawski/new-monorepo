@@ -33,8 +33,7 @@ class SearchItemType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ItemSearchQuery::class
         ])
-        ->setRequired(['user_id'])
-        ;
+        ->setRequired(['user_id']);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
