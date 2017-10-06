@@ -8,23 +8,52 @@
         <link rel="stylesheet" href="{{ asset('build/global.css') }}">
     </head>
     <body>
-        <div class="container" >
-            <div class="row">
-                <div class="col-md-12">
+
+
+    <div id="wrapper" class="toggled">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="{{ path('epic_index') }}" >Epics</a>
+                </li>
+                <li>
+                    <a href="{{ path('list_backlog_items') }}" >Backlog</a>
+                </li>
+                <li>
                     <span><a href="{{ path('fos_user_security_logout') }}" >logout</a></span>
+                </li>
+                <li>
                     <span><a href="{{ path('fos_user_security_login') }}" >login</a></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    {% for message in app.flashes('notice') %}
-                        <span>{{ message }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-            {% block body %}{% endblock %}
+                </li>
+            </ul>
         </div>
-        {% block javascripts %}{% endblock %}
-        <script src="{{ asset('build/app.js') }}"></script>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+    {% block javascripts %}{% endblock %}
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
     </body>
 </html>
