@@ -8,6 +8,9 @@ require('simple-color-picker');
 var baseUrl = '';
 
 $(document).ready(function() {
+
+
+
     var Sortable = require('sortablejs');
     var el = document.getElementById('items');
 

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block javascripts %}
+
     <script>
-        var items = [];
+              var items = [];
         {% for item in items %}
             items.push({
                 id: {{ item.id }},
@@ -10,7 +11,10 @@
             });
         {% endfor %}
         var baseUrl = '{{ app.request.getSchemeAndHttpHost() }}';
+
+
     </script>
+
 {% endblock %}
 
 {%  block body %}
