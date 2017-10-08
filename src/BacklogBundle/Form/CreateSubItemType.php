@@ -5,6 +5,7 @@ namespace BacklogBundle\Form;
 
 
 use BacklogBundle\Entity\CompoundItem;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use PHPRum\DomainModel\Backlog\SubItem;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -36,7 +37,7 @@ class CreateSubItemType extends AbstractType
             $emptyData
         )
             ->add('name', TextType::class, ['mapped' => false])
-            ->add('description', TextareaType::class, ['required' => false])
+            ->add('description', CKEditorType::class, ['required' => false])
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
     }
