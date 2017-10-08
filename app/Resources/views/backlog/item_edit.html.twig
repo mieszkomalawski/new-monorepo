@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
 
+    <script src={{ asset('build/update_item.js') }}>
+
+    </script>
+
+{% endblock %}
 
 {% block body %}
 {% form_theme form 'jquery.collection.html.twig' %}
