@@ -3,34 +3,33 @@
 {% block body %}
     <h1>Epic</h1>
 
-    <table>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Color</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
         <tbody>
             <tr>
-                <th>Id</th>
                 <td>{{ epic.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
                 <td>{{ epic.name }}</td>
-            </tr>
-            <tr>
-                <th>Color</th>
                 <td>{{ epic.color }}</td>
+                <td>
+                    <button class="btn">
+                        <a href="{{ path('epic_edit', { 'id': epic.id }) }}">Edit</a>
+                    </button>
+                </td>
+                <td>
+                    {{ form_start(delete_form) }}
+                    <input class="btn" type="submit" value="Delete">
+                    {{ form_end(delete_form) }}
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('epic_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('epic_edit', { 'id': epic.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}
