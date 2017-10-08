@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bf64403-69c2-4682-850f-cf216a546b53" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/build/backlog_list.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/build/update_item.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/js/backlog_list.js" afterPath="$PROJECT_DIR$/assets/js/backlog/item_list.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/js/update_item.js" afterPath="$PROJECT_DIR$/assets/js/backlog/item_edit.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/build/app.js" afterPath="$PROJECT_DIR$/web/build/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/build/manifest.json" afterPath="$PROJECT_DIR$/web/build/manifest.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/backlog/item_edit.js" afterPath="$PROJECT_DIR$/assets/js/backlog/item_edit.js" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -110,8 +103,8 @@
       <file leaf-file-name="item_edit.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="41" lean-forward="false" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+            <state relative-caret-position="319">
+              <caret line="63" column="71" lean-forward="false" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -121,7 +114,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Do</find>
       <find>Dom</find>
       <find>Doma</find>
       <find>Domai</find>
@@ -151,6 +143,7 @@
       <find>translator</find>
       <find>login</find>
       <find>menu-toggle</find>
+      <find>method</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -218,8 +211,8 @@
         <option value="$PROJECT_DIR$/assets/js/update_item.js" />
         <option value="$PROJECT_DIR$/assets/js/backlog_list.js" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
-        <option value="$PROJECT_DIR$/assets/js/backlog/item_edit.js" />
         <option value="$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig" />
+        <option value="$PROJECT_DIR$/assets/js/backlog/item_edit.js" />
         <option value="$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig" />
       </list>
     </option>
@@ -963,14 +956,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/backlog/item_edit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/item_list.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -987,10 +972,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/backlog/item_edit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="41" lean-forward="false" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+        <state relative-caret-position="319">
+          <caret line="63" column="71" lean-forward="false" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="71" />
           <folding />
         </state>
       </provider>

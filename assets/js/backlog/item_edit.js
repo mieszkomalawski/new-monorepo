@@ -11,6 +11,4 @@ $(document).ready(function() {
         add_at_the_end: true
      });
 
-     var colorPicker = new ColorPicker();
-
 });

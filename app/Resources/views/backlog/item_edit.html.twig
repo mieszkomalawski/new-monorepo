@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-{% form_theme form 'jquery.collection.html.twig' %}
+    {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', 'jquery.collection.html.twig', _self]  %}
 
     <div class="row">
         <div class="col-md-12">
@@ -18,104 +18,38 @@
     </div>
 
     {{ form_start(form) }}
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(form.name) }}
-            {{ form_errors(form.name) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_widget(form.name) }}
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(form.description) }}
-            {{ form_errors(form.description) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_widget(form.description) }}
-        </div>
-    </div>
+    {{ form_row(form.save) }}
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(form.estimate) }}
-            {{ form_errors(form.estimate) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_widget(form.estimate) }}
-        </div>
-    </div>
+    {{ form_row(form.name) }}
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(form.status) }}
-            {{ form_errors(form.status) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_widget(form.status) }}
-        </div>
-    </div>
+    {{ form_row(form.estimate) }}
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(form.Sprint) }}
-            {{ form_errors(form.Sprint) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_widget(form.Sprint) }}
-        </div>
-    </div>
+    {{ form_row(form.status) }}
 
-    <div class="row">
+    {{ form_row(form.Sprint) }}
 
-            <div class="col-md-6">
+    {{ form_row(form.epic) }}
 
-                        {% if path is defined %}
-                            <img src="{{ path }}"/>
-                        {% endif %}
+    {{ form_row(form.blockedBy) }}
 
+    {{ form_row(form.blocks) }}
+
+    {{ form_row(form.description) }}
+
+    {{ form_row(form.labels) }}
+
+    {% if path is defined %}
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{{ path }}"/>
             </div>
-            <div class="col-md-6">
-                {{ form_widget(form.imageFile) }}
-                {{ form_errors(form.imageFile) }}
-            </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-12" >
-            {{ form_row(form.blockedBy) }}
         </div>
-    </div>
+    {% endif %}
 
-    <div class="row">
-        <div class="col-md-12" >
-            {{ form_row(form.blocks) }}
-        </div>
-    </div>
+    {{ form_row(form.imageFile) }}
 
-    <div class="row">
-        <div class="col-md-6">
-
-        </div>
-        <div class="col-md-6">
-            {{ form_widget(form.save) }}
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12" >
-            {#<ul class="labels" data-prototype="{{ form_widget(form.labels.vars.prototype)|e('html_attr') }}">#}
-
-                    {{ form_row(form.labels) }}
-
-            {#</ul>#}
-        </div>
-    </div>
-
-    <div class="row">
+   {# <div class="form-group">
         <div class="col-md-12">
             <table class="table">
                 <tr>
@@ -134,7 +68,9 @@
                 {% endfor %}
             </table>
         </div>
-    </div>
+    </div>#}
+    {{ form_row(form.subItems) }}
+
     {{ form_end(form) }}
 
 {% endblock %}
