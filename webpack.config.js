@@ -8,8 +8,8 @@ Encore
 .addStyleEntry('global', './assets/css/global.scss')
 .enableSassLoader()
 .autoProvidejQuery()
-.addEntry('backlog_list', './assets/js/backlog_list.js')
-.addEntry('update_item', './assets/js/update_item.js')
+.addEntry('item_list', './assets/js/backlog/item_list.js')
+.addEntry('item_edit', './assets/js/backlog/item_edit.js')
 .enableSourceMaps(!Encore.isProduction());
 
 

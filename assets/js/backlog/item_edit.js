@@ -1,5 +1,5 @@
 // loads the jquery package from node_modules
-require('./jquery.collection.js');
+require('./../jquery.collection.js');
 require('simple-color-picker');
 
 
