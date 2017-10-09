@@ -57,7 +57,6 @@ class BacklogCest
         $backlog->editItemOnList();
 
         $I->waitForElement('form', 5);
-        $I->scrollTo('#update_item_save');
 
         $backlog->updateFormFillEstimate(3);
         $backlog->updateFormSave();
@@ -76,7 +75,6 @@ class BacklogCest
         $backlog->editItemOnList();
 
         $I->waitForElement('form', 5);
-        $I->scrollTo('#update_item_save');
 
         $backlog->updateFormFillStatus('In progress');
         $backlog->updateFormSave();
@@ -102,7 +100,7 @@ class BacklogCest
         $I->waitForElement('form', 5);
 
         $I->fillField('create_sub_item[name]', 'New sub task');
-        $backlog->updateFormSave();
+        $backlog->createSubItemSave();
 
         // see that sub task is added to main task
 

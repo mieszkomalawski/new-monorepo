@@ -28,7 +28,7 @@ class StatusUpdateSubItemType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['disabled' => true])
-            ->add('description', TextareaType::class, ['disabled' => false])
+            ->add('description', TextareaType::class, ['disabled' => true])
             ->add('status', TaskStatusType::class, ['required' => false])
             ->getForm();
     }

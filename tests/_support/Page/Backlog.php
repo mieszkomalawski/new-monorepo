@@ -57,16 +57,25 @@ class Backlog
 
     public function createFormSave()
     {
+        $this->tester->scrollTo('#create_item_save');
         $this->tester->click('Save');
     }
 
     public function updateFormSave()
     {
+        $this->tester->scrollTo('#update_item_save');
+        $this->tester->click('Save');
+    }
+
+    public function createSubItemSave()
+    {
+        $this->tester->scrollTo('#create_sub_item_save');
         $this->tester->click('Save');
     }
 
     public function updateFormFillEstimate($estimate)
     {
+        $this->tester->scrollTo('#update_item_estimate');
         $this->tester->fillField('update_item[estimate]', $estimate);
     }
 
@@ -77,6 +86,7 @@ class Backlog
 
     public function updateFormFillStatus($status)
     {
+        $this->tester->scrollTo('#update_item_status');
         $this->tester->selectOption('update_item[status]', $status);
     }
 
