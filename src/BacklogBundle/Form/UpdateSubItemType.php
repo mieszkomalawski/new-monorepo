@@ -28,8 +28,9 @@ class UpdateSubItemType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['required' => false])
-            ->add('description', CKEditorType::class, ['required' => false])
+            ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => ''])
             ->add('status', TaskStatusType::class, ['required' => false])
+            ->add('Save', SubmitType::class)
             ->getForm();
     }
 
