@@ -25,7 +25,7 @@ class BacklogSpec extends ObjectBehavior
         $item2 = $this->createItem('item2', $user);
         $item3 = $this->createItem('item3', $user);
 
-        $item1->getPriority()->shouldBe(1);
+        $item1->getPriority()->shouldBe(4);
         $item2->getPriority()->shouldBe(2);
         $item3->getPriority()->shouldBe(3);
     }

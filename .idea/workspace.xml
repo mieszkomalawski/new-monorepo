@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bf64403-69c2-4682-850f-cf216a546b53" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/php-test-framework.xml" afterPath="$PROJECT_DIR$/.idea/php-test-framework.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/php.xml" afterPath="$PROJECT_DIR$/.idea/php.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pre-commit" afterPath="$PROJECT_DIR$/pre-commit" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/CreateItemTypeTest.php" afterPath="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/CreateItemTypeTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php" afterPath="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php" afterPath="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,11 +38,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpdateItemTypeTest.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UpdateItemTypeTest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="388">
               <caret line="57" column="31" lean-forward="false" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pre-commit" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pre-commit">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BacklogSpec.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="27" column="41" lean-forward="false" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -78,26 +93,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
               <caret line="31" column="20" lean-forward="false" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestCase.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/phpunit/phpunit/src/Framework/TestCase.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="1070" column="0" lean-forward="false" selection-start-line="1070" selection-start-column="0" selection-end-line="1070" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FormConfigBuilder.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Form/FormConfigBuilder.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="473" column="0" lean-forward="false" selection-start-line="473" selection-start-column="0" selection-end-line="473" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -176,7 +171,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Exception/StatusNotAllowed.php" />
         <option value="$PROJECT_DIR$/src/PHPRum/DomainModel/Backlog/Sprint.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Entity/Item.php" />
         <option value="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/ItemSpec.php" />
@@ -223,10 +217,11 @@
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/StatusUpdateSubItemType.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/CreateSubItemType.php" />
-        <option value="$PROJECT_DIR$/pre-commit" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/CreateItemType.php" />
         <option value="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/CreateItemTypeTest.php" />
         <option value="$PROJECT_DIR$/tests/unit/BacklogBundle/Form/UpdateItemTypeTest.php" />
+        <option value="$PROJECT_DIR$/pre-commit" />
+        <option value="$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php" />
       </list>
     </option>
   </component>
@@ -949,6 +944,32 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phprum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phprum" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spec" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PHPRum" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DomainModel" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Backlog" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -1129,14 +1150,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/js/jquery.collection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/backlog/sprint_item_list.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1417,14 +1430,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pre-commit">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/phpspec/prophecy/src/Prophecy/Prophecy/ObjectProphecy.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1533,6 +1538,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="388">
           <caret line="57" column="31" lean-forward="false" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pre-commit">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/PHPRum/DomainModel/Backlog/BacklogSpec.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="27" column="41" lean-forward="false" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
           <folding />
         </state>
       </provider>
