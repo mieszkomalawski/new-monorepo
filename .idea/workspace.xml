@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0bf64403-69c2-4682-850f-cf216a546b53" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BacklogBundle/Controller/BacklogController.php" afterPath="$PROJECT_DIR$/src/BacklogBundle/Controller/BacklogController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php" afterPath="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateSubItemType.php" afterPath="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateSubItemType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BacklogBundle/Form/CreateSubItemType.php" afterPath="$PROJECT_DIR$/src/BacklogBundle/Form/CreateSubItemType.php" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateSubItemType.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CreateSubItemType.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/CreateSubItemType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+            <state relative-caret-position="370">
+              <caret line="39" column="93" lean-forward="true" selection-start-line="39" selection-start-column="93" selection-end-line="39" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -62,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StatusUpdateSubItemType.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StatusUpdateSubItemType.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/StatusUpdateSubItemType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
+            <state relative-caret-position="390">
+              <caret line="35" column="1" lean-forward="true" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -95,7 +92,7 @@
       <file leaf-file-name="UpdateItemType.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
+            <state relative-caret-position="379">
               <caret line="62" column="55" lean-forward="false" selection-start-line="62" selection-start-column="55" selection-end-line="62" selection-end-column="55" />
               <folding />
             </state>
@@ -219,13 +216,13 @@
         <option value="$PROJECT_DIR$/assets/js/backlog/item_edit.js" />
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/app/Resources/views/epic/show.html.twig" />
-        <option value="$PROJECT_DIR$/src/BacklogBundle/Form/CreateSubItemType.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Entity/SubItem.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Controller/BacklogController.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateSubItemType.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/backlog/item_edit.html.twig" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php" />
         <option value="$PROJECT_DIR$/src/BacklogBundle/Form/StatusUpdateSubItemType.php" />
+        <option value="$PROJECT_DIR$/src/BacklogBundle/Form/CreateSubItemType.php" />
       </list>
     </option>
   </component>
@@ -1221,14 +1218,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/CreateSubItemType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Controller/BacklogController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
@@ -1253,14 +1242,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/UpdateSubItemType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="31" column="72" lean-forward="false" selection-start-line="31" selection-start-column="72" selection-end-line="31" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/BlockedByType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -1277,18 +1258,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/StatusUpdateSubItemType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="35" column="1" lean-forward="true" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/UpdateSubItemType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="31" column="72" lean-forward="false" selection-start-line="31" selection-start-column="72" selection-end-line="31" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/UpdateItemType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
+        <state relative-caret-position="379">
           <caret line="62" column="55" lean-forward="false" selection-start-line="62" selection-start-column="55" selection-end-line="62" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/StatusUpdateSubItemType.php">
+    <entry file="file://$PROJECT_DIR$/src/BacklogBundle/Form/CreateSubItemType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
+        <state relative-caret-position="370">
+          <caret line="39" column="93" lean-forward="true" selection-start-line="39" selection-start-column="93" selection-end-line="39" selection-end-column="93" />
           <folding />
         </state>
       </provider>

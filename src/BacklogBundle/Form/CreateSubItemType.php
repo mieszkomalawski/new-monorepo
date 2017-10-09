@@ -37,7 +37,7 @@ class CreateSubItemType extends AbstractType
             $emptyData
         )
             ->add('name', TextType::class, ['mapped' => false])
-            ->add('description', CKEditorType::class, ['required' => false])
+            ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => ''])
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
     }
