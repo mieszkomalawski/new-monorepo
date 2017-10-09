@@ -49,13 +49,14 @@
 
     {{ form_row(form.imageFile) }}
 
-   {# <div class="form-group">
+    <div class="form-group">
         <div class="col-md-12">
             <table class="table">
                 <tr>
                     <td>Name</td>
                     <td>Description</td>
                     <td>Status</td>
+                    <td>Edt</td>
                 </tr>
                 {% for subItem in form.subItems %}
                     <tr>
@@ -63,13 +64,17 @@
                         <td>{{ form_widget(subItem.name) }}</td>
                         <td>{{ form_widget(subItem.description) }}</td>
                         <td>{{ form_widget(subItem.status) }} {{ form_errors(subItem.status) }}</td>
+                        <td>
+                            <div class="btn">
+                                <a href="{{ path('edit_sub_task', {'id': item.id, 'subItemId': subItem.vars.value.id }) }}">Edit</a>
+                            </div>
+                        </td>
 
                     </tr>
                 {% endfor %}
             </table>
         </div>
-    </div>#}
-    {{ form_row(form.subItems) }}
+    </div>
 
     {{ form_end(form) }}
 

@@ -5,6 +5,7 @@ namespace BacklogBundle\Controller;
 
 use BacklogBundle\BacklogBundle;
 use BacklogBundle\Entity\CompoundItem;
+use BacklogBundle\Entity\SubItem;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Form\CreateSubItemType;
@@ -12,10 +13,12 @@ use BacklogBundle\Form\SearchItemType;
 use BacklogBundle\Form\SelectEpicType;
 use BacklogBundle\Form\TaskStatusType;
 use BacklogBundle\Form\UpdateItemType;
+use BacklogBundle\Form\UpdateSubItemType;
 use BacklogBundle\Repository\ItemRepository;
 use BacklogBundle\Repository\ItemSearchQuery;
 use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\Service\ItemPriority;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\{
     SubmitType, TextType
@@ -155,6 +158,29 @@ class BacklogController extends Controller
     public function addSubTask(CompoundItem $parentItem, Request $request)
     {
         $form = $this->createForm(CreateSubItemType::class, null, ['parent_item' => $parentItem]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $subItem = $form->getData();
+            $objectManager = $this->getDoctrine()->getManager();
+            $objectManager->persist($subItem);
+            $objectManager->flush();
+
+            return $this->redirectToRoute('edit_item', ['id' => $parentItem->getId()]);
+        }
+
+        return $this->render('backlog/sub_item_add.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/backlog/{id}/edit-sub-task/{subItemId}", name="edit_sub_task")
+     * @Method({"POST", "GET"})
+     * @ParamConverter("subItem", options={"id" = "subItemId"})
+     */
+    public function editSubTask(CompoundItem $parentItem, SubItem $subItem, Request $request)
+    {
+        $form = $this->createForm(UpdateSubItemType::class, $subItem);
 
         $form->handleRequest($request);
 

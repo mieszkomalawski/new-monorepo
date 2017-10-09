@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UpdateSubItemType extends AbstractType
+class StatusUpdateSubItemType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -27,8 +27,8 @@ class UpdateSubItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, ['required' => false])
-            ->add('description', CKEditorType::class, ['required' => false])
+            ->add('name', TextType::class, ['disabled' => true])
+            ->add('description', TextareaType::class, ['disabled' => false])
             ->add('status', TaskStatusType::class, ['required' => false])
             ->getForm();
     }

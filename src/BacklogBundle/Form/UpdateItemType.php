@@ -44,7 +44,7 @@ class UpdateItemType extends AbstractType
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
         $formBuilder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, ['required' => false, 'empty_data' => ''])
             ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => ''])
             ->add('estimate', TextType::class, ['required' => false])
             ->add('status', TaskStatusType::class)
@@ -60,7 +60,7 @@ class UpdateItemType extends AbstractType
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->add('imageFile', FileType::class, ['required' => false])
             ->add('subItems', CollectionType::class, [
-                'entry_type' => UpdateSubItemType::class,
+                'entry_type' => StatusUpdateSubItemType::class,
                 'entry_options' => ['label' => false]
             ])
             ->add('blockedBy', EntityType::class, [
