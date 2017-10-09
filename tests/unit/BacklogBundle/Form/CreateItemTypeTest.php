@@ -11,6 +11,12 @@ use BacklogBundle\Entity\User;
 use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Service\CreatorJailer;
 use Doctrine\ORM\QueryBuilder;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Ivory\CKEditorBundle\Model\ConfigManager;
+use Ivory\CKEditorBundle\Model\PluginManager;
+use Ivory\CKEditorBundle\Model\StylesSetManager;
+use Ivory\CKEditorBundle\Model\TemplateManager;
+use Ivory\CKEditorBundle\Model\ToolbarManager;
 use Symfony\Component\Form\PreloadedExtension;
 
 class CreateItemTypeTest extends EntityAwareTypeCase
@@ -28,7 +34,14 @@ class CreateItemTypeTest extends EntityAwareTypeCase
         $creasteItemType = new CreateItemType(
             $creatorJailer->reveal()
         );
-        return new PreloadedExtension([$creasteItemType], []);
+        $ck = new CKEditorType(
+            $this->prophesize(ConfigManager::class)->reveal(),
+            $this->prophesize(PluginManager::class)->reveal(),
+            $this->prophesize(StylesSetManager::class)->reveal(),
+            $this->prophesize(TemplateManager::class)->reveal(),
+            $this->prophesize(ToolbarManager::class)->reveal()
+        );
+        return new PreloadedExtension([$creasteItemType, $ck], []);
     }
 
     /**
