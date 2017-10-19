@@ -17,6 +17,7 @@ use Ivory\CKEditorBundle\Model\PluginManager;
 use Ivory\CKEditorBundle\Model\StylesSetManager;
 use Ivory\CKEditorBundle\Model\TemplateManager;
 use Ivory\CKEditorBundle\Model\ToolbarManager;
+use function SebastianBergmann\ObjectGraph\object_graph_dump;
 use Symfony\Component\Form\PreloadedExtension;
 
 class CreateItemTypeTest extends EntityAwareTypeCase

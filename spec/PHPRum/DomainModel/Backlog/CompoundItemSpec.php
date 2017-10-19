@@ -9,13 +9,14 @@ use PHPRum\DomainModel\Backlog\CompoundItem;
 use PHPRum\DomainModel\Backlog\Item;
 use PHPRum\DomainModel\Backlog\Sprint;
 use PHPRum\DomainModel\Backlog\SubItem;
+use PHPRum\EventDispatcher;
 use PhpSpec\ObjectBehavior;
 
 class CompoundItemSpec extends ObjectBehavior
 {
-    function let(User $user)
+    function let(User $user, EventDispatcher $eventDispatcher)
     {
-        $this->beConstructedWith('test-item', $user);
+        $this->beConstructedWith('test-item', $user, $eventDispatcher);
     }
 
     function it_is_initializable()

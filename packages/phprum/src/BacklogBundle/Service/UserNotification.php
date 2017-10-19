@@ -69,6 +69,15 @@ class UserNotification implements MessageComponentInterface
     }
 
     /**
+     * @param $message
+     */
+    public function pushMessage($message){
+        foreach ($this->connections as $connection){
+            $connection->send($message);
+        }
+    }
+
+    /**
      * @param ConnectionInterface $currentConnection
      * @return array|ConnectionInterface[]
      */

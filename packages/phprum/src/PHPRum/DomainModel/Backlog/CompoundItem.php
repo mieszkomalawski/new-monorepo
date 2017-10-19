@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace PHPRum\DomainModel\Backlog;
 
+use PHPRum\DomainModel\Backlog\Event\ItemAdded;
 use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
 use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
+use PHPRum\EventDispatcher;
+use PHPRum\StaticEventDispatcher;
 
 class CompoundItem extends Item
 {
@@ -58,6 +61,9 @@ class CompoundItem extends Item
         $this->name = $name;
         $this->createdAt = new \DateTime();
         $this->creator = $creator;
+        StaticEventDispatcher::getEventDispatcher()->dispatch(new ItemAdded(
+            $name
+        ));
     }
 
     /**

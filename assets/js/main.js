@@ -2,6 +2,7 @@
 
 // loads the jquery package from node_modules
 var $ = require('jquery');
+require('./../../bower_components/remarkable-bootstrap-notify/bootstrap-notify');
 
 
 //lancement serveur chat
@@ -10,6 +11,7 @@ function NotifServer(){
 
     notif.onmessage = function (event) {
         console.log(event.data);
+        var notify = $.notify(event.data, { allow_dismiss: true });
 
     }
 

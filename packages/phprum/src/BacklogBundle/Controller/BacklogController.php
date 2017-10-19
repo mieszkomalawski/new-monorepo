@@ -20,6 +20,7 @@ use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\Service\ItemPriority;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\Extension\Core\Type\{
     SubmitType, TextType
 };
@@ -37,14 +38,19 @@ class BacklogController extends Controller
      */
     private $itemPriorityService;
 
+    /**
+     * @var EventDispatcher
+     */
+    private $eventDispatcher;
 
     /**
      * BacklogController constructor.
      * @param ItemPriority $itemPriorityService
      */
-    public function __construct(ItemPriority $itemPriorityService)
+    public function __construct(ItemPriority $itemPriorityService, EventDispatcher $eventDispatcher)
     {
         $this->itemPriorityService = $itemPriorityService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**

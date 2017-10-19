@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5dd4501fe93be82cd28cf1bbf9ec5940",
+    "content-hash": "8edc589548de441bd1f5841486524140",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -6586,6 +6586,57 @@
             "description": "Traverses array structures and object graphs to enumerate all referenced objects",
             "homepage": "https://github.com/sebastianbergmann/object-enumerator/",
             "time": "2017-08-03T12:35:26+00:00"
+        },
+        {
+            "name": "sebastian/object-graph",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/object-graph.git",
+                "reference": "79f6eb1fba1d47eebf985002fd344bbbbe98623a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/object-graph/zipball/79f6eb1fba1d47eebf985002fd344bbbbe98623a",
+                "reference": "79f6eb1fba1d47eebf985002fd344bbbbe98623a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "sebastian/object-enumerator": "^3.0.3",
+                "sebastian/object-reflector": "^1.1.1"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.6",
+                "phpunit/phpunit": "^6.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de"
+                }
+            ],
+            "description": "Provides useful operations on PHP object graphs",
+            "homepage": "https://github.com/sebastianbergmann/object-graph/",
+            "time": "2017-10-15T08:37:19+00:00"
         },
         {
             "name": "sebastian/object-reflector",
