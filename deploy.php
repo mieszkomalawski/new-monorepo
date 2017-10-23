@@ -47,5 +47,5 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 before('deploy:symlink', 'database:migrate');
-//after('deploy:symlink', 'jwt:env');
+after('deploy:symlink', 'php bin/console user:notification:server');
 
