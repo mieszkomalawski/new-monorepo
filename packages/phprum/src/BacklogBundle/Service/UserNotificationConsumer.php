@@ -4,6 +4,7 @@
 namespace BacklogBundle\Service;
 
 
+use BacklogBundle\Infrastructure\Amqp\AmqpChannelManager;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
@@ -12,11 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UserNotificationConsumer
 {
-    /**
-     * @var \AMQPConnection
-     */
-    private $amqpConnection;
-
     /**
      * @var OutputInterface
      */
@@ -35,24 +31,11 @@ class UserNotificationConsumer
     /**
      * UserNotificationConsumer constructor.
      */
-    public function __construct(UserNotification $userNotification, OutputInterface $output)
+    public function __construct(UserNotification $userNotification, OutputInterface $output, AmqpChannelManager $amqpChannelManager)
     {
-        $this->amqpConnection = new AMQPStreamConnection(
-            'localhost',
-            '5672',
-            'guest',
-            'guest',
-            '/'
-        );
-        $this->output = $output;
         $this->userNotification = $userNotification;
-        $this->channel = $this->amqpConnection->channel();
-        $queue = 'user_activity';
-        $this->channel->queue_declare($queue, false, true, false, false);
-        $exchange = 'user';
-        $this->channel->exchange_declare($exchange, 'direct', false, true, false);
-        $this->channel->queue_bind($queue, $exchange);
-        $this->channel->basic_consume($queue, 'consumer', false, false, false, false, [$this, 'consumeMessage']);
+        $this->output = $output;
+        $this->channel = $amqpChannelManager->createUserNotificationConsumer([$this, 'consumeMessage']);
     }
 
     public function read()

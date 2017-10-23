@@ -35,10 +35,6 @@ class UserNotification implements MessageComponentInterface
         $this->debugOutput->writeln('connection opened');
         $this->connections[] = $currentConnection;
         $currentConnection->send('opened');
-       /* $f = function (ConnectionInterface $connection) {
-            $connection->send('new user joined');
-        };
-        $this->executeOnAllOtherCollections($currentConnection, $f);*/
     }
 
     function onClose(ConnectionInterface $conn)
@@ -46,10 +42,6 @@ class UserNotification implements MessageComponentInterface
         $this->debugOutput->writeln('connection closed');
         $conn->send('closed');
         $conn->close();
-        /*$f = function (ConnectionInterface $connection) {
-            $connection->send('user leaved');
-        };
-        $this->executeOnAllOtherCollections($conn, $f);*/
     }
 
     function onError(ConnectionInterface $conn, \Exception $e)

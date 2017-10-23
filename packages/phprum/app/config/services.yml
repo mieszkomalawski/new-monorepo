@@ -32,6 +32,17 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    BacklogBundle\Infrastructure\Amqp\AmqpChannelManager:
+        public: true
+        autowire: true
+
+    PhpAmqpLib\Channel\AMQPChannel:
+        #calling dinamically as service
+        factory: ['@BacklogBundle\Infrastructure\Amqp\AmqpChannelManager', 'createUserNotificationPublisher']
+
+    PhpAmqpLib\Connection\AMQPStreamConnection:
+        arguments: ['%amqp_server%', '%amqp_port%', '%amqp_user%', '%amqp_pass%', '%amqp_host%']
+
     # add more services, or override services that need manual wiring
     # BacklogBundle\Service\ExampleService:
     #     arguments:

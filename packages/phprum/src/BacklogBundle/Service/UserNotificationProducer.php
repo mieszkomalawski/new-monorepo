@@ -4,31 +4,25 @@
 namespace BacklogBundle\Service;
 
 
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 
 class UserNotificationProducer
 {
     /**
-     * UserNotificationConsumer constructor.
+     * @var AMQPChannel
      */
-    public function __construct()
-    {
-        $this->amqpConnection = new AMQPStreamConnection(
-            'localhost',
-            '5672',
-            'guest',
-            'guest',
-            '/'
-        );
+    private $channel;
 
-        $this->channel = $this->amqpConnection->channel();
-        $queue = 'user_activity';
-        $this->channel->queue_declare($queue, false, true, false, false);
-        $exchange = 'user';
-        $this->channel->exchange_declare($exchange, 'direct', false, true, false);
-        $this->channel->queue_bind($queue, $exchange);
+    /**
+     * UserNotificationProducer constructor.
+     * @param AMQPChannel $channel
+     */
+    public function __construct(AMQPChannel $channel)
+    {
+        $this->channel = $channel;
     }
+
 
     /**
      * @param string $message

@@ -25,7 +25,11 @@ class WebSocketServerCommand extends ContainerAwareCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $component = new UserNotification($output);
-        $userNotificationConsumer = new UserNotificationConsumer($component, $output);
+        $userNotificationConsumer = new UserNotificationConsumer(
+            $component,
+            $output,
+            $this->getContainer()->get('BacklogBundle\Infrastructure\Amqp\AmqpChannelManager')
+        );
         $loop = Factory::create();
         $loop->addPeriodicTimer(5, [$userNotificationConsumer, 'read']);
 
