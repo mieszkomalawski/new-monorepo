@@ -42,6 +42,4 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface, Ordered
     {
         return 1;
     }
-
-
 }

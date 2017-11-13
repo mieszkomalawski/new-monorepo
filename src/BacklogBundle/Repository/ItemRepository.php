@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Repository;
-
 
 use BacklogBundle\BacklogBundle;
 use BacklogBundle\Entity\Backlog;
@@ -27,10 +25,11 @@ class ItemRepository extends EntityRepository implements PaginatorAwareInterface
     }
 
     /**
-     * @param int $userId
-     * @param int $page
+     * @param int             $userId
+     * @param int             $page
      * @param ItemSearchQuery $itemSearchQuery
-     * @param int $perPage
+     * @param int             $perPage
+     *
      * @return PaginationInterface
      */
     public function getByPage(
@@ -39,8 +38,6 @@ class ItemRepository extends EntityRepository implements PaginatorAwareInterface
         ItemSearchQuery $itemSearchQuery,
         int $perPage = BacklogBundle::MAX_ITEMS_PER_PAGE
     ): PaginationInterface {
-
-
         $queryBuilder = $this->createQueryBuilder('Items');
         $queryBuilder = $queryBuilder
             ->select()
@@ -66,6 +63,7 @@ class ItemRepository extends EntityRepository implements PaginatorAwareInterface
 
     /**
      * @param int $userId
+     *
      * @return Backlog
      */
     public function getFullBacklog(int $userId): Backlog
@@ -80,5 +78,4 @@ class ItemRepository extends EntityRepository implements PaginatorAwareInterface
 
         return new Backlog($items);
     }
-
 }

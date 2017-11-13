@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PHPRum\DomainModel\Backlog;
-
 
 class Sprint
 {
@@ -43,7 +41,8 @@ class Sprint
 
     /**
      * Sprint constructor.
-     * @param string $duration
+     *
+     * @param string       $duration
      * @param BacklogOwner $creator
      */
     public function __construct($duration, BacklogOwner $creator)
@@ -53,13 +52,15 @@ class Sprint
     }
 
     /**
-     * Starts this sprint and returns next one
+     * Starts this sprint and returns next one.
+     *
      * @return Sprint
      */
-    public function start(): Sprint
+    public function start(): self
     {
         $this->isStarted = true;
         $this->startDate = new \DateTime();
+
         return $this->createNexSprint();
     }
 
@@ -74,7 +75,7 @@ class Sprint
 
     public function getName(): string
     {
-        return 'Sprint ' . $this->id;
+        return 'Sprint '.$this->id;
     }
 
     /**
@@ -92,6 +93,7 @@ class Sprint
     {
         return array_reduce($this->items, function (int $carry, CompoundItem $item) {
             $carry += $item->getEstimate();
+
             return $carry;
         }, 0);
     }
@@ -115,19 +117,19 @@ class Sprint
     /**
      * @return \DateTime
      */
-    public function getEndDate() : \DateTime
+    public function getEndDate(): \DateTime
     {
         $interval = new \DateInterval('P1W');
-        if ($this->duration === '1_weel') {
+        if ('1_weel' === $this->duration) {
             $interval = new \DateInterval('P1W');
         }
-        if ($this->duration === '2_weel') {
+        if ('2_weel' === $this->duration) {
             $interval = new \DateInterval('P2W');
         }
-        if ($this->duration === '3_weel') {
+        if ('3_weel' === $this->duration) {
             $interval = new \DateInterval('P3W');
         }
-        if ($this->duration === '4_weel') {
+        if ('4_weel' === $this->duration) {
             $interval = new \DateInterval('P4W');
         }
 
@@ -148,9 +150,9 @@ class Sprint
     /**
      * @return Sprint
      */
-    protected function createNexSprint(): Sprint
+    protected function createNexSprint(): self
     {
-        return new Sprint(
+        return new self(
             $this->duration,
             $this->creator
         );
@@ -159,23 +161,19 @@ class Sprint
     /**
      * @return \DateTime
      */
-    public function getClosedOn() : ?\DateTime
+    public function getClosedOn(): ?\DateTime
     {
         return $this->closedOn;
     }
 
-    /**
-     *
-     */
-    public function end() : void
+    public function end(): void
     {
         $this->closedOn = new \DateTime();
         $this->isStarted = false;
     }
 
-    public function isFinished() : bool
+    public function isFinished(): bool
     {
-        return $this->closedOn !== null ? true : false;
+        return null !== $this->closedOn ? true : false;
     }
-
 }

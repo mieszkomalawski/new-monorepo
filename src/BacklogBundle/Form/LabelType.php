@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Form;
-
 
 use BacklogBundle\Entity\Label;
 use Symfony\Component\Form\AbstractType;
@@ -14,11 +12,11 @@ class LabelType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $emptyData = function (FormInterface $form)  {
+        $emptyData = function (FormInterface $form) {
             if (
                 $form->has('name') &&
                 is_string($form->get('name')->getData()) &&
@@ -43,8 +41,7 @@ class LabelType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Label::class
+            'data_class' => Label::class,
         ]);
     }
-
 }

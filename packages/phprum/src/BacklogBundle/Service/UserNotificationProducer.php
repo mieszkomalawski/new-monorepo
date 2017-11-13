@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Service;
-
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -16,13 +14,13 @@ class UserNotificationProducer
 
     /**
      * UserNotificationProducer constructor.
+     *
      * @param AMQPChannel $channel
      */
     public function __construct(AMQPChannel $channel)
     {
         $this->channel = $channel;
     }
-
 
     /**
      * @param string $message

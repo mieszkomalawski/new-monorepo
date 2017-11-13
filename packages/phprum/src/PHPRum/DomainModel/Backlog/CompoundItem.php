@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PHPRum\DomainModel\Backlog;
@@ -6,17 +7,14 @@ namespace PHPRum\DomainModel\Backlog;
 use PHPRum\DomainModel\Backlog\Event\ItemAdded;
 use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
 use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
-use PHPRum\EventDispatcher;
 use PHPRum\StaticEventDispatcher;
 
 class CompoundItem extends Item
 {
-
     /**
      * @var BacklogOwner
      */
     protected $creator;
-
 
     /**
      * @var Sprint
@@ -53,7 +51,8 @@ class CompoundItem extends Item
 
     /**
      * Item constructor.
-     * @param string $name
+     *
+     * @param string       $name
      * @param BacklogOwner $creator
      */
     public function __construct(string $name, BacklogOwner $creator)
@@ -76,7 +75,9 @@ class CompoundItem extends Item
 
     /**
      * @param string $name
+     *
      * @return SubItem
+     *
      * @throws InvalidActionException
      */
     public function createSubItem($name): SubItem
@@ -87,16 +88,18 @@ class CompoundItem extends Item
         $subItem = $this->doCreateSubItem($name);
 
         $this->addToSubItems($subItem);
+
         return $subItem;
     }
 
     /**
      * @param int $userId
+     *
      * @return bool
      */
     public function hasAccess(int $userId): bool
     {
-        /**
+        /*
          * for now only owner has access
          */
         return $this->creator->getId() === $userId;
@@ -104,6 +107,7 @@ class CompoundItem extends Item
 
     /**
      * @param int $estimate
+     *
      * @return bool
      */
     public function canEstimate(int $estimate): bool
@@ -113,12 +117,14 @@ class CompoundItem extends Item
 
     /**
      * @param int $estimate
+     *
      * @throws InvalidEstimate
      */
     public function setEstimate(int $estimate): void
     {
         if (!$estimate) {
             $this->estimate = null;
+
             return;
         }
         if (!$this->isValidEstimate($estimate)) {
@@ -126,7 +132,6 @@ class CompoundItem extends Item
         }
         $this->estimate = $estimate;
     }
-
 
     /**
      * @return int
@@ -143,6 +148,7 @@ class CompoundItem extends Item
     {
         if (!$priority) {
             $this->priority = null;
+
             return;
         }
         $this->priority = $priority;
@@ -150,19 +156,17 @@ class CompoundItem extends Item
 
     public function lowerPriority()
     {
-        $this->priority++;
+        ++$this->priority;
     }
 
     public function canChangeStatus(string $status): bool
     {
         if (self::STATUS_DONE === $status && $this->hasSubItems()) {
-
             foreach ($this->subItems as $subItem) {
                 if (self::STATUS_DONE !== $subItem->getStatus()) {
                     return false;
                 }
             }
-
         }
         if (!empty($this->blockedBy) && in_array($status, [self::STATUS_DONE, self::STAUS_IN_PROGRESS], true)) {
             foreach ($this->blockedBy as $blockedBy) {
@@ -171,11 +175,13 @@ class CompoundItem extends Item
                 }
             }
         }
+
         return true;
     }
 
     /**
      * @param string $status
+     *
      * @throws InvalidActionException
      */
     public function setStatus(string $status): void
@@ -199,7 +205,6 @@ class CompoundItem extends Item
         return $this->sprint;
     }
 
-
     /**
      * @return bool
      */
@@ -218,6 +223,7 @@ class CompoundItem extends Item
 
     /**
      * @param $name
+     *
      * @return SubItem
      */
     protected function doCreateSubItem(string $name): SubItem
@@ -229,7 +235,6 @@ class CompoundItem extends Item
     {
         $this->sprint = null;
     }
-
 
     /**
      * @return Epic
@@ -247,7 +252,6 @@ class CompoundItem extends Item
         $this->epic = $epic;
     }
 
-
     /**
      * @param SubItem $subItem
      */
@@ -258,6 +262,7 @@ class CompoundItem extends Item
 
     /**
      * @param int $estimate
+     *
      * @return bool
      */
     protected function isValidEstimate(int $estimate): bool
@@ -284,7 +289,7 @@ class CompoundItem extends Item
     /**
      * @param CompoundItem $item
      */
-    public function addBlockedBy(CompoundItem $item)
+    public function addBlockedBy(self $item)
     {
         $this->blockedBy[] = $item;
         $item->addBlockedBy($this);
@@ -293,7 +298,7 @@ class CompoundItem extends Item
     /**
      * @param CompoundItem $item
      */
-    public function addBlocks(CompoundItem $item)
+    public function addBlocks(self $item)
     {
         $this->blocks[] = $item;
     }

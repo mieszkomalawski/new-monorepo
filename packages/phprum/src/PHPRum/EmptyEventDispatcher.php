@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PHPRum;
-
 
 class EmptyEventDispatcher implements EventDispatcher
 {
@@ -10,5 +8,4 @@ class EmptyEventDispatcher implements EventDispatcher
     {
         // TODO: Implement dispatch() method.
     }
-
 }

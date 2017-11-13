@@ -27,6 +27,9 @@
                 <li>
                     <span><a href="{{ path('fos_user_security_login') }}" >login</a></span>
                 </li>
+                {{ render(controller(
+                    'BacklogBundle:Epic:shortcut'
+                )) }}
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

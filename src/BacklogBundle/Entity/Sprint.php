@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Entity;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPRum\DomainModel\Backlog\CompoundItem;
@@ -22,18 +20,17 @@ class Sprint extends \PHPRum\DomainModel\Backlog\Sprint
     /**
      * @return int
      */
-    public function getTotalPoints() : int
+    public function getTotalPoints(): int
     {
-        return array_reduce($this->items->getIterator()->getArrayCopy(), function(int $carry, CompoundItem $item){
+        return array_reduce($this->items->getIterator()->getArrayCopy(), function (int $carry, CompoundItem $item) {
             $carry += $item->getEstimate();
+
             return $carry;
         }, 0);
     }
 
     protected function createNexSprint(): \PHPRum\DomainModel\Backlog\Sprint
     {
-        return new Sprint($this->duration, $this->creator);
+        return new self($this->duration, $this->creator);
     }
-
-
 }

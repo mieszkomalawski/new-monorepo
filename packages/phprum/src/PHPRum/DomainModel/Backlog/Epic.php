@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PHPRum\DomainModel\Backlog;
-
 
 class Epic
 {
@@ -28,7 +26,8 @@ class Epic
 
     /**
      * Epic constructor.
-     * @param string $name
+     *
+     * @param string       $name
      * @param BacklogOwner $creator
      */
     public function __construct(string $name, BacklogOwner $creator)

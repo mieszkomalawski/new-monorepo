@@ -4,10 +4,13 @@ namespace BacklogBundle\Controller;
 
 use BacklogBundle\Entity\Epic;
 use BacklogBundle\Form\EpicType;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -35,6 +38,45 @@ class EpicController extends Controller
     }
 
     /**
+     * Lists all epic entities.
+     *
+     * @Route("/", name="epic_shortcut")
+     * @Method("GET")
+     */
+    public function shortcutAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $epics = $em->getRepository('BacklogBundle:Epic')->findAll();
+
+        $forms = [];
+        /** @var FormFactory $formFactory */
+        $formFactory = $this->get('form.factory');
+        /**
+         * @var Epic
+         */
+        foreach ($epics as $epic) {
+            $formView = $formFactory->createNamedBuilder(
+                'search_item',
+                FormType::class,
+                ['Epic' => $epic->getId()],
+                [
+                    'action' => $this->generateUrl('list_backlog_items'),
+                ]
+            )
+                ->add('Epic', HiddenType::class)
+                ->add($epic->getName(), SubmitType::class)
+                ->getForm()
+                ->createView();
+            $forms[] = $formView;
+        }
+
+        return $this->render('epic/shortcut.html.twig', array(
+            'forms' => $forms,
+        ));
+    }
+
+    /**
      * Creates a new epic entity.
      *
      * @Route("/new", name="epic_new")
@@ -42,8 +84,7 @@ class EpicController extends Controller
      */
     public function newAction(Request $request)
     {
-
-        $form = $this->createForm(EpicType::class, null , ['user' => $this->getUser()]);
+        $form = $this->createForm(EpicType::class, null, ['user' => $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

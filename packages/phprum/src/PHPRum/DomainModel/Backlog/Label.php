@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PHPRum\DomainModel\Backlog;
-
 
 class Label
 {
@@ -23,6 +21,7 @@ class Label
 
     /**
      * Label constructor.
+     *
      * @param string $name
      * @param string $color
      */
@@ -55,5 +54,4 @@ class Label
     {
         return $this->id;
     }
-
 }

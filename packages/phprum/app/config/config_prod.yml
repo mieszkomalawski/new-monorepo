@@ -24,5 +24,7 @@ monolog:
 doctrine:
     dbal:
         driver: pdo_sqlite
+        ## For now "production" also uses sqlite, after relesing to actual production server
+        ## it should be switched to proper storage
         path: '%kernel.root_dir%/../var/sqlite'
         charset: UTF8

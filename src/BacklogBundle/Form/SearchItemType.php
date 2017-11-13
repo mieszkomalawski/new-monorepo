@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Form;
-
 
 use BacklogBundle\Repository\ItemSearchQuery;
 use BacklogBundle\Service\CreatorJailer;
@@ -20,6 +18,7 @@ class SearchItemType extends AbstractType
 
     /**
      * SearchItemType constructor.
+     *
      * @param CreatorJailer $creatorJailer
      */
     public function __construct(CreatorJailer $creatorJailer)
@@ -27,11 +26,10 @@ class SearchItemType extends AbstractType
         $this->creatorJailer = $creatorJailer;
     }
 
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ItemSearchQuery::class
+            'data_class' => ItemSearchQuery::class,
         ])
         ->setRequired(['user_id']);
     }
@@ -42,10 +40,9 @@ class SearchItemType extends AbstractType
             ->add('Status', TaskStatusType::class)
             ->add('Epic', SelectEpicType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($options['user_id']),
-                'placeholder' => 'all'
+                'placeholder' => 'all',
             ])
             ->add('Search', SubmitType::class)
             ->getForm();
-
     }
 }

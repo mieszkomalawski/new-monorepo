@@ -1,6 +1,5 @@
 <?php
 
-
 namespace BacklogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -40,7 +39,7 @@ class CompoundItem extends \PHPRum\DomainModel\Backlog\CompoundItem
     {
         $metadata->addPropertyConstraint('name', new NotBlank());
         $metadata->addPropertyConstraint('name', new Length([
-            'min' => 2
+            'min' => 2,
         ]));
     }
 
@@ -85,6 +84,7 @@ class CompoundItem extends \PHPRum\DomainModel\Backlog\CompoundItem
     {
         $this->blocks = $blocks;
     }
+
     /**
      * @return string
      */
@@ -92,6 +92,4 @@ class CompoundItem extends \PHPRum\DomainModel\Backlog\CompoundItem
     {
         return $this->getName();
     }
-
-
 }

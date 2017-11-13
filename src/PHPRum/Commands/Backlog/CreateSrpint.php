@@ -1,11 +1,8 @@
 <?php
 
-
 namespace PHPRum\Commands\Backlog;
 
-
 use BacklogBundle\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use PHPRum\DomainModel\Backlog\Sprint;
 
@@ -28,6 +25,7 @@ class CreateSrpint
 
     /**
      * CreateItem constructor.
+     *
      * @param ObjectManager $entityNanager
      */
     public function __construct(ObjectManager $entityNanager)
@@ -68,6 +66,4 @@ class CreateSrpint
     {
         $this->user = $user;
     }
-
-
 }

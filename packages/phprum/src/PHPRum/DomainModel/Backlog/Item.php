@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PHPRum\DomainModel\Backlog;
-
 
 use PHPRum\DomainModel\Backlog\Exception\StatusNotAllowed;
 
@@ -13,7 +11,6 @@ abstract class Item
     const STATUS_NEW = 'new';
     const STATUS_DONE = 'done';
     const ALLOWED_STATUSES = [self::STATUS_NEW, self::STAUS_IN_PROGRESS, self::STATUS_DONE];
-
 
     /**
      * @var Label[]
@@ -61,7 +58,7 @@ abstract class Item
     /**
      * @param string $description
      */
-    public function setDescription(string $description) : void
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -127,7 +124,7 @@ abstract class Item
     /**
      * @param Label[] $labels
      */
-    public function setLabels(array $labels) : void
+    public function setLabels(array $labels): void
     {
         $this->labels = $labels;
     }
@@ -135,7 +132,7 @@ abstract class Item
     /**
      * @param Label $label
      */
-    public function addLabel(Label $label) : void
+    public function addLabel(Label $label): void
     {
         $this->labels[] = $label;
     }
@@ -143,7 +140,7 @@ abstract class Item
     /**
      * @param Label $labelToRemove
      */
-    public function removeLabel(Label $labelToRemove) : void
+    public function removeLabel(Label $labelToRemove): void
     {
         foreach ($this->labels as $key => $label) {
             if ($label->getId() === $labelToRemove->getId()) {
@@ -157,14 +154,15 @@ abstract class Item
      */
     public function isDone(): bool
     {
-        return $this->status === self::STATUS_DONE;
+        return self::STATUS_DONE === $this->status;
     }
 
     /**
      * @param string $status
+     *
      * @throws StatusNotAllowed
      */
-    public function setStatus(string $status) : void
+    public function setStatus(string $status): void
     {
         if (!$this->isStatusAllowed($status)) {
             throw StatusNotAllowed::create($status, self::ALLOWED_STATUSES);
@@ -174,6 +172,7 @@ abstract class Item
 
     /**
      * @param string $status
+     *
      * @return bool
      */
     protected function isStatusAllowed(string $status): bool
@@ -181,18 +180,13 @@ abstract class Item
         return in_array($status, self::ALLOWED_STATUSES, true);
     }
 
-
     /**
      * @return bool
      */
     abstract public function isInSprint(): bool;
 
-    /**
-     *
-     */
-    public function done() : void
+    public function done(): void
     {
         $this->setStatus(self::STATUS_DONE);
     }
-
 }

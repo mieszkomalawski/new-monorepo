@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle;
-
 
 use PHPRum\Event;
 use PHPRum\EventDispatcher;
@@ -17,6 +15,7 @@ class SymfonyEventDispatcherBridge implements EventDispatcher
 
     /**
      * SymfonyEventDispatcher constructor.
+     *
      * @param SymfonyEventDispatcher $eventDispatcher
      */
     public function __construct(SymfonyEventDispatcher $eventDispatcher)
@@ -27,10 +26,8 @@ class SymfonyEventDispatcherBridge implements EventDispatcher
     /**
      * @param Event $event
      */
-    public function dispatch(Event $event) : void
+    public function dispatch(Event $event): void
     {
         $this->eventDispatcher->dispatch($event->getName(), new EventWrapper($event));
     }
-
-
 }

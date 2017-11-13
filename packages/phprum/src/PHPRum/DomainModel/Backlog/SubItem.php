@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PHPRum\DomainModel\Backlog;
 
 class SubItem extends Item
@@ -17,7 +16,8 @@ class SubItem extends Item
 
     /**
      * SubItem constructor.
-     * @param string $name
+     *
+     * @param string       $name
      * @param BacklogOwner $creator
      * @param CompoundItem $parentItem
      */
@@ -37,7 +37,6 @@ class SubItem extends Item
         return $this->parentItem->getSprint();
     }
 
-
     public function getEpic(): ?Epic
     {
         return $this->parentItem->getEpic();
@@ -47,6 +46,4 @@ class SubItem extends Item
     {
         return $this->parentItem->isInSprint();
     }
-
-
 }

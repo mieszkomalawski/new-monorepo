@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Form;
-
 
 use BacklogBundle\Entity\Epic;
 use BacklogBundle\Entity\CompoundItem;
@@ -10,10 +8,8 @@ use BacklogBundle\Entity\User;
 use BacklogBundle\Service\CreatorJailer;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use PHPRum\DomainModel\Backlog\Backlog;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -28,6 +24,7 @@ class CreateItemType extends AbstractType
 
     /**
      * CreateItemType constructor.
+     *
      * @param CreatorJailer $creatorJailer
      */
     public function __construct(CreatorJailer $creatorJailer)
@@ -38,7 +35,7 @@ class CreateItemType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => CompoundItem::class
+            'data_class' => CompoundItem::class,
         ])->setRequired(['user', 'backlog']);
     }
 
@@ -64,5 +61,4 @@ class CreateItemType extends AbstractType
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
     }
-
 }

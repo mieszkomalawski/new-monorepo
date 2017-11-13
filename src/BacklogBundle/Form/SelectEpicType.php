@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Form;
-
 
 use BacklogBundle\Entity\Epic;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -11,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SelectEpicType extends AbstractType
 {
-
     /**
      * @param OptionsResolver $optionsResolver
      */
@@ -21,10 +18,9 @@ class SelectEpicType extends AbstractType
             'class' => Epic::class,
             'choice_label' => 'getName',
             'placeholder' => 'none',
-            'required' => false
+            'required' => false,
         ])->setRequired(['query_builder']);
     }
-
 
     public function getParent()
     {

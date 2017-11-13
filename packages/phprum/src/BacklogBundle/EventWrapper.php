@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle;
-
 
 use Symfony\Component\EventDispatcher\Event;
 
@@ -15,6 +13,7 @@ class EventWrapper extends Event
 
     /**
      * EventWrapper constructor.
+     *
      * @param \PHPRum\Event $internalEvent
      */
     public function __construct(\PHPRum\Event $internalEvent)

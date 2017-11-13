@@ -17,3 +17,5 @@
 /web/bundles/
 node_modules
 .idea/
+.php_cs_cache
+.DS_Store

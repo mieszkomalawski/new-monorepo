@@ -1,10 +1,7 @@
 <?php
 
-
 namespace BacklogBundle\Form;
 
-
-use BacklogBundle\Entity\Backlog;
 use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\SprintPropertyAccessor;
@@ -15,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,6 +25,7 @@ class UpdateItemType extends AbstractType
 
     /**
      * CreateItemType constructor.
+     *
      * @param CreatorJailer $creatorJailer
      */
     public function __construct(CreatorJailer $creatorJailer)
@@ -49,7 +46,7 @@ class UpdateItemType extends AbstractType
             ->add('estimate', TextType::class, ['required' => false])
             ->add('status', TaskStatusType::class)
             ->add('Sprint', SelectSprintType::class, [
-                'query_builder' => $this->creatorJailer->getJailingQuery($options['userId'])
+                'query_builder' => $this->creatorJailer->getJailingQuery($options['userId']),
             ])
             ->setDataMapper(new PropertyPathMapper(
                 new SprintPropertyAccessor(['Sprint' => 'addToSprint'])
@@ -61,29 +58,29 @@ class UpdateItemType extends AbstractType
             ->add('imageFile', FileType::class, ['required' => false])
             ->add('subItems', CollectionType::class, [
                 'entry_type' => StatusUpdateSubItemType::class,
-                'entry_options' => ['label' => false]
+                'entry_options' => ['label' => false],
             ])
             ->add('blockedBy', EntityType::class, [
                 'data_class' => null,
                 'choices' => $options['other_items'],
                 'class' => CompoundItem::class,
-                'multiple'     => true,
+                'multiple' => true,
                 'choice_label' => 'getName',
-                'required' => false
+                'required' => false,
             ])
             ->add('blocks', EntityType::class, [
                 'data_class' => null,
                 'choices' => $options['other_items'],
                 'class' => CompoundItem::class,
-                'multiple'     => true,
+                'multiple' => true,
                 'choice_label' => 'getName',
-                'required' => false
+                'required' => false,
             ])
             ->add('labels', CollectionType::class, [
                 'entry_type' => LabelType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
             ])
             ->getForm();
     }

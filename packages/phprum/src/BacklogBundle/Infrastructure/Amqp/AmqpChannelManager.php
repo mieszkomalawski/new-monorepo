@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Infrastructure\Amqp;
-
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -18,6 +16,7 @@ class AmqpChannelManager
 
     /**
      * AmqpChannelManager constructor.
+     *
      * @param AMQPStreamConnection $connection
      */
     public function __construct(AMQPStreamConnection $connection)
@@ -27,6 +26,7 @@ class AmqpChannelManager
 
     /**
      * @param callable $consumer
+     *
      * @return AMQPChannel
      */
     public function createUserNotificationConsumer(callable $consumer): AMQPChannel
@@ -54,6 +54,7 @@ class AmqpChannelManager
         $channel->queue_declare(self::USER_ACTIVITY_QUEUE, false, true, false, false);
         $channel->exchange_declare(self::USER_EXCHANGE, 'direct', false, true, false);
         $channel->queue_bind(self::USER_ACTIVITY_QUEUE, self::USER_EXCHANGE);
+
         return $channel;
     }
 }

@@ -1,20 +1,16 @@
 <?php
 
-
 namespace BacklogBundle\Form;
-
 
 use PHPRum\DomainModel\Backlog\CompoundItem;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class BlockedByType
- * @package BacklogBundle\Form
+ * Class BlockedByType.
  */
 class BlockedByType extends EntityType
 {
-
     /**
      * @param OptionsResolver $resolver
      */
@@ -22,7 +18,7 @@ class BlockedByType extends EntityType
     {
         $resolver->setDefaults([
             'data_class' => CompoundItem::class,
-            'class' => CompoundItem::class
+            'class' => CompoundItem::class,
         ]);
     }
 }

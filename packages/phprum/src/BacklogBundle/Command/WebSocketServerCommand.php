@@ -1,8 +1,8 @@
 <?php
 
-
 namespace BacklogBundle\Command;
 
+use BacklogBundle\Infrastructure\Amqp\AmqpChannelManager;
 use BacklogBundle\Service\UserNotification;
 use BacklogBundle\Service\UserNotificationConsumer;
 use Ratchet\Http\HttpServer;
@@ -28,7 +28,7 @@ class WebSocketServerCommand extends ContainerAwareCommand
         $userNotificationConsumer = new UserNotificationConsumer(
             $component,
             $output,
-            $this->getContainer()->get('BacklogBundle\Infrastructure\Amqp\AmqpChannelManager')
+            $this->getContainer()->get(AmqpChannelManager::class)
         );
         $loop = Factory::create();
         $loop->addPeriodicTimer(5, [$userNotificationConsumer, 'read']);

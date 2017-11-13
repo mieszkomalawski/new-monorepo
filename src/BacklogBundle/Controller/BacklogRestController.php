@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Controller;
-
 
 use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Form\CreateItemType;
@@ -20,13 +18,13 @@ class BacklogRestController extends FOSRestController
 
     /**
      * BacklogRestController constructor.
+     *
      * @param ItemRepository $itemRepository
      */
     public function __construct(ItemRepository $itemRepository)
     {
         $this->itemRepository = $itemRepository;
     }
-
 
     public function getItemsAction(Request $request)
     {
@@ -51,16 +49,18 @@ class BacklogRestController extends FOSRestController
     {
         $form = $this->createForm(
             CreateItemType::class,
-            null, [
+            null,
+            [
             'user' => $this->getUser(),
-            'backlog' => $this->itemRepository->getFullBacklog($this->getUser()->getId())
-        ]);
+            'backlog' => $this->itemRepository->getFullBacklog($this->getUser()->getId()),
+        ]
+        );
 
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
             /**
-             * add item to backlog and save it
+             * add item to backlog and save it.
              */
             /** @var CompoundItem $item */
             $item = $form->getData();
@@ -71,6 +71,7 @@ class BacklogRestController extends FOSRestController
         }
 
         $view = $this->view($form);
+
         return $this->handleView($view);
     }
 
@@ -78,20 +79,18 @@ class BacklogRestController extends FOSRestController
     {
         $item = $this->itemRepository->findOneById($id);
 
-
         $form = $this->createForm(
             UpdateItemType::class,
             $item,
             [
                 'userId' => $this->getUser()->getId(),
-                'allow_extra_fields' => true
+                'allow_extra_fields' => true,
             ]
         );
 
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $item = $form->getData();
             $this->getDoctrine()->getManager()->persist($item);
             $this->getDoctrine()->getManager()->flush();
@@ -100,6 +99,7 @@ class BacklogRestController extends FOSRestController
         }
 
         $view = $this->view($form);
+
         return $this->handleView($view);
     }
 }

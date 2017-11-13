@@ -1,10 +1,9 @@
 <?php
 
-
 namespace BacklogBundle\Controller;
 
-
 use BacklogBundle\Entity\Sprint;
+use Doctrine\Common\Persistence\ObjectRepository;
 use PHPRum\Commands\Backlog\CreateSrpint;
 use PHPRum\Commands\Backlog\StartSprint;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SprintController extends Controller
 {
-
     /**
      * @Route("/sprint/", name="sprint_list")
      * @Method({"GET"})
@@ -24,10 +22,11 @@ class SprintController extends Controller
     public function listSprintsAction()
     {
         $repository = $this->getRepository();
+
         return $this->render(
             'backlog/sprint_list.html.twig',
             [
-                'items' => $repository->findByCreator($this->getUser())
+                'items' => $repository->findByCreator($this->getUser()),
             ]
             );
     }
@@ -47,7 +46,7 @@ class SprintController extends Controller
             [
                 'items' => $sprint->getItems(),
                 'points_sum' => $sprint->getTotalPoints(),
-                'sprint' => $sprint
+                'sprint' => $sprint,
             ]
         );
     }
@@ -66,8 +65,8 @@ class SprintController extends Controller
                     'One week' => '1_week',
                     'Two weeks' => '2_week',
                     'Three weeks' => '3_week',
-                    'Four weeks' => '4_week'
-                ]
+                    'Four weeks' => '4_week',
+                ],
             ])
             ->add('Save', SubmitType::class)
             ->getForm();
@@ -81,11 +80,12 @@ class SprintController extends Controller
             $command->execute();
 
             $this->addFlash('notice', 'New sprint added');
+
             return $this->redirectToRoute('list_backlog_items');
         }
 
         return $this->render('backlog/add_sprint.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -125,9 +125,9 @@ class SprintController extends Controller
     }
 
     /**
-     * @return \Doctrine\Common\Persistence\ObjectRepository
+     * @return ObjectRepository
      */
-    protected function getRepository(): \Doctrine\Common\Persistence\ObjectRepository
+    protected function getRepository(): ObjectRepository
     {
         return $this->getDoctrine()->getManager()->getRepository(Sprint::class);
     }

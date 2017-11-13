@@ -30,7 +30,7 @@ class EpicType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BacklogBundle\Entity\Epic'
+            'data_class' => 'BacklogBundle\Entity\Epic',
         ))->setRequired('user');
     }
 
@@ -41,6 +41,4 @@ class EpicType extends AbstractType
     {
         return 'backlogbundle_epic';
     }
-
-
 }

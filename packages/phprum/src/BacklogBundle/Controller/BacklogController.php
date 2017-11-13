@@ -1,34 +1,26 @@
 <?php
 
-
 namespace BacklogBundle\Controller;
 
-use BacklogBundle\BacklogBundle;
 use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Entity\SubItem;
 use BacklogBundle\Entity\User;
 use BacklogBundle\Form\CreateItemType;
 use BacklogBundle\Form\CreateSubItemType;
 use BacklogBundle\Form\SearchItemType;
-use BacklogBundle\Form\SelectEpicType;
-use BacklogBundle\Form\TaskStatusType;
 use BacklogBundle\Form\UpdateItemType;
 use BacklogBundle\Form\UpdateSubItemType;
 use BacklogBundle\Repository\ItemRepository;
 use BacklogBundle\Repository\ItemSearchQuery;
-use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\Service\ItemPriority;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Form\Extension\Core\Type\{
-    SubmitType, TextType
-};
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class BacklogController extends Controller
 {
@@ -44,13 +36,30 @@ class BacklogController extends Controller
     private $eventDispatcher;
 
     /**
+     * @var ItemRepository
+     */
+    private $itemRepository;
+
+    /**
+     * @var UploaderHelper
+     */
+    private $uploaderHelper;
+
+    /**
      * BacklogController constructor.
+     *
      * @param ItemPriority $itemPriorityService
      */
-    public function __construct(ItemPriority $itemPriorityService, EventDispatcher $eventDispatcher)
-    {
+    public function __construct(
+        ItemPriority $itemPriorityService,
+        EventDispatcher $eventDispatcher,
+        ItemRepository $itemRepository,
+        UploaderHelper $uploaderHelper
+    ) {
         $this->itemPriorityService = $itemPriorityService;
         $this->eventDispatcher = $eventDispatcher;
+        $this->itemRepository = $itemRepository;
+        $this->uploaderHelper = $uploaderHelper;
     }
 
     /**
@@ -68,21 +77,20 @@ class BacklogController extends Controller
      */
     public function listItemsAction(Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
-
         $searchForm = $this->createForm(SearchItemType::class, new ItemSearchQuery(), ['user_id' => $this->getUser()->getId()]);
 
         $searchForm->handleRequest($request);
 
-        $items = $repository->getByPage(
+        $items = $this->itemRepository->getByPage(
             $this->getUser()->getId(),
             $request->get('page', 1),
             $searchForm->getData()
         );
 
-        return $this->render('backlog/item_list.html.twig',
-            ['items' => $items, 'searchForm' => $searchForm->createView()]);
+        return $this->render(
+            'backlog/item_list.html.twig',
+            ['items' => $items, 'searchForm' => $searchForm->createView()]
+        );
     }
 
     /**
@@ -91,21 +99,18 @@ class BacklogController extends Controller
      */
     public function addItemAction(Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
-
         /** @var User $user */
         $user = $this->getUser();
         $form = $this->createForm(CreateItemType::class, null, [
             'user' => $user,
-            'backlog' => $repository->getFullBacklog($user->getId())
+            'backlog' => $this->itemRepository->getFullBacklog($user->getId()),
         ]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**
-             * add item to backlog and save it
+             * add item to backlog and save it.
              */
             /** @var CompoundItem $item */
             $item = $form->getData();
@@ -118,34 +123,31 @@ class BacklogController extends Controller
         return $this->render('backlog/item_add.html.twig', ['form' => $form->createView(), 'path' => null]);
     }
 
-
     /**
      * @Route("/backlog/{id}/edit", name="edit_item")
      * @Method({"POST", "GET"})
      */
     public function editItemAction(CompoundItem $item, Request $request)
     {
-        /** @var ItemRepository $repository */
-        $repository = $this->get('item_repository');
-
-        $form = $this->createForm(UpdateItemType::class, $item,
+        $form = $this->createForm(
+            UpdateItemType::class,
+            $item,
             [
                 'userId' => $this->getUser()->getId(),
                 'other_items' => array_filter(
-                    $repository->getFullBacklog($this->getUser()->getId())->getItems(),
-                    function (CompoundItem $currentItem) use ($item)  {
+                    $this->itemRepository->getFullBacklog($this->getUser()->getId())->getItems(),
+                    function (CompoundItem $currentItem) use ($item) {
                         return $currentItem->getId() !== $item->getId();
                     }
-                )
-            ]);
+                ),
+            ]
+        );
 
         $form->handleRequest($request);
 
-        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-        $path = $helper->asset($item, 'imageFile');
+        $path = $this->uploaderHelper->asset($item, 'imageFile');
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $item = $form->getData();
             $this->getDoctrine()->getManager()->persist($item);
             $this->getDoctrine()->getManager()->flush();
@@ -153,8 +155,10 @@ class BacklogController extends Controller
             return $this->redirectToRoute(self::LIST_BACKLOG_ITEMS);
         }
 
-        return $this->render('backlog/item_edit.html.twig',
-            ['form' => $form->createView(), 'path' => $path, 'item' => $item]);
+        return $this->render(
+            'backlog/item_edit.html.twig',
+            ['form' => $form->createView(), 'path' => $path, 'item' => $item]
+        );
     }
 
     /**
@@ -220,7 +224,7 @@ class BacklogController extends Controller
      */
     public function changeItemPriority($id, Request $request)
     {
-        $priority = (int)$request->request->get('priority');
+        $priority = (int) $request->request->get('priority');
 
         $this->itemPriorityService->changeItemPriority($this->getUser()->getId(), $id, $priority);
 

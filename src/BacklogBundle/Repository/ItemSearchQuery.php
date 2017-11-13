@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Repository;
-
 
 use BacklogBundle\Entity\Epic;
 use Doctrine\ORM\Query;
@@ -100,5 +98,4 @@ class ItemSearchQuery
     {
         return $this->epic;
     }
-
 }

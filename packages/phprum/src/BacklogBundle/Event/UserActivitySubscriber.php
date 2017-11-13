@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Event;
-
 
 use BacklogBundle\EventWrapper;
 use BacklogBundle\Service\UserNotificationProducer;
@@ -11,11 +9,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UserActivitySubscriber implements EventSubscriberInterface
 {
-    /** @var  UserNotificationProducer */
+    /** @var UserNotificationProducer */
     private $userNotificationProducer;
 
     /**
      * UserActivitySubscriber constructor.
+     *
      * @param UserNotificationProducer $userNotificationProducer
      */
     public function __construct(UserNotificationProducer $userNotificationProducer)
@@ -26,7 +25,7 @@ class UserActivitySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ItemAdded::NAME => 'onItemAdded'
+            ItemAdded::NAME => 'onItemAdded',
         ];
     }
 
@@ -34,7 +33,6 @@ class UserActivitySubscriber implements EventSubscriberInterface
     {
         /** @var ItemAdded $itemAddedEvent */
         $itemAddedEvent = $itemAdded->getInternalEvent();
-        $this->userNotificationProducer->publish('New item ' . $itemAddedEvent->getItemName() . ' added to backlog');
+        $this->userNotificationProducer->publish('New item '.$itemAddedEvent->getItemName().' added to backlog');
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\DataFixtures\ORM;
-
 
 use BacklogBundle\Entity\Sprint;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -32,7 +30,7 @@ class FirstSprintData implements FixtureInterface, ContainerAwareInterface, Orde
 
         $allUsers = $userManager->findUsers();
         // create first sprint for all users
-        foreach($allUsers as $user){
+        foreach ($allUsers as $user) {
             $sprint = new Sprint(
                 '1_week',
                 $user
@@ -47,6 +45,4 @@ class FirstSprintData implements FixtureInterface, ContainerAwareInterface, Orde
     {
         return 2;
     }
-
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Service;
-
 
 use BacklogBundle\Repository\ItemRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -21,7 +19,8 @@ class ItemPriority
 
     /**
      * ItemPriority constructor.
-     * @param ObjectManager $objectManager
+     *
+     * @param ObjectManager  $objectManager
      * @param ItemRepository $itemRepository
      */
     public function __construct(ObjectManager $objectManager, ItemRepository $itemRepository)
@@ -35,7 +34,7 @@ class ItemPriority
      * @param int $itemId
      * @param int $newPriority
      */
-    public function changeItemPriority(int $userId, int $itemId, int $newPriority) : void
+    public function changeItemPriority(int $userId, int $itemId, int $newPriority): void
     {
         $backlog = $this->itemRepository->getFullBacklog($userId);
 

@@ -34,10 +34,8 @@ services:
 
     BacklogBundle\Infrastructure\Amqp\AmqpChannelManager:
         public: true
-        autowire: true
 
     PhpAmqpLib\Channel\AMQPChannel:
-        #calling dinamically as service
         factory: ['@BacklogBundle\Infrastructure\Amqp\AmqpChannelManager', 'createUserNotificationPublisher']
 
     PhpAmqpLib\Connection\AMQPStreamConnection:
@@ -47,8 +45,7 @@ services:
     # BacklogBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-    item_repository:
-        public: true
+    BacklogBundle\Repository\ItemRepository:
         class: BacklogBundle\Repository\ItemRepository
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Form;
-
 
 use BacklogBundle\Entity\CompoundItem;
 use Symfony\Component\Form\AbstractType;
@@ -20,9 +18,9 @@ class TaskStatusType extends AbstractType
             'choices' => [
                 'New' => CompoundItem::STATUS_NEW,
                 'In progress' => CompoundItem::STAUS_IN_PROGRESS,
-                'Done' => CompoundItem::STATUS_DONE
+                'Done' => CompoundItem::STATUS_DONE,
             ],
-            'required' => false
+            'required' => false,
         ]);
     }
 

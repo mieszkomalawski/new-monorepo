@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PHPRum\Commands\Backlog;
-
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
@@ -22,6 +20,7 @@ class StartSprint
 
     /**
      * CreateItem constructor.
+     *
      * @param EntityManager $entityNanager
      */
     public function __construct(ObjectManager $entityNanager, Sprint $sprint)

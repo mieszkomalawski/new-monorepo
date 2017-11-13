@@ -1,22 +1,21 @@
 <?php
 
-
 namespace PHPRum;
-
 
 class StaticEventDispatcher
 {
-    /** @var  EventDispatcher  */
-    static private $eventDispatcher;
+    /** @var EventDispatcher */
+    private static $eventDispatcher;
 
     /**
      * @return EventDispatcher
      */
     public static function getEventDispatcher(): EventDispatcher
     {
-        if(!self::$eventDispatcher instanceof EventDispatcher){
+        if (!self::$eventDispatcher instanceof EventDispatcher) {
             self::$eventDispatcher = new EmptyEventDispatcher();
         }
+
         return self::$eventDispatcher;
     }
 
@@ -27,6 +26,4 @@ class StaticEventDispatcher
     {
         self::$eventDispatcher = $eventDispatcher;
     }
-
-
 }

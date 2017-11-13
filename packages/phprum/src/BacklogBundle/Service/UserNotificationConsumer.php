@@ -1,12 +1,9 @@
 <?php
 
-
 namespace BacklogBundle\Service;
-
 
 use BacklogBundle\Infrastructure\Amqp\AmqpChannelManager;
 use PhpAmqpLib\Channel\AMQPChannel;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,10 +38,9 @@ class UserNotificationConsumer
     public function read()
     {
         $this->output->writeln('reading messages');
-        try{
+        try {
             $this->channel->wait(null, true, 1);
-        }catch(AMQPTimeoutException $e){
-
+        } catch (AMQPTimeoutException $e) {
         }
         $this->output->writeln('reading messages done');
     }
@@ -54,5 +50,4 @@ class UserNotificationConsumer
         $this->output->writeln('Message from queue received');
         $this->userNotification->pushMessage($message->getBody());
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Form;
-
 
 use BacklogBundle\Entity\Sprint;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,10 +18,9 @@ class SelectSprintType extends AbstractType
             'class' => Sprint::class,
             'choice_label' => 'getName',
             'placeholder' => 'none',
-            'required' => false
+            'required' => false,
         ]);
     }
-
 
     public function getParent()
     {

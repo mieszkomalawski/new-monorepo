@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BacklogBundle\Entity;
-
 
 use PHPRum\DomainModel\Backlog\CompoundItem;
 
@@ -12,5 +10,4 @@ class Backlog extends \PHPRum\DomainModel\Backlog\Backlog
     {
         return new \BacklogBundle\Entity\CompoundItem($name, $user);
     }
-
 }
