@@ -84,7 +84,7 @@ class SprintController extends Controller
             return $this->redirectToRoute('list_backlog_items');
         }
 
-        return $this->render('backlog/add_sprint.html.twig', [
+        return $this->render('backlog/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }

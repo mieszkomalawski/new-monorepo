@@ -88,7 +88,7 @@ class BacklogController extends Controller
         );
 
         return $this->render(
-            'backlog/item_list.html.twig',
+            'backlog/index.html.twig',
             ['items' => $items, 'searchForm' => $searchForm->createView()]
         );
     }
@@ -120,7 +120,7 @@ class BacklogController extends Controller
             return $this->redirectToRoute(self::LIST_BACKLOG_ITEMS);
         }
 
-        return $this->render('backlog/item_add.html.twig', ['form' => $form->createView(), 'path' => null]);
+        return $this->render('backlog/new.html.twig', ['form' => $form->createView(), 'path' => null]);
     }
 
     /**
@@ -156,7 +156,7 @@ class BacklogController extends Controller
         }
 
         return $this->render(
-            'backlog/item_edit.html.twig',
+            'backlog/edit.html.twig',
             ['form' => $form->createView(), 'path' => $path, 'item' => $item]
         );
     }
@@ -180,7 +180,7 @@ class BacklogController extends Controller
             return $this->redirectToRoute('edit_item', ['id' => $parentItem->getId()]);
         }
 
-        return $this->render('backlog/sub_item_add.html.twig', ['form' => $form->createView()]);
+        return $this->render('backlog/sub_item_new.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -203,7 +203,7 @@ class BacklogController extends Controller
             return $this->redirectToRoute('edit_item', ['id' => $parentItem->getId()]);
         }
 
-        return $this->render('backlog/sub_item_add.html.twig', ['form' => $form->createView()]);
+        return $this->render('backlog/sub_item_new.html.twig', ['form' => $form->createView()]);
     }
 
     /**
