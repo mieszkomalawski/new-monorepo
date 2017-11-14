@@ -81,7 +81,7 @@ class CreateItemTypeTest extends EntityAwareTypeCase
         ];
 
         $item = $backlog->createItem('newItem', $user->reveal());
-        $item->setEpic(new Epic('epic1', new User()));
+        $item->moveToAnotherEpic(new Epic('epic1', new User()));
 
         $form = $this->factory->create(CreateItemType::class, null, [
             'user' => $user->reveal(),

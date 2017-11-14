@@ -121,7 +121,7 @@ class CompoundItem extends Item
      *
      * @throws InvalidEstimate
      */
-    public function setEstimate(int $estimate): void
+    public function estimate(int $estimate): void
     {
         if (!$estimate) {
             $this->estimate = null;
@@ -145,7 +145,7 @@ class CompoundItem extends Item
     /**
      * @param int $priority
      */
-    public function setPriority(int $priority): void
+    public function changePriority(int $priority): void
     {
         if (!$priority) {
             $this->priority = null;
@@ -185,12 +185,23 @@ class CompoundItem extends Item
      *
      * @throws InvalidActionException
      */
-    public function setStatus(ItemStatus $status): void
+    public function changeStatus(ItemStatus $status): void
     {
         if (!$this->canChangeStatus($status)) {
             throw InvalidActionException::createCannotFinishTask();
         }
-        parent::setStatus($status);
+        parent::changeStatus($status);
+    }
+
+    /**
+     * @param ItemStatus $status
+     * Alias for change status
+     *
+     * @throws InvalidActionException
+     */
+    public function setStatus(ItemStatus $status): void
+    {
+        $this->changeStatus($status);
     }
 
     public function addToSprint(Sprint $sprint)
@@ -248,7 +259,7 @@ class CompoundItem extends Item
     /**
      * @param Epic $epic
      */
-    public function setEpic(?Epic $epic)
+    public function moveToAnotherEpic(?Epic $epic)
     {
         $this->epic = $epic;
     }

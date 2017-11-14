@@ -52,7 +52,7 @@ class Backlog
             },
             0
         );
-        $item->setPriority($highestPriority + 1);
+        $item->changePriority($highestPriority + 1);
 
         return $item;
     }
@@ -77,7 +77,7 @@ class Backlog
         $itemUpdated = $this->getItemById($itemId);
 
         $originalPriority = $itemUpdated->getPriority();
-        $itemUpdated->setPriority($priority);
+        $itemUpdated->changePriority($priority);
 
         // get all items with same or lower priority
         $itemsAffected = array_filter(

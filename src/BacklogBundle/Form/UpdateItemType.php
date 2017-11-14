@@ -47,7 +47,13 @@ class UpdateItemType extends AbstractType
             ->add('name', TextType::class, ['required' => false, 'empty_data' => ''])
             ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => ''])
             ->add('estimate', TextType::class, ['required' => false])
+            ->setDataMapper(new PropertyPathMapper(
+                new SprintPropertyAccessor(['estimate' => 'estimate'])
+            ))
             ->add('status', TaskStatusType::class)
+            ->setDataMapper(new PropertyPathMapper(
+                new SprintPropertyAccessor(['status' => 'changeStatus'])
+            ))
             ->add('Sprint', SelectSprintType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($options['userId']),
             ])
@@ -57,6 +63,9 @@ class UpdateItemType extends AbstractType
             ->add('epic', SelectEpicType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($options['userId']),
             ])
+            ->setDataMapper(new PropertyPathMapper(
+                new SprintPropertyAccessor(['epic' => 'moveToAnotherEpic'])
+            ))
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->add('imageFile', FileType::class, ['required' => false])
             ->add('subItems', CollectionType::class, [

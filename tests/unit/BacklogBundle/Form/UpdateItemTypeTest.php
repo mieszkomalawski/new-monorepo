@@ -89,8 +89,8 @@ class UpdateItemTypeTest extends EntityAwareTypeCase
             'other_items' => []
         ]);
 
-        $object->setEstimate(5);
-        $object->setStatus(ItemStatus::IN_PROGRESS());
+        $object->estimate(5);
+        $object->changeStatus(ItemStatus::IN_PROGRESS());
         $object->addToSprint($sprint);
 
         $form->submit($formData);

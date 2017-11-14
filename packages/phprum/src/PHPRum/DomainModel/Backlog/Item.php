@@ -164,9 +164,20 @@ abstract class Item
      *
      * @throws StatusNotAllowed
      */
-    public function setStatus(ItemStatus $status): void
+    public function changeStatus(ItemStatus $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @param ItemStatus $status
+     * Aliast for changeStatus
+     *
+     * @throws StatusNotAllowed
+     */
+    public function setStatus(ItemStatus $status): void
+    {
+        $this->changeStatus($status);
     }
 
     /**
@@ -186,6 +197,6 @@ abstract class Item
 
     public function done(): void
     {
-        $this->setStatus(ItemStatus::DONE());
+        $this->changeStatus(ItemStatus::DONE());
     }
 }
