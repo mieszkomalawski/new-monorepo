@@ -69,7 +69,21 @@ doctrine:
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
+        auto_mapping: false
+        mappings:
+          #load bundle entities
+          BacklogBundle:
+            type: yml
+            dir:  %kernel.root_dir%/../src/BacklogBundle/Resources/config/doctrine
+            prefix: BacklogBundle\Entity
+          #load entities from outside bundle (domain model)
+          PHPRum:
+            is_bundle: false
+            type: yml
+            dir:  %kernel.root_dir%/../src/BacklogBundle/Resources/config/doctrine_external
+            prefix: PHPRum\DomainModel\Backlog
+
+
 
 
 

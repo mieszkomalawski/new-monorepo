@@ -23,6 +23,7 @@ class SubItem extends Item
      */
     public function __construct(string $name, BacklogOwner $creator, CompoundItem $parentItem)
     {
+        $this->status = ItemStatus::NEW();
         $this->name = $name;
         $this->creator = $creator;
         $this->parentItem = $parentItem;

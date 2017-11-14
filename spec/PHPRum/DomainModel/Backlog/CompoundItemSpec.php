@@ -7,6 +7,7 @@ use PHPRum\DomainModel\Backlog\Exception\InvalidActionException;
 use PHPRum\DomainModel\Backlog\Exception\InvalidEstimate;
 use PHPRum\DomainModel\Backlog\CompoundItem;
 use PHPRum\DomainModel\Backlog\Item;
+use PHPRum\DomainModel\Backlog\ItemStatus;
 use PHPRum\DomainModel\Backlog\Sprint;
 use PHPRum\DomainModel\Backlog\SubItem;
 use PHPRum\EventDispatcher;
@@ -53,20 +54,20 @@ class CompoundItemSpec extends ObjectBehavior
 
     function it_can_change_status()
     {
-        $this->setStatus(CompoundItem::STATUS_NEW);
-        $this->setStatus(CompoundItem::STAUS_IN_PROGRESS);
-        $this->setStatus(CompoundItem::STATUS_DONE);
+        $this->setStatus(ItemStatus::NEW());
+        $this->setStatus(ItemStatus::IN_PROGRESS());
+        $this->setStatus(ItemStatus::DONE());
     }
 
     function it_cant_create_sub_item_if_done()
     {
-        $this->setStatus(CompoundItem::STATUS_DONE);
+        $this->setStatus(ItemStatus::DONE());
         $this->shouldThrow(\Exception::class)->duringCreateSubItem('sub-item-name');
     }
 
     function it_can_create_sub_item()
     {
-        $this->setStatus(CompoundItem::STATUS_NEW);
+        $this->setStatus(ItemStatus::NEW());
         /** @var SubItem $subItem */
         $subItem = $this
             ->createSubItem('new-sub-item')
@@ -77,10 +78,10 @@ class CompoundItemSpec extends ObjectBehavior
 
     function it_cant_finish_item_that_has_unfinished_sub_item()
     {
-        $this->createSubItem('sub1')->setStatus(CompoundItem::STATUS_DONE);
-        $this->createSubItem('sub2')->setStatus(CompoundItem::STAUS_IN_PROGRESS);
+        $this->createSubItem('sub1')->setStatus(ItemStatus::DONE());
+        $this->createSubItem('sub2')->setStatus(ItemStatus::IN_PROGRESS());
 
-        $this->shouldThrow(InvalidActionException::class)->duringSetStatus(CompoundItem::STATUS_DONE);
+        $this->shouldThrow(InvalidActionException::class)->duringSetStatus(ItemStatus::DONE());
     }
 
     function it_can_be_added_to_sprint(Sprint $sprint)
@@ -119,12 +120,12 @@ class CompoundItemSpec extends ObjectBehavior
         $this->addBlockedBy($item);
     }
 
-    public function it_cannot_be_started_when_is_blocked_by(CompoundItem $item)
+    public function it_cannot_be_finshed_when_is_blocked_by(CompoundItem $item)
     {
         $item->addBlockedBy($this)->shouldBeCalled();
         $item->isDone()->willReturn(false);
         $this->addBlockedBy($item);
-        $this->shouldThrow(InvalidActionException::class)->duringSetStatus(Item::STAUS_IN_PROGRESS);
+        $this->shouldThrow(InvalidActionException::class)->duringSetStatus(ItemStatus::DONE());
     }
 
     public function it_can_be_started_when_is_blocked_by_done(CompoundItem $item)
@@ -132,6 +133,6 @@ class CompoundItemSpec extends ObjectBehavior
         $item->addBlockedBy($this)->shouldBeCalled();
         $item->isDone()->willReturn(true);
         $this->addBlockedBy($item);
-        $this->setStatus(Item::STAUS_IN_PROGRESS);
+        $this->setStatus(ItemStatus::IN_PROGRESS());
     }
 }

@@ -28,9 +28,9 @@ class ItemSearchQuery
     public function addConditions(QueryBuilder $queryBuilder)
     {
         if (is_null($this->status)) {
-            $queryBuilder->andWhere('Items.status != ?2');
+            $queryBuilder->andWhere('Items.status.value != ?2');
         } else {
-            $queryBuilder->andWhere('Items.status = ?2');
+            $queryBuilder->andWhere('Items.status.value = ?2');
         }
 
         if (!is_null($this->epic)) {

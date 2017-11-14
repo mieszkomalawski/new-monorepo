@@ -17,6 +17,7 @@ use Ivory\CKEditorBundle\Model\PluginManager;
 use Ivory\CKEditorBundle\Model\StylesSetManager;
 use Ivory\CKEditorBundle\Model\TemplateManager;
 use Ivory\CKEditorBundle\Model\ToolbarManager;
+use PHPRum\DomainModel\Backlog\ItemStatus;
 use Symfony\Component\Form\PreloadedExtension;
 
 class UpdateItemTypeTest extends EntityAwareTypeCase
@@ -75,7 +76,7 @@ class UpdateItemTypeTest extends EntityAwareTypeCase
         $formData = [
             'name' => 'new_name',
             'estimate' => 5,
-            'status' => CompoundItem::STAUS_IN_PROGRESS,
+            'status' => ItemStatus::IN_PROGRESS(),
             'Sprint' => $sprint
         ];
 
@@ -88,7 +89,7 @@ class UpdateItemTypeTest extends EntityAwareTypeCase
         ]);
 
         $object->setEstimate(5);
-        $object->setStatus(CompoundItem::STAUS_IN_PROGRESS);
+        $object->setStatus(ItemStatus::IN_PROGRESS());
         $object->addToSprint($sprint);
 
         $form->submit($formData);

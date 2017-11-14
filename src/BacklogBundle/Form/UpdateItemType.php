@@ -6,8 +6,11 @@ use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Service\CreatorJailer;
 use BacklogBundle\SprintPropertyAccessor;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use PHPRum\DomainModel\Backlog\Item;
+use PHPRum\DomainModel\Backlog\ItemStatus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -81,7 +84,10 @@ class UpdateItemType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
-            ])
-            ->getForm();
+            ]);
+
+        $formBuilder
+            ->get('status')
+            ->addModelTransformer(new ItemStatusTransformer())->getForm();
     }
 }

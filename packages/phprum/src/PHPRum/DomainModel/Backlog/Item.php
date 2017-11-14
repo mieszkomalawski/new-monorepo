@@ -7,10 +7,6 @@ use PHPRum\DomainModel\Backlog\Exception\StatusNotAllowed;
 abstract class Item
 {
     const ALLOWED_ESTIMATES = [1, 2, 3, 5, 8, 13, 21];
-    const STAUS_IN_PROGRESS = 'in_progress';
-    const STATUS_NEW = 'new';
-    const STATUS_DONE = 'done';
-    const ALLOWED_STATUSES = [self::STATUS_NEW, self::STAUS_IN_PROGRESS, self::STATUS_DONE];
 
     /**
      * @var Label[]
@@ -26,9 +22,9 @@ abstract class Item
     protected $name;
 
     /**
-     * @var string
+     * @var ItemStatus
      */
-    protected $status = self::STATUS_NEW;
+    protected $status;
     /**
      * @var int
      */
@@ -80,10 +76,16 @@ abstract class Item
     }
 
     /**
-     * @return string
+     * @return ItemStatus
      */
-    public function getStatus(): ?string
+    public function getStatus(): ItemStatus
     {
+        if(is_null($this->status)){
+            $this->status = ItemStatus::NEW();
+        }
+        if(is_string($this->status)){
+            $this->status = new ItemStatus($this->status);
+        }
         return $this->status;
     }
 
@@ -154,19 +156,16 @@ abstract class Item
      */
     public function isDone(): bool
     {
-        return self::STATUS_DONE === $this->status;
+        return $this->status->equals(ItemStatus::DONE());
     }
 
     /**
-     * @param string $status
+     * @param ItemStatus $status
      *
      * @throws StatusNotAllowed
      */
-    public function setStatus(string $status): void
+    public function setStatus(ItemStatus $status): void
     {
-        if (!$this->isStatusAllowed($status)) {
-            throw StatusNotAllowed::create($status, self::ALLOWED_STATUSES);
-        }
         $this->status = $status;
     }
 
@@ -177,7 +176,7 @@ abstract class Item
      */
     protected function isStatusAllowed(string $status): bool
     {
-        return in_array($status, self::ALLOWED_STATUSES, true);
+        return in_array($status, ItemStatus::values(), true);
     }
 
     /**
@@ -187,6 +186,6 @@ abstract class Item
 
     public function done(): void
     {
-        $this->setStatus(self::STATUS_DONE);
+        $this->setStatus(ItemStatus::DONE());
     }
 }

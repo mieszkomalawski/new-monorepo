@@ -6,6 +6,11 @@ BacklogBundle\Entity\CompoundItem:
         id:
             type: integer
             generator: {strategy: AUTO}
+    embedded:
+        status:
+            class: PHPRum\DomainModel\Backlog\ItemStatus
+            columnPrefix: false
+
     fields:
         name:
             type: string
@@ -17,10 +22,6 @@ BacklogBundle\Entity\CompoundItem:
             nullable: TRUE
         priority:
             type: smallint
-            nullable: TRUE
-        status:
-            type: string
-            length: 20
             nullable: TRUE
         imageName:
             type: string

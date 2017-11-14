@@ -57,6 +57,7 @@ class CompoundItem extends Item
      */
     public function __construct(string $name, BacklogOwner $creator)
     {
+        $this->status = ItemStatus::NEW();
         $this->name = $name;
         $this->createdAt = new \DateTime();
         $this->creator = $creator;
@@ -144,14 +145,13 @@ class CompoundItem extends Item
     /**
      * @param int $priority
      */
-    public function setPriority(int $priority)
+    public function setPriority(int $priority): void
     {
         if (!$priority) {
             $this->priority = null;
-
-            return;
+        } else {
+            $this->priority = $priority;
         }
-        $this->priority = $priority;
     }
 
     public function lowerPriority()
@@ -159,16 +159,17 @@ class CompoundItem extends Item
         ++$this->priority;
     }
 
-    public function canChangeStatus(string $status): bool
+    public function canChangeStatus(ItemStatus $status): bool
     {
-        if (self::STATUS_DONE === $status && $this->hasSubItems()) {
+
+        if ($status->equals(ItemStatus::DONE()) && $this->hasSubItems()) {
             foreach ($this->subItems as $subItem) {
-                if (self::STATUS_DONE !== $subItem->getStatus()) {
+                if (!$subItem->getStatus()->equals(ItemStatus::DONE())) {
                     return false;
                 }
             }
         }
-        if (!empty($this->blockedBy) && in_array($status, [self::STATUS_DONE, self::STAUS_IN_PROGRESS], true)) {
+        if (!empty($this->blockedBy) && $status->equals(ItemStatus::DONE())) {
             foreach ($this->blockedBy as $blockedBy) {
                 if (!$blockedBy->isDone()) {
                     return false;
@@ -180,11 +181,11 @@ class CompoundItem extends Item
     }
 
     /**
-     * @param string $status
+     * @param ItemStatus $status
      *
      * @throws InvalidActionException
      */
-    public function setStatus(string $status): void
+    public function setStatus(ItemStatus $status): void
     {
         if (!$this->canChangeStatus($status)) {
             throw InvalidActionException::createCannotFinishTask();
@@ -289,7 +290,7 @@ class CompoundItem extends Item
     /**
      * @param CompoundItem $item
      */
-    public function addBlockedBy(self $item)
+    public function addBlockedBy(self $item): void
     {
         $this->blockedBy[] = $item;
         $item->addBlockedBy($this);
@@ -298,7 +299,7 @@ class CompoundItem extends Item
     /**
      * @param CompoundItem $item
      */
-    public function addBlocks(self $item)
+    public function addBlocks(self $item): void
     {
         $this->blocks[] = $item;
     }

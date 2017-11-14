@@ -3,8 +3,11 @@
 namespace BacklogBundle\Form;
 
 use BacklogBundle\Entity\CompoundItem;
+use PHPRum\DomainModel\Backlog\ItemStatus;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TaskStatusType extends AbstractType
@@ -16,9 +19,9 @@ class TaskStatusType extends AbstractType
     {
         $optionsResolver->setDefaults([
             'choices' => [
-                'New' => CompoundItem::STATUS_NEW,
-                'In progress' => CompoundItem::STAUS_IN_PROGRESS,
-                'Done' => CompoundItem::STATUS_DONE,
+                'New' => ItemStatus::NEW,
+                'In progress' => ItemStatus::IN_PROGRESS,
+                'Done' => ItemStatus::DONE,
             ],
             'required' => false,
         ]);

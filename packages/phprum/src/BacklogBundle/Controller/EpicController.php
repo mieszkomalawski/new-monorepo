@@ -52,7 +52,7 @@ class EpicController extends Controller
         $forms = [];
         /** @var FormFactory $formFactory */
         $formFactory = $this->get('form.factory');
-        /**
+        /*
          * @var Epic
          */
         foreach ($epics as $epic) {
