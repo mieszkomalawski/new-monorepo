@@ -5,10 +5,11 @@ BacklogBundle\Entity\Sprint:
             id:
                 type: integer
                 generator: {strategy: AUTO}
-    fields:
+    embedded:
         duration:
-           type: string
-           length: 30
+            class: PHPRum\DomainModel\Backlog\SprintDuration
+            columnPrefix: false
+    fields:
         startDate:
             type: datetime
             nullable: TRUE

@@ -6,6 +6,7 @@ use BacklogBundle\Entity\Sprint;
 use Doctrine\Common\Persistence\ObjectRepository;
 use PHPRum\Commands\Backlog\CreateSrpint;
 use PHPRum\Commands\Backlog\StartSprint;
+use PHPRum\DomainModel\Backlog\SprintDuration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -62,10 +63,10 @@ class SprintController extends Controller
         $form = $this->createFormBuilder($createSprintCommand)
             ->add('duration', ChoiceType::class, [
                 'choices' => [
-                    'One week' => '1_week',
-                    'Two weeks' => '2_week',
-                    'Three weeks' => '3_week',
-                    'Four weeks' => '4_week',
+                    'One week' => SprintDuration::ONE_WEEK,
+                    'Two weeks' => SprintDuration::TWO_WEEKS,
+                    'Three weeks' => SprintDuration::THREE_WEEKS,
+                    'Four weeks' => SprintDuration::FOUR_WEEKS,
                 ],
             ])
             ->add('Save', SubmitType::class)

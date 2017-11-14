@@ -17,6 +17,7 @@ use Ivory\CKEditorBundle\Model\PluginManager;
 use Ivory\CKEditorBundle\Model\StylesSetManager;
 use Ivory\CKEditorBundle\Model\TemplateManager;
 use Ivory\CKEditorBundle\Model\ToolbarManager;
+use PHPRum\DomainModel\Backlog\SprintDuration;
 use function SebastianBergmann\ObjectGraph\object_graph_dump;
 use Symfony\Component\Form\PreloadedExtension;
 
@@ -54,7 +55,7 @@ class CreateItemTypeTest extends EntityAwareTypeCase
         return function ($class) {
             switch ($class) {
                 case Sprint::class:
-                    return [new Sprint('1_week', new User())];
+                    return [new Sprint(SprintDuration::ONE_WEEK(), new User())];
                     break;
                 case Epic::class:
                     return [new Epic('epic1', new User())];

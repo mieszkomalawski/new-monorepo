@@ -10,7 +10,7 @@ class Sprint
     protected $id;
 
     /**
-     * @var string
+     * @var SprintDuration
      */
     protected $duration;
 
@@ -42,10 +42,10 @@ class Sprint
     /**
      * Sprint constructor.
      *
-     * @param string       $duration
+     * @param SprintDuration       $duration
      * @param BacklogOwner $creator
      */
-    public function __construct($duration, BacklogOwner $creator)
+    public function __construct(SprintDuration $duration, BacklogOwner $creator)
     {
         $this->duration = $duration;
         $this->creator = $creator;
@@ -120,16 +120,16 @@ class Sprint
     public function getEndDate(): \DateTime
     {
         $interval = new \DateInterval('P1W');
-        if ('1_weel' === $this->duration) {
+        if ($this->duration->equals(SprintDuration::ONE_WEEK())) {
             $interval = new \DateInterval('P1W');
         }
-        if ('2_weel' === $this->duration) {
+        if ($this->duration->equals(SprintDuration::TWO_WEEKS())) {
             $interval = new \DateInterval('P2W');
         }
-        if ('3_weel' === $this->duration) {
+        if ($this->duration->equals(SprintDuration::THREE_WEEKS())) {
             $interval = new \DateInterval('P3W');
         }
-        if ('4_weel' === $this->duration) {
+        if ($this->duration->equals(SprintDuration::FOUR_WEEKS())) {
             $interval = new \DateInterval('P4W');
         }
 

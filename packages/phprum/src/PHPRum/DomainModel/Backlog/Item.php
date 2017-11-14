@@ -176,7 +176,7 @@ abstract class Item
      */
     protected function isStatusAllowed(string $status): bool
     {
-        return in_array($status, ItemStatus::values(), true);
+        return ItemStatus::isValid($status);
     }
 
     /**
