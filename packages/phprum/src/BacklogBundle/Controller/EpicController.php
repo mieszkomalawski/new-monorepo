@@ -61,7 +61,7 @@ class EpicController extends Controller
                 FormType::class,
                 ['Epic' => $epic->getId()],
                 [
-                    'action' => $this->generateUrl('list_backlog_items'),
+                    'action' => $this->generateUrl('item_index'),
                 ]
             )
                 ->add('Epic', HiddenType::class)

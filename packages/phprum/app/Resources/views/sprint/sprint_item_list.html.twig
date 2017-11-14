@@ -11,12 +11,12 @@
                     <span>Sprint finished on {{ sprint.closedOn|date('Y-m-d h:i:s') }}</span>
                 {% elseif sprint.isStarted == true %}
                     <span>Current Sprint, end on: {{ sprint.getEndDate|date('Y-m-d h:i:s') }}</span>
-                    <a href="{{ path('end_sprint', {'id': sprint.id}) }}">End sprint</a>
+                    <a href="{{ path('sprint_end', {'id': sprint.id}) }}">End sprint</a>
                 {% else %}
-                    <a href="{{ path('start_sprint', {'id': sprint.id}) }}">Start sprint</a>
+                    <a href="{{ path('sprint_start', {'id': sprint.id}) }}">Start sprint</a>
                 {% endif %}
                 <div class="btn pull-right">
-                    <a href="{{ path('add_backlog_item') }}">Add Item</a>
+                    <a href="{{ path('item_add') }}">Add Item</a>
                 </div>
             </div>
 
@@ -51,10 +51,10 @@
                                 {{ item.status }}
                             </td>
                             <td>
-                                <a href="{{ path('edit_item', {'id': item.id}) }}" >Edit</a>
+                                <a href="{{ path('item_edit', {'id': item.id}) }}" >Edit</a>
                             </td>
                             <td>
-                                <a href="{{ path('delete_item', {'id': item.id}) }}" >Delete</a>
+                                <a href="{{ path('item_delete', {'id': item.id}) }}" >Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

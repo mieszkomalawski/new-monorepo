@@ -24,7 +24,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class BacklogController extends Controller
 {
-    const LIST_BACKLOG_ITEMS = 'list_backlog_items';
+    const LIST_BACKLOG_ITEMS = 'item_index';
     /**
      * @var ItemPriority
      */
@@ -72,7 +72,7 @@ class BacklogController extends Controller
     }
 
     /**
-     * @Route("/backlog/", name="list_backlog_items")
+     * @Route("/backlog/", name="item_index")
      * @Method({"GET", "POST"})
      */
     public function listItemsAction(Request $request)
@@ -94,7 +94,7 @@ class BacklogController extends Controller
     }
 
     /**
-     * @Route("/backlog/new", name="add_backlog_item")
+     * @Route("/backlog/new", name="item_add")
      * @Method({"POST", "GET"})
      */
     public function addItemAction(Request $request)
@@ -124,7 +124,7 @@ class BacklogController extends Controller
     }
 
     /**
-     * @Route("/backlog/{id}/edit", name="edit_item")
+     * @Route("/backlog/{id}/edit", name="item_edit")
      * @Method({"POST", "GET"})
      */
     public function editItemAction(CompoundItem $item, Request $request)
@@ -162,7 +162,7 @@ class BacklogController extends Controller
     }
 
     /**
-     * @Route("/backlog/{id}/add-sub-task", name="add_sub_task")
+     * @Route("/backlog/{id}/subtask/new", name="sub_task_add")
      * @Method({"POST", "GET"})
      */
     public function addSubTask(CompoundItem $parentItem, Request $request)
@@ -184,7 +184,7 @@ class BacklogController extends Controller
     }
 
     /**
-     * @Route("/backlog/{id}/edit-sub-task/{subItemId}", name="edit_sub_task")
+     * @Route("/backlog/{id}/subtask/{subItemId}/edit", name="sub_task_edit")
      * @Method({"POST", "GET"})
      * @ParamConverter("subItem", options={"id" = "subItemId"})
      */
@@ -200,14 +200,14 @@ class BacklogController extends Controller
             $objectManager->persist($subItem);
             $objectManager->flush();
 
-            return $this->redirectToRoute('edit_item', ['id' => $parentItem->getId()]);
+            return $this->redirectToRoute('item_edit', ['id' => $parentItem->getId()]);
         }
 
         return $this->render('backlog/sub_item_new.html.twig', ['form' => $form->createView()]);
     }
 
     /**
-     * @Route("/backlog/{id}/delete", name="delete_item")
+     * @Route("/backlog/{id}/delete", name="item_delete")
      * @Method({"GET"})
      */
     public function deleteItemAction(CompoundItem $item)

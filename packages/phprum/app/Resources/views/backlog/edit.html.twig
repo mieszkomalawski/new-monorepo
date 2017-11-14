@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ path('add_sub_task', {'id': item.id }) }}">Add sub task</a>
+            <a href="{{ path('sub_task_add', {'id': item.id }) }}">Add sub task</a>
         </div>
     </div>
 
@@ -66,7 +66,7 @@
                         <td>{{ form_widget(subItem.status) }} {{ form_errors(subItem.status) }}</td>
                         <td>
                             <div class="btn">
-                                <a href="{{ path('edit_sub_task', {'id': item.id, 'subItemId': subItem.vars.value.id }) }}">Edit</a>
+                                <a href="{{ path('sub_task_edit', {'id': item.id, 'subItemId': subItem.vars.value.id }) }}">Edit</a>
                             </div>
                         </td>
 

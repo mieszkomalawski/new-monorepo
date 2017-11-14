@@ -27,7 +27,7 @@
 
                 <span>This is Your backlog</span>
                 <div id="add_item" class="btn pull-right">
-                    <a href="{{ path('add_backlog_item') }}">Add Item</a>
+                    <a href="{{ path('item_add') }}">Add Item</a>
                 </div>
             </div>
 
@@ -84,10 +84,10 @@
                                 {{ item.status }}
                             </td>
                             <td>
-                                <a href="{{ path('edit_item', {'id': item.id}) }}" >Edit</a>
+                                <a href="{{ path('item_edit', {'id': item.id}) }}" >Edit</a>
                             </td>
                             <td>
-                                <a href="{{ path('delete_item', {'id': item.id}) }}" >Delete</a>
+                                <a href="{{ path('item_delete', {'id': item.id}) }}" >Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

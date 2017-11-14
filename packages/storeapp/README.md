@@ -62,6 +62,10 @@ To start selenium server:
 
 ```selenium-server -port 4444```
 
+To start phantom
+
+```phantomjs --webdriver=4444```
+
 ### Deployment
 
 Can be deployed using deployer script

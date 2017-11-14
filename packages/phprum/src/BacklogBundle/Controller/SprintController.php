@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SprintController extends Controller
 {
     /**
-     * @Route("/sprint/", name="sprint_list")
+     * @Route("/sprint/", name="sprint_index")
      * @Method({"GET"})
      */
     public function listSprintsAction()
@@ -24,7 +24,7 @@ class SprintController extends Controller
         $repository = $this->getRepository();
 
         return $this->render(
-            'backlog/sprint_list.html.twig',
+            'sprint/index.html.twig',
             [
                 'items' => $repository->findByCreator($this->getUser()),
             ]
@@ -32,7 +32,7 @@ class SprintController extends Controller
     }
 
     /**
-     * @Route("/sprint/{id}", name="show_sprint")
+     * @Route("/sprint/{id}", name="sprint_show")
      * @Method({"GET"})
      */
     public function showSprintAction($id)
@@ -42,7 +42,7 @@ class SprintController extends Controller
         $sprint = $repository->find($id);
 
         return $this->render(
-            'backlog/sprint_item_list.html.twig',
+            'sprint/sprint_item_list.html.twig',
             [
                 'items' => $sprint->getItems(),
                 'points_sum' => $sprint->getTotalPoints(),
@@ -52,7 +52,7 @@ class SprintController extends Controller
     }
 
     /**
-     * @Route("/sprint/new", name="create_sprint")
+     * @Route("/sprint/new", name="sprint_new")
      * @Method({"POST", "GET"})
      */
     public function addSprintAction(Request $request)
@@ -81,16 +81,16 @@ class SprintController extends Controller
 
             $this->addFlash('notice', 'New sprint added');
 
-            return $this->redirectToRoute('list_backlog_items');
+            return $this->redirectToRoute(BacklogController::LIST_BACKLOG_ITEMS);
         }
 
-        return $this->render('backlog/new.html.twig', [
+        return $this->render('sprint/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/sprint/start/{id}", name="start_sprint")
+     * @Route("/sprint/{id}/start", name="sprint_start")
      * @Method({"GET"})
      */
     public function startSprintAction($id)
@@ -103,11 +103,11 @@ class SprintController extends Controller
 
         $command->execute();
 
-        return $this->redirectToRoute('show_sprint', ['id' => $id]);
+        return $this->redirectToRoute('sprint_show', ['id' => $id]);
     }
 
     /**
-     * @Route("/sprint/end/{id}", name="end_sprint")
+     * @Route("/sprint/{id}/end", name="sprint_end")
      * @Method({"GET"})
      */
     public function endSprintAction($id)
@@ -121,7 +121,7 @@ class SprintController extends Controller
         $objectManager->persist($sprint);
         $objectManager->flush();
 
-        return $this->redirectToRoute('show_sprint', ['id' => $id]);
+        return $this->redirectToRoute('sprint_show', ['id' => $id]);
     }
 
     /**
