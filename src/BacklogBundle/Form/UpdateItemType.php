@@ -4,7 +4,7 @@ namespace BacklogBundle\Form;
 
 use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Service\CreatorJailer;
-use BacklogBundle\SprintPropertyAccessor;
+use BacklogBundle\CustomPropertyAccessor;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use PHPRum\DomainModel\Backlog\Item;
 use PHPRum\DomainModel\Backlog\ItemStatus;
@@ -48,23 +48,23 @@ class UpdateItemType extends AbstractType
             ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => ''])
             ->add('estimate', TextType::class, ['required' => false])
             ->setDataMapper(new PropertyPathMapper(
-                new SprintPropertyAccessor(['estimate' => 'estimate'])
+                new CustomPropertyAccessor(['estimate' => 'estimate'])
             ))
             ->add('status', TaskStatusType::class)
             ->setDataMapper(new PropertyPathMapper(
-                new SprintPropertyAccessor(['status' => 'changeStatus'])
+                new CustomPropertyAccessor(['status' => 'changeStatus'])
             ))
             ->add('Sprint', SelectSprintType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($options['userId']),
             ])
             ->setDataMapper(new PropertyPathMapper(
-                new SprintPropertyAccessor(['Sprint' => 'addToSprint'])
+                new CustomPropertyAccessor(['Sprint' => 'addToSprint'])
             ))
             ->add('epic', SelectEpicType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($options['userId']),
             ])
             ->setDataMapper(new PropertyPathMapper(
-                new SprintPropertyAccessor(['epic' => 'moveToAnotherEpic'])
+                new CustomPropertyAccessor(['epic' => 'moveToAnotherEpic'])
             ))
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->add('imageFile', FileType::class, ['required' => false])

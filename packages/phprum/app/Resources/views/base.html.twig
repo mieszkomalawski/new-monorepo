@@ -54,9 +54,17 @@
 
 
     {% block javascripts %}
-        <script src={{ asset('build/app.js') }}>
-
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var settings = {
+                baseUrl: '{{ app.request.getSchemeAndHttpHost() }}',
+                wsPort: '{{ websocket_port }}',
+                wsHost: '{{ websocket_host }}'
+            };
+            /* ]]> */
         </script>
+
+        <script src={{ asset('build/app.js') }}></script>
     {% endblock %}
     </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace BacklogBundle\Service;
 
+use BacklogBundle\Infrastructure\Amqp\AmqpChannelManager;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -32,7 +33,7 @@ class UserNotificationProducer
                 $message,
                 ['content_type' => 'text/plain', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]
             ),
-            'user'
+            AmqpChannelManager::USER_EXCHANGE
         );
     }
 }

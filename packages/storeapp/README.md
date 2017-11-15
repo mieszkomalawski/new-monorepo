@@ -28,6 +28,16 @@ RESTful api autorization is done with JWT.
 
 Css bootstrap is used on front-end.
 
+To build front:
+
+```./node_modules/.bin/encore dev```
+
+On devel:
+
+```
+./node_modules/.bin/encore dev --watch
+```
+
 ### Domain
 
 Domain vision:

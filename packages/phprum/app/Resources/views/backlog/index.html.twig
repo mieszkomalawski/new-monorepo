@@ -2,21 +2,18 @@
 
 {% block javascripts %}
 
+    {{ parent() }}
     <script>
-              var items = [];
+        var items = [];
         {% for item in items %}
             items.push({
                 id: {{ item.id }},
                 priority: {{ item.priority|default(0) }}
             });
         {% endfor %}
-        var baseUrl = '{{ app.request.getSchemeAndHttpHost() }}';
-
 
     </script>
-    <script src={{ asset('build/item_list.js') }}>
-
-    </script>
+    <script src={{ asset('build/item_list.js') }}></script>
 
 {% endblock %}
 

@@ -2,7 +2,7 @@
 
 namespace BacklogBundle\Form;
 
-use BacklogBundle\SprintPropertyAccessor;
+use BacklogBundle\CustomPropertyAccessor;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use PHPRum\DomainModel\Backlog\ItemStatus;
 use PHPRum\DomainModel\Backlog\SubItem;
@@ -30,7 +30,7 @@ class UpdateSubItemType extends AbstractType
             ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => ''])
             ->add('status', TaskStatusType::class, ['required' => false])
             ->setDataMapper(new PropertyPathMapper(
-                new SprintPropertyAccessor(['status' => 'changeStatus'])
+                new CustomPropertyAccessor(['status' => 'changeStatus'])
             ))
             ->add('Save', SubmitType::class);
 

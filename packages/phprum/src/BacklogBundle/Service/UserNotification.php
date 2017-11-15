@@ -2,6 +2,7 @@
 
 namespace BacklogBundle\Service;
 
+use Psr\Log\LoggerInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,44 +15,44 @@ class UserNotification implements MessageComponentInterface
     protected $connections = [];
 
     /**
-     * @var OutputInterface
+     * @var LoggerInterface
      */
-    protected $debugOutput;
+    protected $logger;
 
     /**
      * UserNotification constructor.
      *
-     * @param OutputInterface $debugOutput
+     * @param LoggerInterface $debugOutput
      */
-    public function __construct(OutputInterface $debugOutput)
+    public function __construct(LoggerInterface $debugOutput)
     {
-        $this->debugOutput = $debugOutput;
+        $this->logger = $debugOutput;
     }
 
-    public function onOpen(ConnectionInterface $currentConnection)
+    public function onOpen(ConnectionInterface $currentConnection): void
     {
-        $this->debugOutput->writeln('connection opened');
+        $this->logger->info('connection opened');
         $this->connections[] = $currentConnection;
         $currentConnection->send('opened');
     }
 
-    public function onClose(ConnectionInterface $conn)
+    public function onClose(ConnectionInterface $conn): void
     {
-        $this->debugOutput->writeln('connection closed');
+        $this->logger->info('connection closed');
         $conn->send('closed');
         $conn->close();
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e)
+    public function onError(ConnectionInterface $conn, \Exception $e): void
     {
-        $this->debugOutput->writeln('error: '.$e->getMessage());
+        $this->logger->info('error: '.$e->getMessage());
         $conn->send('error');
         $conn->close();
     }
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        $this->debugOutput->writeln('message received: '.$msg);
+        $this->logger->info('message received: '.$msg);
         $f = function (ConnectionInterface $connection) use ($msg) {
             $connection->send($msg);
         };

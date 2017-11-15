@@ -6,14 +6,15 @@ use BacklogBundle\Infrastructure\Amqp\AmqpChannelManager;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 use PhpAmqpLib\Message\AMQPMessage;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class UserNotificationConsumer
 {
     /**
-     * @var OutputInterface
+     * @var LoggerInterface
      */
-    private $output;
+    private $logger;
 
     /**
      * @var UserNotification
@@ -28,26 +29,26 @@ class UserNotificationConsumer
     /**
      * UserNotificationConsumer constructor.
      */
-    public function __construct(UserNotification $userNotification, OutputInterface $output, AmqpChannelManager $amqpChannelManager)
+    public function __construct(UserNotification $userNotification, LoggerInterface $output, AmqpChannelManager $amqpChannelManager)
     {
         $this->userNotification = $userNotification;
-        $this->output = $output;
+        $this->logger = $output;
         $this->channel = $amqpChannelManager->createUserNotificationConsumer([$this, 'consumeMessage']);
     }
 
-    public function read()
+    public function read(): void
     {
-        $this->output->writeln('reading messages');
+        $this->logger->info('reading messages');
         try {
             $this->channel->wait(null, true, 1);
         } catch (AMQPTimeoutException $e) {
         }
-        $this->output->writeln('reading messages done');
+        $this->logger->info('reading messages done');
     }
 
-    public function consumeMessage(AMQPMessage $message)
+    public function consumeMessage(AMQPMessage $message): void
     {
-        $this->output->writeln('Message from queue received');
+        $this->logger->info('Message from queue received');
         $this->userNotification->pushMessage($message->getBody());
     }
 }

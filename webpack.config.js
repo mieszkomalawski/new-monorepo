@@ -1,6 +1,7 @@
 var Encore = require('@symfony/webpack-encore');
 
 Encore
+    .autoProvidejQuery()
 .setOutputPath('web/build')
 .setPublicPath('/build')
 .cleanupOutputBeforeBuild()

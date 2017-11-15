@@ -27,3 +27,6 @@ parameters:
     amqp_user: 'guest'
     amqp_pass: 'guest'
     amqp_host: '/'
+
+    websocket.host: '127.0.0.1'
+    websocket.port: '8080'

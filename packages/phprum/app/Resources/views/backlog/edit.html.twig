@@ -2,9 +2,8 @@
 
 {% block javascripts %}
 
-    <script src={{ asset('build/item_edit.js') }}>
-
-    </script>
+    {{ parent() }}
+    <script src={{ asset('build/item_edit.js') }}></script>
 
 {% endblock %}
 

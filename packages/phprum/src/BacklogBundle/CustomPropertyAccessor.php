@@ -5,7 +5,7 @@ namespace BacklogBundle;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
-class SprintPropertyAccessor extends PropertyAccessor
+class CustomPropertyAccessor extends PropertyAccessor
 {
     /**
      * @var array

@@ -12,7 +12,7 @@ class BacklogBundle extends Bundle
     public function boot()
     {
         /*
-         * to avoid coupling domain to symfony compoent, we must pass our own wrapper
+         * to avoid coupling domain to symfony component, we must pass our own wrapper
          */
         StaticEventDispatcher::setEventDispatcher(new SymfonyEventDispatcherBridge($this->container->get('event_dispatcher')));
     }
