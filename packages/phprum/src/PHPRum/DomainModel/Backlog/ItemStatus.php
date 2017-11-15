@@ -11,4 +11,12 @@ class ItemStatus extends Enum
     const IN_PROGRESS = 'in_progress';
     const NEW = 'new';
     const DONE = 'done';
+
+    /**
+     * @return bool
+     */
+    public function isDone(): bool
+    {
+        return $this->equals(ItemStatus::DONE());
+    }
 }

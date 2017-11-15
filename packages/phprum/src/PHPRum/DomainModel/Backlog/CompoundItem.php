@@ -52,7 +52,7 @@ class CompoundItem extends Item
     /**
      * Item constructor.
      *
-     * @param string       $name
+     * @param string $name
      * @param BacklogOwner $creator
      */
     public function __construct(string $name, BacklogOwner $creator)
@@ -125,7 +125,6 @@ class CompoundItem extends Item
     {
         if (!$estimate) {
             $this->estimate = null;
-
             return;
         }
         if (!$this->isValidEstimate($estimate)) {
@@ -161,21 +160,23 @@ class CompoundItem extends Item
 
     public function canChangeStatus(ItemStatus $status): bool
     {
+        if ($status->isDone()) {
+            if ($this->hasSubItems()) {
+                foreach ($this->subItems as $subItem) {
+                    if (!$subItem->getStatus()->isDone()) {
+                        return false;
+                    }
+                }
+            }
+            if (!empty($this->blockedBy)) {
+                foreach ($this->blockedBy as $blockedBy) {
+                    if (!$blockedBy->isDone()) {
+                        return false;
+                    }
+                }
+            }
+        }
 
-        if ($status->equals(ItemStatus::DONE()) && $this->hasSubItems()) {
-            foreach ($this->subItems as $subItem) {
-                if (!$subItem->getStatus()->equals(ItemStatus::DONE())) {
-                    return false;
-                }
-            }
-        }
-        if (!empty($this->blockedBy) && $status->equals(ItemStatus::DONE())) {
-            foreach ($this->blockedBy as $blockedBy) {
-                if (!$blockedBy->isDone()) {
-                    return false;
-                }
-            }
-        }
 
         return true;
     }

@@ -156,7 +156,7 @@ abstract class Item
      */
     public function isDone(): bool
     {
-        return $this->status->equals(ItemStatus::DONE());
+        return $this->status->isDone();
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace BacklogBundle\Controller;
 
 use BacklogBundle\Entity\Sprint;
+use BacklogBundle\Form\CreateSprintType;
 use Doctrine\Common\Persistence\ObjectRepository;
 use PHPRum\Commands\Backlog\CreateSrpint;
 use PHPRum\Commands\Backlog\StartSprint;
@@ -12,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class SprintController extends Controller
@@ -58,27 +60,17 @@ class SprintController extends Controller
      */
     public function addSprintAction(Request $request)
     {
-        $createSprintCommand = new CreateSrpint($this->getDoctrine()->getManager());
-
-        $form = $this->createFormBuilder($createSprintCommand)
-            ->add('duration', ChoiceType::class, [
-                'choices' => [
-                    'One week' => SprintDuration::ONE_WEEK,
-                    'Two weeks' => SprintDuration::TWO_WEEKS,
-                    'Three weeks' => SprintDuration::THREE_WEEKS,
-                    'Four weeks' => SprintDuration::FOUR_WEEKS,
-                ],
-            ])
-            ->add('Save', SubmitType::class)
-            ->getForm();
+        $user = $this->getUser();
+        $form = $this->createForm(CreateSprintType::class, null, ['user' => $user]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var CreateSrpint $command */
-            $command = $form->getData();
-            $command->setUser($this->getUser());
-            $command->execute();
+            /** @var Sprint $sprint */
+            $sprint = $form->getData();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($sprint);
+            $manager->flush();
 
             $this->addFlash('notice', 'New sprint added');
 
@@ -100,9 +92,11 @@ class SprintController extends Controller
         /** @var Sprint $sprint */
         $sprint = $repository->find($id);
 
-        $command = new StartSprint($this->getDoctrine()->getManager(), $sprint);
+        $sprint->start();
 
-        $command->execute();
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($sprint);
+        $manager->flush();
 
         return $this->redirectToRoute('sprint_show', ['id' => $id]);
     }
