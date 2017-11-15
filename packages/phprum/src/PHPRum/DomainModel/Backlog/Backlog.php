@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PHPRum\DomainModel\Backlog;
 
 use BacklogBundle\Entity\User;
