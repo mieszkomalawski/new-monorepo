@@ -14,6 +14,7 @@ use React\Socket\Server;
 
 class WebSocketServerFactory
 {
+    const MESSAGE_READ_INTERVAL = 5;
     /**
      * @var string
      */
@@ -29,7 +30,7 @@ class WebSocketServerFactory
      * @param string $host
      * @param string $port
      */
-    public function __construct($host, $port)
+    public function __construct(string $host, string $port)
     {
         $this->host = $host;
         $this->port = $port;
@@ -45,10 +46,10 @@ class WebSocketServerFactory
             $amqpChannelManager
         );
         $loop = Factory::create();
-        $loop->addPeriodicTimer(5, [$userNotificationConsumer, 'read']);
+        $loop->addPeriodicTimer(self::MESSAGE_READ_INTERVAL, [$userNotificationConsumer, 'read']);
 
         $logger->info('loop created');
-        $webSock = new Server('127.0.0.1:8080', $loop);
+        $webSock = new Server($this->host . ':' . $this->port, $loop);
         $logger->info('WebSocket Created');
         return new IoServer(new HttpServer(new WsServer($component)), $webSock, $loop);
     }
