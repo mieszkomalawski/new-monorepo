@@ -3,7 +3,10 @@
 namespace BacklogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use PHPRum\DomainModel\Backlog\Item;
+use PHPRum\DomainModel\Backlog\ItemStatus;
 use PHPRum\DomainModel\Backlog\SubItem;
+use Symfony\Component\Validator\Constraints\Choice;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints\Length;
@@ -40,6 +43,17 @@ class CompoundItem extends \PHPRum\DomainModel\Backlog\CompoundItem
         $metadata->addPropertyConstraint('name', new NotBlank());
         $metadata->addPropertyConstraint('name', new Length([
             'min' => 2,
+            'max' => 255
+        ]));
+        $metadata->addPropertyConstraint('description', new Length([
+            'min' => 2,
+            'max' => 2000
+        ]));
+        $metadata->addPropertyConstraint('estimate', new Choice([
+            'choices' => Item::ALLOWED_ESTIMATES
+        ]));
+        $metadata->addPropertyConstraint('status', new Choice([
+            'choices' => ItemStatus::values()
         ]));
     }
 
