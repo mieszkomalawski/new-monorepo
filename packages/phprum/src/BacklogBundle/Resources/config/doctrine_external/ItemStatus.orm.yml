@@ -1,0 +1,6 @@
+PHPRum\DomainModel\Backlog\ItemStatus:
+    type: embeddable
+    fields:
+      value:
+        type: string
+        column: status

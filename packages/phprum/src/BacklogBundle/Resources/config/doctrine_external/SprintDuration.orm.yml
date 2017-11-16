@@ -1,0 +1,7 @@
+PHPRum\DomainModel\Backlog\SprintDuration:
+    type: embeddable
+    fields:
+      value:
+        type: string
+        column: duration
+        length: 30

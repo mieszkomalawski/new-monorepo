@@ -1,0 +1,6 @@
+BacklogBundle\Entity\CompoundItem:
+  exclusion_policy: ALL
+  exclude: true
+  properties:
+    id:
+      exclude: true
