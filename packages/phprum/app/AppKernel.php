@@ -26,7 +26,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Xmon\ColorPickerTypeBundle\XmonColorPickerTypeBundle(),
             new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Ivory\CKEditorBundle\IvoryCKEditorBundle()
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -30,3 +30,6 @@ parameters:
 
     websocket.host: '127.0.0.1'
     websocket.port: '8080'
+
+    redis_host: '127.0.0.1'
+    redis_port: '6379'

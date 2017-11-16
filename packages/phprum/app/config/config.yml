@@ -33,6 +33,10 @@ framework:
     assets: ~
     php_errors:
         log: true
+    cache:
+      app: cache.adapter.redis
+      system: cache.adapter.redis
+      default_redis_provider: 'redis://127.0.0.1:6379'
 
 # Twig Configuration
 twig:
@@ -71,22 +75,39 @@ doctrine:
         path: '%database_path%'
 
     orm:
-        auto_generate_proxy_classes: '%kernel.debug%'
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: false
-        mappings:
-          #load bundle entities
-          BacklogBundle:
-            type: yml
-            dir:  %kernel.root_dir%/../src/BacklogBundle/Resources/config/doctrine
-            prefix: BacklogBundle\Entity
-          #load entities from outside bundle (domain model)
-          PHPRum:
-            is_bundle: false
-            type: yml
-            dir:  %kernel.root_dir%/../src/BacklogBundle/Resources/config/doctrine_external
-            prefix: PHPRum\DomainModel\Backlog
+      auto_generate_proxy_classes: '%kernel.debug%'
+      entity_managers:
+        default:
+          naming_strategy: doctrine.orm.naming_strategy.underscore
+          auto_mapping: false
+          mappings:
+            #load bundle entities
+            BacklogBundle:
+              type: yml
+              dir:  %kernel.root_dir%/../src/BacklogBundle/Resources/config/doctrine
+              prefix: BacklogBundle\Entity
+            #load entities from outside bundle (domain model)
+            PHPRum:
+              is_bundle: false
+              type: yml
+              dir:  %kernel.root_dir%/../src/BacklogBundle/Resources/config/doctrine_external
+              prefix: PHPRum\DomainModel\Backlog
+          query_cache_driver:
+            type: predis
+            cache_provider: predis
+            host: '127.0.0.1'
+            port: '6379'
+          result_cache_driver:
+            type: predis
+            cache_provider: predis
+            host: '%redis_host%'
+            port: '%redis_port%'
 
+
+doctrine_cache:
+  providers:
+    predis:
+      type: predis
 
 
 

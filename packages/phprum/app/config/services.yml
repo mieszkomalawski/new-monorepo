@@ -58,3 +58,15 @@ services:
             - [setPaginator, ["@knp_paginator"]]
         tags: [knp_paginator.injectable]
 
+    #redis_cache_service:
+    #  class: Doctrine\Common\Cache\RedisCache
+    #  calls:
+    #    - method: setRedis
+    #      arguments: ['@redis']
+
+    #redis:
+    #  class: Redis
+    #  calls:
+    #    - method: connect
+    #      arguments: ['127.0.0.1:6379']
+
