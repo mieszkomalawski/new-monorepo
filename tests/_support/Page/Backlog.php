@@ -94,4 +94,14 @@ class Backlog
     {
         $this->tester->see( $estimate, '//table/tbody/tr[1]/td[7]');
     }
+
+    public function scrollToAddItemButton()
+    {
+        $this->tester->scrollTo('#add_item');
+    }
+
+    public function scrollToBottomOfList()
+    {
+        $this->tester->scrollTo('//table/tbody/tr[position()=last()]');
+    }
 }

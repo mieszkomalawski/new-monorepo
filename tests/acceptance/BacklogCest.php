@@ -25,7 +25,7 @@ class BacklogCest
         $I->login($I);
 
         $I->amOnPage(Backlog::$URL);
-        $I->scrollTo('#add_item');
+        $backlog->scrollToAddItemButton();
         $I->click('Add Item');
         $backlog->createFormFillName('Add backlog feature');
         $backlog->createFormSave();
@@ -41,7 +41,7 @@ class BacklogCest
         $I->login($I);
 
         $I->amOnPage(Backlog::$URL);
-        $I->scrollTo('#add_item');
+        $backlog->scrollToAddItemButton();
         $I->click('Add Item');
         $backlog->createFormFillName('a');
         $backlog->createFormSave();
@@ -56,7 +56,7 @@ class BacklogCest
         $I->login($I);
 
         $I->amOnPage(Backlog::$URL);
-        $I->scrollTo('#add_item');
+        $backlog->scrollToAddItemButton();
         $backlog->editItemOnList();
 
         $I->waitForElement('form', 5);
@@ -64,7 +64,7 @@ class BacklogCest
         $backlog->updateFormFillEstimate(3);
         $backlog->updateFormSave();
 
-        $I->scrollTo('//table/tbody/tr[position()=last()]');
+        $backlog->scrollToBottomOfList();
         $backlog->assertEstimateValue(3);
     }
 
@@ -75,7 +75,7 @@ class BacklogCest
 
         $I->amOnPage(Backlog::$URL);
 
-        $I->scrollTo('#add_item');
+        $backlog->scrollToAddItemButton();
         // first item edit
         $backlog->editItemOnList();
 
@@ -84,7 +84,7 @@ class BacklogCest
         $backlog->updateFormFillStatus('In progress');
         $backlog->updateFormSave();
 
-        $I->scrollTo('//table/tbody/tr[position()=last()]');
+        $backlog->scrollToBottomOfList();
         $backlog->assertStatusValue('in_progress');
 
     }
@@ -96,7 +96,7 @@ class BacklogCest
 
         $I->amOnPage(Backlog::$URL);
 
-        $I->scrollTo('#add_item');
+        $backlog->scrollToAddItemButton();
         // first item edit
         $backlog->editItemOnList();
 
