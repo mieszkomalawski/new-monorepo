@@ -4,33 +4,27 @@ namespace BacklogBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPRum\DomainModel\Backlog\CompoundItem;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Sprint extends \PHPRum\DomainModel\Backlog\Sprint
 {
-    /**
-     * @var ArrayCollection
-     */
-    protected $items;
-
-    protected function doAddToItems(CompoundItem $item): void
-    {
-        $this->items->add($item);
-    }
 
     /**
-     * @return int
+     * @param ClassMetadata $metadata
      */
-    public function getTotalPoints(): int
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        return array_reduce($this->items->getIterator()->getArrayCopy(), function (int $carry, CompoundItem $item) {
-            $carry += $item->getEstimate();
-
-            return $carry;
-        }, 0);
+        $metadata->addPropertyConstraint('name', new NotBlank());
+        $metadata->addPropertyConstraint('name', new Length([
+            'min' => 2,
+            'max' => 255
+        ]));
+        $metadata->addPropertyConstraint('color', new Length([
+            'min' => 2,
+            'max' => 20
+        ]));
     }
 
-    protected function createNexSprint(): \PHPRum\DomainModel\Backlog\Sprint
-    {
-        return new self($this->duration, $this->creator);
-    }
 }

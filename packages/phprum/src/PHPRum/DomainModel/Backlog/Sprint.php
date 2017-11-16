@@ -153,7 +153,7 @@ class Sprint
      */
     protected function createNexSprint(): self
     {
-        return new self(
+        return new static(
             $this->duration,
             $this->creator
         );
