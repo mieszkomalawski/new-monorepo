@@ -48,5 +48,5 @@ task('notification:server', function(){
 });
 
 before('deploy:symlink', 'database:migrate');
-after('deploy:symlink', 'notification:server');
+//after('deploy:symlink', 'notification:server');
 
