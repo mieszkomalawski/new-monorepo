@@ -2,6 +2,7 @@
 
 namespace BacklogBundle\Form;
 
+use BacklogBundle\CustomPropertyAccessor;
 use BacklogBundle\Entity\Epic;
 use BacklogBundle\Entity\CompoundItem;
 use BacklogBundle\Entity\User;
@@ -9,6 +10,7 @@ use BacklogBundle\Service\CreatorJailer;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use PHPRum\DomainModel\Backlog\Backlog;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -58,6 +60,9 @@ class CreateItemType extends AbstractType
             ->add('epic', SelectEpicType::class, [
                 'query_builder' => $this->creatorJailer->getJailingQuery($user->getId()),
             ])
+            ->setDataMapper(new PropertyPathMapper(
+                new CustomPropertyAccessor(['epic' => 'moveToAnotherEpic'])
+            ))
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
     }
