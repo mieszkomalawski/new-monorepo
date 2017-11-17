@@ -17,10 +17,12 @@ Domain model is placed outside bundle in src/PHPRum directory. It may be overkil
 but Domain model may grow in complexity quickly. Domain model is tested with PHPSpec.
 
 Domain is seperated from framework code. However for practical purposes domain entities are extended in framework bundle to
-allow framework "magic" to work.
+allow framework "magic" to work. For that purpose domain entities are extended in framework bundle.
 
 For async user notifications app uses AMQP and WebSocket server. Single script reads from queue and sends
 notifications via WebSocket.
+
+Redis is used for symfony and doctrine caching
 
 Other code follows standard symfony practices.
 
@@ -37,6 +39,16 @@ On devel:
 ```
 ./node_modules/.bin/encore dev --watch
 ```
+
+#### Tech stack:
+
+- PHP (including Reactive PHP)
+- Javascript
+- RabbitMQ
+- Redis
+- WebSockets
+- Selenium / PhantomJs (for tests)
+
 
 ### Domain
 
