@@ -1,0 +1,1 @@
+require('./backlog/notifications.js');

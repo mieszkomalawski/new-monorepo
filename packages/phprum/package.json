@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.13.0",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "^3.2.1",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "emitter": "0.0.5",
+    "fs": "0.0.1-security",
+    "growl": "^1.10.3",
+    "notification-component": "0.0.3",
+    "simple-color-picker": "^0.1.2",
+    "sortablejs": "^1.6.1",
+    "symfony-collection": "github:ninsuo/symfony-collection"
+  }
+}

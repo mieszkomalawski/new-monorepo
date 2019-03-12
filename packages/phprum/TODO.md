@@ -1,0 +1,3 @@
+- Dockerize application
+- Increase unit and functional test coverage
+- Switch to proper queue -> websocker server implementation, current implementation is very naive
