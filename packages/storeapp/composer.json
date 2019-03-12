@@ -1,0 +1,15 @@
+{
+    "autoload": {
+        "psr-4": {
+            "StoreApp\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^5.7",
+        "doctrine/orm": "^2.5",
+        "league/route": "^2.0",
+        "symfony/routing": "^3.2",
+        "symfony/http-foundation": "^3.2"
+    }
+}

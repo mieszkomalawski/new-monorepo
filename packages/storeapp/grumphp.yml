@@ -1,0 +1,35 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    tasks:
+            ant: ~
+            atoum: ~
+            behat: ~
+            brunch: ~
+            codeception: ~
+            composer: ~
+            doctrine_orm: ~
+            gherkin: ~
+            git_blacklist: ~
+            git_commit_message: ~
+            git_conflict: ~
+            grunt: ~
+            gulp: ~
+            jsonlint: ~
+            kahlan: ~
+            phing: ~
+            php7cc: ~
+            phpcpd: ~
+            phpcs: ~
+            phpcsfixer: ~
+            phpcsfixer2: ~
+            phplint: ~
+            phpmd: ~
+            phpspec: ~
+            phpunit: ~
+            phpversion: ~
+            robo: ~
+            securitychecker: ~
+            shell: ~
+            xmllint: ~
+            yamllint: ~
